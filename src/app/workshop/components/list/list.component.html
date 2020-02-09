@@ -1,0 +1,17 @@
+<header class="bg-light">
+    <h4>Workshops</h4>
+  </header>
+  
+  <ul @slideIn class="list-group">
+    <li class="list-group-item" *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
+      <h4>{{ workshop.name }}</h4>
+      <p>{{ workshop.description }}</p>
+      <div class="actions">
+        <a [routerLink]="['/workshops', workshop.id]" class="btn">
+          Start
+        </a>
+      </div>
+    </li>
+  </ul>
+  
+<p>list works!</p>

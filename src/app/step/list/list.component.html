@@ -1,0 +1,13 @@
+<section>
+  <markdown [data]="steps[stepIndex].markdown"></markdown>
+</section>
+
+<footer class="bg-light">
+  <span>Step {{ stepIndex + 1 }} / {{ steps.length }}</span>
+  <ng-container *ngIf="started; else initial">
+    <button type="button" class="btn" (click)="next(steps.length)">Next</button>
+  </ng-container>
+  <ng-template #initial>
+    <button type="button" class="btn" (click)="start(steps[stepIndex])">Start</button>
+  </ng-template>
+</footer>

@@ -1,0 +1,43 @@
+step-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+header, footer {
+  padding: 10px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+markdown {
+  display: block;
+  flex: 1;
+  overflow: auto;
+  padding: 5px;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+}
+
+footer .test {
+  padding-left: 25px;
+  padding-right: 25px;
+}

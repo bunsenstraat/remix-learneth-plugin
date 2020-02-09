@@ -1,0 +1,50 @@
+<ng-container *ngIf="step$ | async as step">
+  <header class="bg-light">
+    <div>
+      <a class="btn" routerLink="../..">
+        <fa-icon [icon]="menuIcon"></fa-icon>
+      </a>
+      <span>{{ step.name }}</span>
+    </div>
+    <ng-container *ngIf="errors$ | async as errors">
+      <span [ngbPopover]="popContent" class="btn btn-danger">
+        {{ errors.length }} Errors
+      </span>
+      <ng-template #popContent>
+        <ul class="list-group">
+          <li *ngFor="let error of errors" class="list-group-item">{{ error.message }}</li>
+        </ul>
+      </ng-template>
+    </ng-container>
+  </header>
+
+  <markdown [data]="step.markdown"></markdown>
+
+  <!-- WITH TEST -->
+  <ng-container *ngIf="step.test; else noTest">
+    <footer class="bg-light">
+      <button class="btn" (click)="previous()" [disabled]="(index$ | async) === 0">
+        Previous
+      </button>
+      <ng-container *ngIf="!(isLoading$ | async); else loading">
+        <button class="btn btn-info test" (click)="test(step)">
+          Test
+        </button>
+      </ng-container>
+      <ng-template #loading>
+        <span>drums rolling ....</span>
+      </ng-template>
+      <button class="btn btn-success" *ngIf="(success$ | async)" (click)="next()">Next</button>
+    </footer>
+  </ng-container>
+
+  <!-- NO TEST -->
+  <ng-template #noTest>
+    <footer class="bg-light">
+      <button class="btn" (click)="previous()" [disabled]="(index$ | async) === 0">
+        Previous
+      </button>
+      <button class="btn btn-success" (click)="next()">Next</button>
+    </footer>
+  </ng-template>
+</ng-container>
