@@ -3,24 +3,29 @@ import { FormControl } from '@angular/forms';
 import { ImportService } from '../../services/import.service';
 import { github } from '../../+state';
 import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-importer',
   templateUrl: './importer.component.html',
   styleUrls: ['./importer.component.css']
 })
 export class ImporterComponent implements OnInit {
-  public gitHubBranch = new FormControl('');
-  public gitHubUrl = new FormControl('');
+  
+  model = {name:'ethereum/remix-workshops',branch:'master'}
 
   constructor(private importservice:ImportService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.gitHubUrl.setValue(`ethereum/remix-workshops`);
-    this.gitHubBranch.setValue('master');
+
   }
   sync() {
-    let github:github = {name:this.gitHubUrl.value, branch:this.gitHubBranch.value}
-    this.importservice.import(github);
+    console.log("submit")
+
+    this.importservice.import(this.model);
   
   }
+  onSubmit() { 
+    
+   }
 }

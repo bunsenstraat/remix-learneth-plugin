@@ -11,6 +11,8 @@ import { catchError } from 'rxjs/operators';
 import { WorkshopViewComponent } from '../view/view.component';
 import { ToastrService } from 'ngx-toastr';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -39,7 +41,8 @@ export class ListComponent implements OnInit {
     private query: WorkshopQuery,
     private store:WorkshopStore,
     private http:HttpClient,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -58,7 +61,7 @@ export class ListComponent implements OnInit {
           this.http.post('http://49.12.14.220:3000/getFile', workshop,{responseType:'text'}).subscribe(
               (content) => {            
               //  console.log("http object",workshop);
-                this.toastr.success(workshop.description.file,'File Loaded');
+              //  this.toastr.success(workshop.description.file,'File Loaded');
                 this.store.upsert(workshop.id, { ...workshop, dump:content,description:{...workshop.description, status:LoadingStatus.finished}});
               },response => {
                   this.toastr.warning(workshop.description.file,'File not Loaded');

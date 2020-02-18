@@ -8,6 +8,8 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http'; 
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
     AppRoutingModule,
     HttpClientModule,
+    NgxSpinnerModule,
     NgbModule,
     ToastrModule.forRoot({
       progressBar:true,

@@ -1,6 +1,29 @@
-<div class="form-group">
-  <label>Link to Github Repository</label>
-  <input [formControl]="gitHubUrl" class="form-control" placeholder="e.g.: ethereum/remix-ide" />
-  <input [formControl]="gitHubBranch" class="form-control" placeholder="e.g.: master" />
-  <a class="btn btn-success start" (click)="sync()" role="button">Import Workshops from GitHub</a>
+<div class="container-fluid mb-3">
+  <div>
+    <h5>Import GitHub Repo</h5>
+    <form #heroForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="model.name" name="name"
+               #name="ngModel">
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Name is required
+        </div>
+
+        <label for="branch">branch</label>
+        <input type="text" class="form-control" id="branch"
+               required
+               [(ngModel)]="model.branch" name="branch"
+               #branch="ngModel">
+        <div [hidden]="branch.valid || branch.pristine"
+             class="alert alert-danger">
+             branch is required
+        </div>
+      </div>
+      <a class="btn btn-success start" (click)="sync()" role="button">Import Workshops from GitHub</a>
+    </form>
+  </div>
 </div>

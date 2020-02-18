@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 import { ImporterComponent } from './components/importer/importer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [WorkshopsComponent, ListComponent,WorkshopViewComponent, ImporterComponent],
   imports: [
@@ -22,6 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BackButtonModule,
     HttpClientModule,
     MarkdownModule.forRoot(),
+    NgxSpinnerModule
   ]
 })
 export class WorkshopsModule { }

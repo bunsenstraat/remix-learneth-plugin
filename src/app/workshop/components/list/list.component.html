@@ -1,13 +1,14 @@
 
 <header class="bg-light">
-    <h4>Workshops</h4>
+    <h3>Workshops</h3>
   </header>
   
   <app-importer></app-importer>
+  <div class="container-fluid">
   <ul @slideIn class="list-group">
     <li class="list-group-item" *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
-      <h4>{{ workshop.name }}{{ workshop.id }}</h4>
-      <p><markdown [data]="workshop.dump"></markdown></p>
+      <h4>{{ workshop.name }}</h4>
+      <p class="workshop-list_description"><markdown [data]="workshop.dump"></markdown></p>
       <div class="actions">
         <a [routerLink]="['/workshops', workshop.id]" class="btn">
           Start
@@ -15,5 +16,5 @@
       </div>
     </li>
   </ul>
-  
-<p>list works!</p>
+</div>
+  <ngx-spinner></ngx-spinner>
