@@ -1,11 +1,37 @@
 import { Step } from 'src/app/step/+state';
 
+export enum LoadingStatus {
+  notloaded = 0,
+  started = 1,
+  finished = 2
+}
+
 export interface Workshop {
   id: string;
   name: string;
-  description: string;
+  description: {
+    file:string,
+    content?:string
+    status?:LoadingStatus
+  };
   author: string;
   steps: Step[];
+  dump?:any;
+}
+
+export interface WorkshopLoader {
+  id: string;
+  description: {
+    file:string,
+    content?:string
+    status: LoadingStatus
+  };
+  steps?: StepLoader[];
+}
+
+export interface StepLoader {
+  file: string,
+  status: LoadingStatus
 }
 
 export interface Metadata {

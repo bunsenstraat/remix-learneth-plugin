@@ -6,14 +6,22 @@ import { WorkshopsComponent } from './workshops.component';
 import { ListComponent } from './components/list/list.component';
 import { WorkshopViewComponent } from './components/view/view.component'
 import { BackButtonModule } from '../ui/back-button/back-button.module';
+import { HttpClientModule } from '@angular/common/http'; 
+import { MarkdownModule } from 'ngx-markdown';
+import { ImporterComponent } from './components/importer/importer.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-  declarations: [WorkshopsComponent, ListComponent,WorkshopViewComponent],
+  declarations: [WorkshopsComponent, ListComponent,WorkshopViewComponent, ImporterComponent],
   imports: [
     CommonModule,
     WorkshopsRoutingModule,
     NgbModule,
-    BackButtonModule
+    FormsModule,
+    ReactiveFormsModule,
+    BackButtonModule,
+    HttpClientModule,
+    MarkdownModule.forRoot(),
   ]
 })
 export class WorkshopsModule { }

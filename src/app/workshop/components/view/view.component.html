@@ -4,7 +4,16 @@
 
 <section *ngIf="workshop$ | async as workshop">
   <h1>{{ workshop.name }}</h1>
-  <p>{{ workshop.description }}</p>
+  <p><markdown [data]="workshop.dump"></markdown></p>
+
+  <article @slideIn class="list-group">
+    <ng-container *ngFor="let step of workshop.steps; let i = index">
+      <a class="list-group-item list-group-item-action"
+        [routerLink]="['../steps', i]">
+        {{ i + 1 }} - {{ step.name }}
+      </a>
+    </ng-container>
+  </article>
 
   <ng-container *ngIf="(currentIndex$ | async) as currentIndex; else startBtn">
     <article @slideIn class="list-group">

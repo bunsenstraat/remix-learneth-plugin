@@ -1,0 +1,6 @@
+<div class="form-group">
+  <label>Link to Github Repository</label>
+  <input [formControl]="gitHubUrl" class="form-control" placeholder="e.g.: ethereum/remix-ide" />
+  <input [formControl]="gitHubBranch" class="form-control" placeholder="e.g.: master" />
+  <a class="btn btn-success start" (click)="sync()" role="button">Import Workshops from GitHub</a>
+</div>

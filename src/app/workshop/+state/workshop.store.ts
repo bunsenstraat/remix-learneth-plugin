@@ -8,68 +8,71 @@ const initialState: Partial<WorkshopState> = {
   entities: {
     6204164591: {
       name: 'Discover Solidity',
-      description: 'Beginner workshop to discover Solidity. You will learn how to create a method and change the state.',
+      description: {
+        "file": "https://raw.githubusercontent.com/GrandSchtroumpf/solidity-school/master/README.md",
+        "content":"test"
+			},
       steps: [
         {
           name: 'Hello World',
           fileName: 'HelloWorld',
-          markdown: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/README.md',
-          solidity: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld.sol',
-          test: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld_test.sol'
+          markdown: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/README.md'
+          },
+          solidity: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld.sol'
+          },
+          test: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld_test.sol'
+          }
         },
         {
-          name: 'Storage',
-          fileName: 'Storage',
-          markdown: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/2_Storage/README.md',
-          solidity: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/2_Storage/Storage.sol',
-          test: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/2_Storage/Storage_test.sol'
+          name: 'Hello World 2',
+          fileName: 'HelloWorld',
+          markdown: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/README.md'
+          },
+          solidity: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld.sol'
+          },
+          test: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld_test.sol'
+          }
         },
-        {
-          name: 'Greeter',
-          fileName: 'Greeter',
-          markdown: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/3_Greeter/README.md',
-          solidity: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/3_Greeter/Greeter.sol',
-          test: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/3_Greeter/Greeter_test.sol'
-        }
       ],
       author: '969d3e43b4',
       id: '6204164591'
     },
-
-    1239898398: {
-      name: 'Discover Solidity 2',
-      description: 'Beginner workshop to discover Solidity. You will learn how to create a method and change the state.',
+    234234234: {
+      name: 'Discover Solidity2',
+      description: {
+        "file": "https://raw.githubusercontent.com/bunsenstraat/remix-workshops/master/DeployWithLibraries/3_metadata_JSON/contractSimpleLibrary.sol",
+        "content":"test"
+			},
       steps: [
         {
           name: 'Hello World',
           fileName: 'HelloWorld',
-          markdown: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/README.md',
-          solidity: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld.sol',
-          test: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld_test.sol'
-        },
-        {
-          name: 'Storage',
-          fileName: 'Storage',
-          markdown: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/2_Storage/README.md',
-          solidity: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/2_Storage/Storage.sol',
-          test: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/2_Storage/Storage_test.sol'
-        },
-        {
-          name: 'Greeter',
-          fileName: 'Greeter',
-          markdown: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/3_Greeter/README.md',
-          solidity: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/3_Greeter/Greeter.sol',
-          test: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/3_Greeter/Greeter_test.sol'
+          markdown: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/README.md'
+          },
+          solidity: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld.sol'
+          },
+          test: {
+            file: 'https://github.com/GrandSchtroumpf/solidity-school/blob/master/std-0/1_HelloWorld/HelloWorld_test.sol'
+          }
         }
       ],
       author: '969d3e43b4',
-      id: '6204164591'
-    }
+      id: '234234234'
+    },
+
 
   },
   ids: [
     '6204164591',
-    '1239898398'
+    '234234234'
   ],
 };
 
