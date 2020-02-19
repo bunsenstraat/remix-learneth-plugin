@@ -6,6 +6,12 @@ export enum LoadingStatus {
   finished = 2
 }
 
+export interface WorkShopMetaData{
+  tags?:string[],
+  rating?:number,
+  level?:number
+}
+
 export interface Workshop {
   id: string;
   name: string;
@@ -17,6 +23,12 @@ export interface Workshop {
   author: string;
   steps: Step[];
   dump?:any;
+  tags?: string[];
+  rating?: number;
+  metadata?: {
+    file?:string
+    data?: WorkShopMetaData,
+  }
 }
 
 export interface WorkshopLoader {

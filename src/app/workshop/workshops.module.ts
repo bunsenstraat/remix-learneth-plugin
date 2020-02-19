@@ -8,19 +8,23 @@ import { WorkshopViewComponent } from './components/view/view.component'
 import { BackButtonModule } from '../ui/back-button/back-button.module';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MarkdownModule } from 'ngx-markdown';
-import { ImporterComponent } from './components/importer/importer.component';
+import { ImporterComponent } from '../github/components/importer/importer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GithubModule } from '../github/github.module';
 @NgModule({
   declarations: [WorkshopsComponent, ListComponent,WorkshopViewComponent, ImporterComponent],
   imports: [
     CommonModule,
     WorkshopsRoutingModule,
     NgbModule,
+    GithubModule,
     FormsModule,
     ReactiveFormsModule,
     BackButtonModule,
     HttpClientModule,
+    FontAwesomeModule,
     MarkdownModule.forRoot(),
     NgxSpinnerModule
   ]

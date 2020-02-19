@@ -1,0 +1,11 @@
+
+
+.description-collapsed{
+    max-height: 120px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.tag{
+    display: inline;
+}

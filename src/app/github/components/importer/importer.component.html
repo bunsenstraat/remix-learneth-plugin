@@ -1,9 +1,10 @@
 <div class="container-fluid mb-3">
   <div>
-    <h5>Import GitHub Repo</h5>
+    <h5>Import workshops from Github</h5>
+    
     <form #heroForm="ngForm">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">name</label>
         <input type="text" class="form-control" id="name"
                required
                [(ngModel)]="model.name" name="name"
@@ -23,7 +24,17 @@
              branch is required
         </div>
       </div>
-      <a class="btn btn-success start" (click)="sync()" role="button">Import Workshops from GitHub</a>
+      <a class="btn btn-success start w-100" (click)="sync()" role="button">Import Workshops from GitHub</a>
+      <a [routerLink]=""><fa-icon [icon]="infoIcon"></fa-icon> how to setup your repo </a>
     </form>
   </div>
+  <div ngbDropdown class="w-100">
+      <button class="btn btn-outline-primary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Recently used</button>
+      <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <span *ngFor="let repo of repos$ | async;">
+        <button (click)="selectrepo(repo)" ngbDropdownItem>{{repo.name}}-{{repo.branch}}</button>
+      </span>
+
+      </div>
+    </div>
 </div>

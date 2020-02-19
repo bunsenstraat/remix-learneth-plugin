@@ -2,17 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { WorkshopserviceService } from '../../services/workshopservice.service';
 import { slideInY } from '../../../ui/animations';
 import { trigger, transition, query as queryChild, stagger } from '@angular/animations';
-import { Observable, VirtualTimeScheduler, Subscription } from 'rxjs';
-import { Workshop, WorkshopQuery, WorkshopStore, WorkshopLoader, LoadingStatus } from '../../+state';
-import { isNgTemplate } from '@angular/compiler';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
-import { HttpClient, HttpHeaders } from '@angular/common/http'; 
-import { catchError } from 'rxjs/operators';
-import { WorkshopViewComponent } from '../view/view.component';
+import { Observable, Subscription, of } from 'rxjs';
+import { Workshop, WorkshopQuery, WorkshopStore, LoadingStatus } from '../../+state';
+import { HttpClient } from '@angular/common/http'; 
 import { ToastrService } from 'ngx-toastr';
-
+import memo from 'memo-decorator';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ID } from '@datorama/akita';
+import YAML from 'yaml'
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -35,7 +32,7 @@ export class ListComponent implements OnInit {
   workshops$: Observable<Workshop[]>;
   tempStore:string[] = [];
   subscription:Subscription
-
+  
   constructor(
     private service: WorkshopserviceService,
     private query: WorkshopQuery,
@@ -48,35 +45,62 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     console.log("list");
     this.service.getAll();
+    
     this.workshops$ = this.query.selectAll();
     this.subscription = this.workshops$.subscribe((workshops) => {
-      workshops.filter(workshop=>workshop.description||false).filter(workshop=>workshop.description.file||false).filter(workshop=>(workshop.description.status==LoadingStatus.notloaded)||(!workshop.description.status)).map((workshop,index)=>{
-      //    console.log("update object",workshop)
-          this.store.upsert(workshop.id, { ...workshop, dump:`burp`,description:{...workshop.description, status:LoadingStatus.started}});
-      });
-      workshops.filter(workshop=>workshop.description||false).filter(workshop=>workshop.description.file||false).filter(workshop=>(workshop.description.status==LoadingStatus.started)).map((workshop,index)=>{
-        
+      
+
+    workshops.filter(workshop=>workshop.description||false).
+        filter(workshop=>workshop.description.file||false).
+        filter(workshop=>(workshop.description.status==LoadingStatus.notloaded)||(!workshop.description.status)).
+        map((workshop,index)=>{
         if(!this.tempStore.some(e => e === workshop.id)){
           this.tempStore.push(workshop.id);
-          this.http.post('http://49.12.14.220:3000/getFile', workshop,{responseType:'text'}).subscribe(
-              (content) => {            
-              //  console.log("http object",workshop);
-              //  this.toastr.success(workshop.description.file,'File Loaded');
-                this.store.upsert(workshop.id, { ...workshop, dump:content,description:{...workshop.description, status:LoadingStatus.finished}});
+          this.http.post('http://49.12.14.220:3000/getFile', {file:workshop.description.file},{responseType:'text'}).subscribe(
+              (content) => {         
+                const storedworkshop = this.query.getEntity(workshop.id);    
+                this.store.upsert(storedworkshop.id, { ...storedworkshop, dump:content,description:{...storedworkshop.description , status:LoadingStatus.finished}});
               },response => {
-                  this.toastr.warning(workshop.description.file,'File not Loaded');
+                this.toastr.warning(workshop.description.file,'File not Loaded');
               }
-            );
+          );
+          const metadata = [workshop.metadata].filter( meta => meta ).map( meta => 
+            {
+              console.log(meta.file)
+              this.http.post('http://49.12.14.220:3000/getFile', {file:meta.file},{responseType:'text'}).subscribe(
+                (content) => {     
+                  const storedworkshop = this.query.getEntity(workshop.id);     
+                  const newdata ={...storedworkshop, metadata: { ... storedworkshop.metadata, data:YAML.parse(content) }};
+                  console.log(newdata);
+                  this.store.upsert(workshop.id, newdata);
+                },response => {
+                  this.toastr.warning(workshop.description.file,'File not Loaded');
+                }
+              );
+            });
         }
-        
       });
-      //this.loadDescriptions();
-      //console.log("workshops in",workshops);
-      //console.log("tenp",this.tempStore);
     });
   }
 
+  getlevel(workshop:Workshop){
+//    console.log("get level",workshop);
+    return (workshop.metadata)?(workshop.metadata.data?workshop.metadata.data.level:false):false;
+  }
+  gettags(workshop:Workshop){
+    return (workshop.metadata)?(workshop.metadata.data?workshop.metadata.data.tags:false):false;
+  }
+ 
+  isOpen(id: ID) {
+    let isOpen = false;
+    this.query.selectUIisOpenEntity(id).subscribe(val => isOpen = val||false);
+    return isOpen;
+  }
 
+  
+  toggleDescriptionUI(workshop:Workshop){
+    this.query.setUIDescriptionIsOpen(workshop.id)
+  }
 
   trackByFn(index: number, workshop: Workshop) {
     

@@ -8,11 +8,24 @@
   <ul @slideIn class="list-group">
     <li class="list-group-item" *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
       <h4>{{ workshop.name }}</h4>
-      <p class="workshop-list_description"><markdown [data]="workshop.dump"></markdown></p>
+      
+      <p *ngIf="getlevel(workshop)" >level: <ngb-rating [rate]="getlevel(workshop)" [max]="5" [readonly]="true"></ngb-rating></p>
+
+      <div *ngIf="gettags(workshop)" >
+        <p class="tag pr-1" *ngFor="let tag of gettags(workshop)">
+          #{{tag}}
+        </p>
+      </div> 
+      <div *ngIf="workshop.steps" >
+        {{workshop.steps.length}} step(s)
+      </div>
+      <a [routerLink]="['/workshops', workshop.id]" class="btn btn-success w-100">
+        Start
+      </a>
+      <div class="workshop-list_description pb-3 pt-3" [ngClass]="{'description-collapsed':!isOpen(workshop.id)}"><markdown [data]="workshop.dump"></markdown></div>
       <div class="actions">
-        <a [routerLink]="['/workshops', workshop.id]" class="btn">
-          Start
-        </a>
+        <a *ngIf="!isOpen(workshop.id)" [routerLink]="" (click)="toggleDescriptionUI(workshop)">read more</a><br>
+        <a *ngIf="isOpen(workshop.id)" [routerLink]="" (click)="toggleDescriptionUI(workshop)">read less</a><br>
       </div>
     </li>
   </ul>
