@@ -2,15 +2,15 @@ export interface Step {
     name: string;
     fileName?: string;
     markdown: {
-      file: string;
+      file?: string;
       content?: string;
     };
     solidity: {
-      file:string;
+      file?:string;
       content?:string;
     };
     test: {
-      file:string;
+      file?:string;
       content?:string;
     };
     js?:{

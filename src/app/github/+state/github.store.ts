@@ -13,7 +13,7 @@ const initialState: Partial<GitHubState> = {
             branch:"master",  
         },
         2:{
-            id:"1",
+            id:"2",
             name:"ethereum/remix-workshops",
             branch:"master",  
         }

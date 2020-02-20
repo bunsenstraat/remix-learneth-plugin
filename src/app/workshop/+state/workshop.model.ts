@@ -23,8 +23,6 @@ export interface Workshop {
   author: string;
   steps: Step[];
   dump?:any;
-  tags?: string[];
-  rating?: number;
   metadata?: {
     file?:string
     data?: WorkShopMetaData,

@@ -4,11 +4,12 @@ import { ImportService } from '../../services/import.service';
 import { github } from '../../+state'
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import { faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faSortDown, faSortUp, faSortAlphaUp, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { GitHubStore } from '../../+state/github.store';
 import { GitHubQuery } from '../../+state/github.query';
 import { Observable, merge } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -20,6 +21,9 @@ export class ImporterComponent implements OnInit {
   infoIcon = faInfo;
   model:github;
   repos$:Observable<github[]>
+  expanded:boolean = true;
+  public sortDown = faCaretDown;
+  public sortUp = faCaretUp;
 
   constructor(private importservice:ImportService, private toastr: ToastrService, private githubstore:GitHubStore, private githubquery:GitHubQuery) { }
 
@@ -34,25 +38,22 @@ export class ImporterComponent implements OnInit {
     console.log("submit");
 
     this.importservice.import(this.model);
-    let searchitem; 
-    this.githubquery.selectAll().subscribe(
-      (githubs)=>{
-        searchitem = githubs.filter(github=>(github.name == this.model.name && github.branch == this.model.branch))
-      }
-    )
-    if(searchitem.length==0){
-      console.log("add ", this.model)
-      this.githubstore.add(this.model)
-    };
-  
-  
+
+  }
+
+  loadedGithub(){
+    let activeModel:github
+    this.githubquery.selectActive().subscribe( (github) => {
+      activeModel = {...github}
+    })
+    return activeModel;
   }
 
   selectrepo(repo:github){
     this.importservice.import(repo);
   }
 
-  onSubmit() { 
-    
-   }
+  panelChange($event: NgbPanelChangeEvent, acc) {
+      this.expanded = !acc.isExpanded($event.panelId);
+  }
 }

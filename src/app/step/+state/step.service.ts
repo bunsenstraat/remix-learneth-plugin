@@ -41,6 +41,10 @@ export class StepService {
   ) {}
 
   async get(index: number, step: Step) {
+    
+    this.store.upsert(index, {...step, solidity:step.solidity?step.solidity:{}})
+    this.store.upsert(index, {...step, test: step.test?step.test:{}})
+    step = this.query.getEntity(index);
     const [markdown, solidity, test] = await Promise.all([
       this.remix.call('contentImport', 'resolve', step.markdown.file),
       this.remix.call('contentImport', 'resolve', step.solidity.file),
@@ -49,15 +53,15 @@ export class StepService {
 
     this.store.upsert(index,{...step
     ,markdown:{
-      ...step.markdown, content: markdown.content
+      ...step.markdown, content: markdown?markdown.content:null
     }
     ,solidity:{
-      ...step.solidity, content: solidity.content
+      ...step.solidity, content: solidity?solidity.content:null
     }
     ,test:{
-      ...step.test, content: test.content
+      ...step.test, content: test?test.content:null
     }
-    });
+    }); 
 /*     this.store.upsert(index, {
       ...step,
       markdown: markdown ? markdown.content : undefined,
@@ -72,7 +76,7 @@ export class StepService {
     const workshopId = this.workshopQuery.getActiveId();
     const stepIndex = this.store._value().active;
     // Get content from account or step
-    if (step.solidity) {
+    if (step.solidity.file) {
       const content = step.solidity.content;
       const path = getFilePath(step, 'solidity');
       await this.remix.call('fileManager', 'setFile', path, content);

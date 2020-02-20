@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { EntityState, ActiveState, EntityStore, StoreConfig, EntityUIStore } from '@datorama/akita';
 import { Workshop } from './workshop.model';
 
-export interface WorkshopState extends EntityState<Workshop, string>, ActiveState<string> {}
+export interface WorkshopState extends EntityState<Workshop, string>, ActiveState<string> {
+  datemodified:string;
+}
 
 const initialState: Partial<WorkshopState> = {
   entities: {
@@ -43,8 +45,6 @@ const initialState: Partial<WorkshopState> = {
           }
         },
       ],
-      tags:['beginner','solidity'],
-      rating:4,
       author: '969d3e43b4',
       id: '6204164591'
     }
