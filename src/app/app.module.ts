@@ -9,10 +9,12 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http'; 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoadingscreenComponent
   ],
   imports: [
     AppRoutingModule,

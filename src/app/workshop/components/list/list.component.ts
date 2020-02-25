@@ -6,7 +6,6 @@ import { Observable, Subscription, of } from 'rxjs';
 import { Workshop, WorkshopQuery, WorkshopStore, LoadingStatus } from '../../+state';
 import { HttpClient } from '@angular/common/http'; 
 import { ToastrService } from 'ngx-toastr';
-import memo from 'memo-decorator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ID } from '@datorama/akita';
 import YAML from 'yaml'
@@ -43,8 +42,8 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("list");
-    this.service.getAll();
+   
+    this.toastr.clear(); // clear all notifications
     
     this.workshops$ = this.query.selectAll();
     this.subscription = this.workshops$.subscribe((workshops) => {
@@ -58,7 +57,7 @@ export class ListComponent implements OnInit {
           this.tempStore.push(workshop.id);
           this.http.post('http://49.12.14.220:3000/getFile', {file:workshop.description.file},{responseType:'text'}).subscribe(
               (content) => {         
-                const storedworkshop = this.query.getEntity(workshop.id);    
+                const storedworkshop = this.query.getEntity(workshop.id);  // get the entity out of the store because it might have changed   
                 this.store.upsert(storedworkshop.id, { ...storedworkshop, dump:content,description:{...storedworkshop.description , status:LoadingStatus.finished}});
               },response => {
                 this.toastr.warning(workshop.description.file,'File not Loaded');
@@ -66,12 +65,10 @@ export class ListComponent implements OnInit {
           );
           const metadata = [workshop.metadata].filter( meta => meta ).map( meta => 
             {
-              console.log(meta.file)
               this.http.post('http://49.12.14.220:3000/getFile', {file:meta.file},{responseType:'text'}).subscribe(
                 (content) => {     
-                  const storedworkshop = this.query.getEntity(workshop.id);     
+                  const storedworkshop = this.query.getEntity(workshop.id);  // get the entity out of the store because it might have changed   
                   const newdata ={...storedworkshop, metadata: { ... storedworkshop.metadata, data:YAML.parse(content) }};
-                  console.log(newdata);
                   this.store.upsert(workshop.id, newdata);
                 },response => {
                   this.toastr.warning(workshop.description.file,'File not Loaded');

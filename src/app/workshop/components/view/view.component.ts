@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { trigger, transition, query as queryChild, stagger } from '@angular/animations';
 import { slideInY } from '../../../ui/animations';
+import { ToastrService } from 'ngx-toastr';
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -27,9 +28,12 @@ export class WorkshopViewComponent implements OnInit {
     private query: WorkshopQuery,
     private router: Router,
     private routes: ActivatedRoute,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {
+
+    this.toastr.clear(); // clear all notifications
     console.log("view");
     this.workshop$ = this.query.selectActive();
     console.log(this.query.getAll());

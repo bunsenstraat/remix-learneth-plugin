@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { UnitTestError } from '@remixproject/plugin';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'step-view',
@@ -27,12 +29,15 @@ export class StepViewComponent implements OnInit {
     private store: StepStore,
     private query: StepQuery,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
-    console.log("all ",this.query.getAll());
     
+    console.log("all ",this.query.getAll());
+    this.toastr.clear();
     this.step$ = this.query.selectActive().pipe(
       tap(_ => this.store.update({ success: false, error: null })),
       tap(step => this.service.displaySolidity(step))
@@ -66,6 +71,10 @@ export class StepViewComponent implements OnInit {
     } catch (err) {
       console.log('Cannot go next', err);
     } 
+  }
+
+  ngOnDestroy(){
+    this.toastr.clear();
   }
 
 }

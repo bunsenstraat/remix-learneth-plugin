@@ -4,7 +4,7 @@ import { ImportService } from '../../services/import.service';
 import { github } from '../../+state'
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import { faInfo, faSortDown, faSortUp, faSortAlphaUp, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faSortDown, faSortUp, faSortAlphaUp, faCaretUp, faCaretDown, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { GitHubStore } from '../../+state/github.store';
 import { GitHubQuery } from '../../+state/github.query';
 import { Observable, merge } from 'rxjs';
@@ -24,6 +24,7 @@ export class ImporterComponent implements OnInit {
   expanded:boolean = true;
   public sortDown = faCaretDown;
   public sortUp = faCaretUp;
+  questionIcon = faQuestionCircle
 
   constructor(private importservice:ImportService, private toastr: ToastrService, private githubstore:GitHubStore, private githubquery:GitHubQuery) { }
 
@@ -50,6 +51,7 @@ export class ImporterComponent implements OnInit {
   }
 
   selectrepo(repo:github){
+    console.log("select repo");
     this.importservice.import(repo);
   }
 

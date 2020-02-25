@@ -4,29 +4,21 @@ import { StepStore } from './step.store';
 import { Step } from './step.model';
 import { REMIX } from 'src/app/remix-client';
 import { PluginClient } from '@remixproject/plugin';
-
 import { WorkshopQuery } from 'src/app/workshop/+state';
-//import { NotificationStore } from 'src/app/notification/+state';
 import { showStars } from '../../ui/stars.mo';
 import { StepQuery } from './step.query';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+
 
 /** Create the path for the file manager based on a step */
-function getFilePath(step: Step, type: 'test' | 'solidity'): string {
+function getFilePath(step: Step): string {
   console.log(" get file ",step);
-  let fileName = '';
-  if (step.fileName) {
-    fileName = step.fileName;
-  } else {
-    const lastSegment = step[type].file.split('/').pop();
-    if (lastSegment.split('.').pop() === 'sol') {
-      fileName = lastSegment;
-    } else {
-      fileName = step.name.split(' ').join('-').toLocaleLowerCase();
-    }
-  }
-  const name = step.fileName.split('.')[0];
-  console.log("file name ",name);
-  return type === 'test' ? `browser/${name}_test.sol` : `browser/${name}.sol`;
+
+  const name =  step.solidity.file.split("/");
+  
+  return (name.length>1)?`${name[name.length-1]}`:"";
+  //return type === 'test' ? `browser/${name}_test.sol` : `browser/${name}.sol`;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -37,6 +29,8 @@ export class StepService {
     private workshopQuery: WorkshopQuery,
     private store: StepStore,
     private query: StepQuery,
+    private spinner: NgxSpinnerService,
+    private toastr:ToastrService,
   //  private toaster: NotificationStore
   ) {}
 
@@ -45,12 +39,13 @@ export class StepService {
     this.store.upsert(index, {...step, solidity:step.solidity?step.solidity:{}})
     this.store.upsert(index, {...step, test: step.test?step.test:{}})
     step = this.query.getEntity(index);
+    //this.spinner.show();
     const [markdown, solidity, test] = await Promise.all([
       this.remix.call('contentImport', 'resolve', step.markdown.file),
       this.remix.call('contentImport', 'resolve', step.solidity.file),
       this.remix.call('contentImport', 'resolve', step.test.file),
     ]);
-
+    //this.spinner.hide();
     this.store.upsert(index,{...step
     ,markdown:{
       ...step.markdown, content: markdown?markdown.content:null
@@ -62,25 +57,29 @@ export class StepService {
       ...step.test, content: test?test.content:null
     }
     }); 
-/*     this.store.upsert(index, {
-      ...step,
-      markdown: markdown ? markdown.content : undefined,
-      solidity: solidity ? solidity.content : undefined,
-      test: test ? test.content : undefined
-    }); */
+
     this.store.setLoading(false);
   }
 
   async displaySolidity(step: Step) {
+    console.clear();
     console.log("step ",step);
+   
     const workshopId = this.workshopQuery.getActiveId();
     const stepIndex = this.store._value().active;
     // Get content from account or step
     if (step.solidity.file) {
+
+
+      
       const content = step.solidity.content;
-      const path = getFilePath(step, 'solidity');
+      const path = getFilePath(step);
+      const tid = this.toastr.info(`loading ${path} into IDE`,`loading`,{timeOut:0}).toastId;
+      this.spinner.show();
       await this.remix.call('fileManager', 'setFile', path, content);
       await this.remix.call('fileManager', 'switchFile', path);
+      this.spinner.hide();
+      this.toastr.remove(tid);
     } else {
       //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
     }
@@ -92,12 +91,15 @@ export class StepService {
       this.store.update({ loading: true, success: false });
 
       // Run tests
+      this.spinner.show();
+      console.log("testing ",step.test.content);
       const result = await this.remix.call('solidityUnitTesting', 'testFromSource', step.test.content);
-
+      console.log("result ",result);
+      this.spinner.hide();
       // Update the account with the latest version of the code
-      const workshopId = this.workshopQuery.getActiveId();
-      const stepIndex = this.store._value().active;
-      const content = await this.remix.call('fileManager', 'getFile', getFilePath(step, 'solidity'));
+      //const workshopId = this.workshopQuery.getActiveId();
+      //const stepIndex = this.store._value().active;
+      //const content = await this.remix.call('fileManager', 'getFile', getFilePath(step));
       //this.accountService.updateWorkshop(workshopId, stepIndex, content);
 
       // Update store after tests have run
@@ -110,6 +112,7 @@ export class StepService {
         this.next();
         // this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
       } else {
+        
         this.addError(result.errors);
       }
     } catch (err) {
@@ -120,6 +123,7 @@ export class StepService {
 
   /** Update the store and display message to user */
   addError(error: { message: string }[]) {
+    this.toastr.error(error[error.length-1].message,`error`,{timeOut:0})
     this.store.update(s => ({
       errorCount: s.errorCount + 1,
       error,

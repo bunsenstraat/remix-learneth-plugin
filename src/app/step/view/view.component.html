@@ -6,7 +6,7 @@
       </a>
       <span>{{ step.name }}</span>
     </div>
-    <ng-container *ngIf="errors$ | async as errors">
+<!--     <ng-container *ngIf="errors$ | async as errors">
       <span [ngbPopover]="popContent" class="btn btn-danger">
         {{ errors.length }} Errors
       </span>
@@ -15,13 +15,13 @@
           <li *ngFor="let error of errors" class="list-group-item">{{ error.message }}</li>
         </ul>
       </ng-template>
-    </ng-container>
+    </ng-container> -->
   </header>
 
-  <markdown [data]="step.markdown"></markdown>
+  <markdown [data]="step.markdown.content"></markdown>
 
   <!-- WITH TEST -->
-  <ng-container *ngIf="step.test; else noTest">
+  <ng-container *ngIf="step.test.file; else noTest">
     <footer class="bg-light">
       <button class="btn" (click)="previous()" [disabled]="(index$ | async) === 0">
         Previous
@@ -48,3 +48,4 @@
     </footer>
   </ng-template>
 </ng-container>
+<ngx-spinner></ngx-spinner>

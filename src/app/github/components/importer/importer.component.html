@@ -3,7 +3,7 @@
   <ngb-panel>
     <ng-template ngbPanelTitle>
       <div class="d-flex justify-content-between">
-        <div class="d-flex" style="font-weight: bold; color:#1c2128;">Import workshops from Github</div>
+        <div class="d-flex" style="font-weight: bold;">Import workshops from Github</div>
         <div class="d-flex pl-2">
           <fa-icon *ngIf="(expanded)" [icon]="sortUp"></fa-icon>
           <fa-icon *ngIf="(!expanded)" [icon]="sortDown"></fa-icon>
@@ -15,7 +15,7 @@
 
         <form (ngSubmit)="sync()" #heroForm="ngForm">
           <div class="form-group">
-            <label for="name">name</label>
+            <label class="mr-2" for="name">name</label><fa-icon [icon]="questionIcon" ngbTooltip="ie username/repository"></fa-icon>
             <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name"
               #name="ngModel">
             <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
@@ -30,7 +30,7 @@
             </div>
           </div>
 
-          <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid" (click)="sync()"
+          <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid"
             role="button">Import workshops from GitHub</button>
           <a [routerLink]="">
             <fa-icon [icon]="infoIcon"></fa-icon> how to setup your repo

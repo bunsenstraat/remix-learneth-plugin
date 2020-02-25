@@ -3,7 +3,7 @@
 </header>
 
 <section *ngIf="workshop$ | async as workshop">
-  <h1>{{ workshop.name }}</h1>
+  <h1 class="mt-2">{{ workshop.name }}</h1>
   <p><markdown [data]="workshop.dump"></markdown></p>
 
   <article @slideIn class="list-group">
