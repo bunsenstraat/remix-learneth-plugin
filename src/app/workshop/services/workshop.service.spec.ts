@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WorkshopserviceService } from './workshopservice.service';
+import { WorkshopserviceService } from './workshop.service';
 
 describe('WorkshopserviceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

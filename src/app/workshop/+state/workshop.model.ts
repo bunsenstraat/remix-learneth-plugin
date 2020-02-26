@@ -22,7 +22,7 @@ export interface Workshop {
   };
   author: string;
   steps: Step[];
-  dump?:any;
+  text?:any;
   metadata?: {
     file?:string
     data?: WorkShopMetaData,

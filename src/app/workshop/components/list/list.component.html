@@ -17,7 +17,7 @@
       <a [routerLink]="['/workshops', workshop.id]" class="btn btn-success w-100">
         Start
       </a>
-      <div class="workshop-list_description pb-3 pt-3" [ngClass]="{'description-collapsed':!isOpen(workshop.id)}"><markdown [data]="workshop.dump"></markdown></div>
+      <div class="workshop-list_description pb-3 pt-3" [ngClass]="{'description-collapsed':!isOpen(workshop.id)}"><markdown [data]="workshop.text"></markdown></div>
       <div class="actions">
         <a *ngIf="!isOpen(workshop.id)" [routerLink]="" (click)="toggleDescriptionUI(workshop)">read more</a><br>
         <a *ngIf="isOpen(workshop.id)" [routerLink]="" (click)="toggleDescriptionUI(workshop)">read less</a><br>

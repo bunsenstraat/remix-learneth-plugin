@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkshopserviceService } from '../../services/workshopservice.service';
+import { WorkshopserviceService } from '../../services/workshop.service';
 import { slideInY } from '../../../ui/animations';
 import { trigger, transition, query as queryChild, stagger } from '@angular/animations';
 import { Observable, Subscription, of } from 'rxjs';
@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ID } from '@datorama/akita';
-import YAML from 'yaml'
+
 import { environment } from 'src/environments/environment';
 
 const slideIn = trigger('slideIn', [
@@ -56,26 +56,8 @@ export class ListComponent implements OnInit {
         map((workshop,index)=>{
         if(!this.tempStore.some(e => e === workshop.id)){
           this.tempStore.push(workshop.id);
-          this.http.post(`${environment.apiUrl}getFile`, {file:workshop.description.file},{responseType:'text'}).subscribe(
-              (content) => {         
-                const storedworkshop = this.query.getEntity(workshop.id);  // get the entity out of the store because it might have changed   
-                this.store.upsert(storedworkshop.id, { ...storedworkshop, dump:content,description:{...storedworkshop.description , status:LoadingStatus.finished}});
-              },response => {
-                this.toastr.warning(workshop.description.file,'File not Loaded');
-              }
-          );
-          const metadata = [workshop.metadata].filter( meta => meta ).map( meta => 
-            {
-              this.http.post(`${environment.apiUrl}getFile`, {file:meta.file},{responseType:'text'}).subscribe(
-                (content) => {     
-                  const storedworkshop = this.query.getEntity(workshop.id);  // get the entity out of the store because it might have changed   
-                  const newdata ={...storedworkshop, metadata: { ... storedworkshop.metadata, data:YAML.parse(content) }};
-                  this.store.upsert(workshop.id, newdata);
-                },response => {
-                  this.toastr.warning(workshop.description.file,'File not Loaded');
-                }
-              );
-            });
+          this.service.getDescription(workshop)
+          this.service.getMetaData(workshop)
         }
       });
     });

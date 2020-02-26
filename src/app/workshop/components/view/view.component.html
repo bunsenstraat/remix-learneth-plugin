@@ -4,7 +4,7 @@
 
 <section *ngIf="workshop$ | async as workshop">
   <h1 class="mt-2">{{ workshop.name }}</h1>
-  <p><markdown [data]="workshop.dump"></markdown></p>
+  <p><markdown [data]="workshop.text"></markdown></p>
 
   <article @slideIn class="list-group">
     <ng-container *ngFor="let step of workshop.steps; let i = index">
