@@ -129,6 +129,7 @@ export class StepService {
       error,
       loading: false
     }));
+    this.spinner.hide();
     //const { errorCount } = this.query.getValue();
    // const msg = `You lose ${errorCount} time ${Array(errorCount).fill('👻').join('')}`;
     //this.toaster.show({ content: msg, type: 'warning', delay: 5000 });

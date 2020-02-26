@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GitHubQuery } from '../+state/github.query';
 import { GitHubState, GitHubStore } from '../+state/github.store';
 import { v4 as uuid } from 'uuid';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ImportService {
   import(github:github){
     const message = `${github.name}/${github.branch}`
     const githubname = encodeURIComponent(github.name);
-    const url = `http://49.12.14.220:3000/clone/${githubname}/${github.branch}`
+    const url = `${environment.apiUrl}clone/${githubname}/${github.branch}`
     console.log(url);
     this.spinner.show();
     const tid = this.toastr.info(`loading ${message}`,`loading`,{timeOut:0}).toastId;

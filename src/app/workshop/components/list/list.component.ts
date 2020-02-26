@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ID } from '@datorama/akita';
 import YAML from 'yaml'
+import { environment } from 'src/environments/environment';
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -55,7 +56,7 @@ export class ListComponent implements OnInit {
         map((workshop,index)=>{
         if(!this.tempStore.some(e => e === workshop.id)){
           this.tempStore.push(workshop.id);
-          this.http.post('http://49.12.14.220:3000/getFile', {file:workshop.description.file},{responseType:'text'}).subscribe(
+          this.http.post(`${environment.apiUrl}getFile`, {file:workshop.description.file},{responseType:'text'}).subscribe(
               (content) => {         
                 const storedworkshop = this.query.getEntity(workshop.id);  // get the entity out of the store because it might have changed   
                 this.store.upsert(storedworkshop.id, { ...storedworkshop, dump:content,description:{...storedworkshop.description , status:LoadingStatus.finished}});
@@ -65,7 +66,7 @@ export class ListComponent implements OnInit {
           );
           const metadata = [workshop.metadata].filter( meta => meta ).map( meta => 
             {
-              this.http.post('http://49.12.14.220:3000/getFile', {file:meta.file},{responseType:'text'}).subscribe(
+              this.http.post(`${environment.apiUrl}getFile`, {file:meta.file},{responseType:'text'}).subscribe(
                 (content) => {     
                   const storedworkshop = this.query.getEntity(workshop.id);  // get the entity out of the store because it might have changed   
                   const newdata ={...storedworkshop, metadata: { ... storedworkshop.metadata, data:YAML.parse(content) }};
