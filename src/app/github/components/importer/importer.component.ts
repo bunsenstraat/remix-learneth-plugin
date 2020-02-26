@@ -29,7 +29,7 @@ export class ImporterComponent implements OnInit {
   constructor(private importservice:ImportService, private toastr: ToastrService, private githubstore:GitHubStore, private githubquery:GitHubQuery) { }
 
   ngOnInit() {
-    this.githubstore.setActive("1");
+    if(!this.githubstore._value().active)this.githubstore.setActive("1")
     this.githubquery.selectActive().subscribe( (github) => {
       this.model = {...github}
     })
