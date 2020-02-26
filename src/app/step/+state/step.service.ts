@@ -14,9 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 /** Create the path for the file manager based on a step */
 function getFilePath(step: Step): string {
   console.log(" get file ",step);
-
   const name =  step.solidity.file.split("/");
-  
   return (name.length>1)?`${name[name.length-1]}`:"";
   //return type === 'test' ? `browser/${name}_test.sol` : `browser/${name}.sol`;
 }
@@ -36,6 +34,7 @@ export class StepService {
 
   async get(index: number, step: Step) {
     
+    this.store.setLoading(true);
     this.store.upsert(index, {...step, solidity:step.solidity?step.solidity:{}})
     this.store.upsert(index, {...step, test: step.test?step.test:{}})
     step = this.query.getEntity(index);
@@ -62,8 +61,8 @@ export class StepService {
   }
 
   async displaySolidity(step: Step) {
-    console.clear();
-    console.log("step ",step);
+  //  console.clear();
+    console.log("display step ",step);
    
     const workshopId = this.workshopQuery.getActiveId();
     const stepIndex = this.store._value().active;
@@ -76,6 +75,8 @@ export class StepService {
       const path = getFilePath(step);
       const tid = this.toastr.info(`loading ${path} into IDE`,`loading`,{timeOut:0}).toastId;
       this.spinner.show();
+      
+      console.log("set file",path,content);
       await this.remix.call('fileManager', 'setFile', path, content);
       await this.remix.call('fileManager', 'switchFile', path);
       this.spinner.hide();
@@ -96,25 +97,24 @@ export class StepService {
       const result = await this.remix.call('solidityUnitTesting', 'testFromSource', step.test.content);
       console.log("result ",result);
       this.spinner.hide();
-      // Update the account with the latest version of the code
-      //const workshopId = this.workshopQuery.getActiveId();
-      //const stepIndex = this.store._value().active;
-      //const content = await this.remix.call('fileManager', 'getFile', getFilePath(step));
-      //this.accountService.updateWorkshop(workshopId, stepIndex, content);
 
-      // Update store after tests have run
-      const success = result.totalFailing === 0;
+      // compiler returns null?
+      if(!result){
+        this.addError([{message:"Compiler failed to test this file"}])
+      }else{
+        const success = result.totalFailing === 0;
 
-      // Update next step of the account if succeed
-      if (success) {
-        this.store.update({ success, errorCount: 0, loading: false });
-        showStars({ x: document.body.clientWidth / 2, y: document.body.clientHeight / 2 });
-        this.next();
-        // this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
-      } else {
-        
-        this.addError(result.errors);
+        // Update next step of the account if succeed
+        if (success) {
+          this.store.update({ success, errorCount: 0, loading: false });
+          this.next();
+        } else {
+          this.addError(result.errors);
+        }
       }
+      // Update store after tests have run
+
+
     } catch (err) {
       const error = [{ message: err }];
       this.addError(error);

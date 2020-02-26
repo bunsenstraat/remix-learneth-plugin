@@ -38,6 +38,7 @@ export class StepViewComponent implements OnInit {
     
     console.log("all ",this.query.getAll());
     this.toastr.clear();
+    this.query.selectActive().subscribe((step)=>{console.log("activate step",step)})
     this.step$ = this.query.selectActive().pipe(
       tap(_ => this.store.update({ success: false, error: null })),
       tap(step => this.service.displaySolidity(step))
@@ -67,6 +68,7 @@ export class StepViewComponent implements OnInit {
       if (!this.query.getActive().test && !isLast) {
         this.service.next();
       }
+      console.log("go to",path);
       await this.router.navigate(path, { relativeTo: this.route });
     } catch (err) {
       console.log('Cannot go next', err);

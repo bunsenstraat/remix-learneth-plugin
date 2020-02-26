@@ -22,10 +22,11 @@ export class StepGuard implements CanActivate {
     const workshop = this.workshopQuery.getActive();
     const currentStep = 0;
     const step = workshop.steps[stepId];
-    this.store.setActive(index);
+    console.log("set active",index);
+   
     await this.service.get(stepId, step);
     console.log('Guard', this.store, stepId, index, currentStep, workshop, step);
-    
+    this.store.setActive(index);
     return true;
     if (index > currentStep) {
       return false;
