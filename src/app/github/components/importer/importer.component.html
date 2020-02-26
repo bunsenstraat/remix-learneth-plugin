@@ -16,7 +16,7 @@
         <form (ngSubmit)="sync()" #heroForm="ngForm">
           <div class="form-group">
             <label class="mr-2" for="name">name</label><fa-icon [icon]="questionIcon" ngbTooltip="ie username/repository"></fa-icon>
-            <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name"
+            <input type="text" class="form-control" id="name" required (ngModelChange)="onChangeName($event)" [(ngModel)]="model.name" name="name"
               #name="ngModel">
             <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
               Name is required

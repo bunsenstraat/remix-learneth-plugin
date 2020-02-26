@@ -42,6 +42,9 @@ export class ImporterComponent implements OnInit {
 
   }
 
+
+
+
   loadedGithub(){
     let activeModel:github
     this.githubquery.selectActive().subscribe( (github) => {
@@ -58,4 +61,12 @@ export class ImporterComponent implements OnInit {
   panelChange($event: NgbPanelChangeEvent, acc) {
       this.expanded = !acc.isExpanded($event.panelId);
   }
+
+  onChangeName(newValue:string) {
+    console.log(newValue);
+    if(newValue.includes('https://')){
+      this.toastr.warning("Github name should be username/reponame","Bad github name")
+    }
+  }
+  
 }

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: `http://49.12.14.220:3000/`,
-  github:[{name:`bunsenstraat/remix-workshops`,branch:`master`},{name:`ethereum/remix-workshops`,branch:`master`}]
+  github:[{name:`ethereum/remix-workshops`,branch:`master`},{name:`bunsenstraat/remix-workshops`,branch:`master`}]
 };
 
 /*
