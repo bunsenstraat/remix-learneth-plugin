@@ -1,9 +1,9 @@
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <div class="d-flex" style="font-weight: bold;">Import workshops from Github</div>
+<div class="container-fluid mt-3">
+  <div (click)="panelChange()"  class="btn btn-info d-flex justify-content-between">
+    <div class="d-flex" style="font-weight: bold;">Import workshops from GitHub</div>
     <div class="d-flex pl-2">
-      <fa-icon *ngIf="(isOpen())" (click)="panelChange()" [icon]="sortUp"></fa-icon>
-      <fa-icon *ngIf="(!isOpen())" (click)="panelChange()" [icon]="sortDown"></fa-icon>
+      <fa-icon *ngIf="(isOpen())" [icon]="sortUp"></fa-icon>
+      <fa-icon *ngIf="(!isOpen())" [icon]="sortDown"></fa-icon>
     </div>
   </div>
 
@@ -27,8 +27,8 @@
         </div>
       </div>
 
-      <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid" role="button">Import workshops from
-        GitHub</button>
+      <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid" role="button">Import
+        {{model.name}}</button>
       <a href="{{gethelp()}}" target="_blank">
         <fa-icon [icon]="infoIcon"></fa-icon> how to setup your repo
       </a>
@@ -38,7 +38,7 @@
 
 <div *ngIf="isOpen()" class="container-fluid">
   <div ngbDropdown class="w-100">
-    <button class="btn btn-outline-primary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Recently used</button>
+    <button class="btn btn-secondary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Recently used</button>
     <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <span *ngFor="let repo of repos$ | async;">
         <button class="small" (click)="selectrepo(repo)" ngbDropdownItem>{{repo.name}}-{{repo.branch}}</button>
@@ -46,8 +46,8 @@
 
     </div>
   </div>
-</div>
+</div><hr>
 <div class="container-fluid mb-3 small">
-  Loaded: {{loadedGithub().name}}<br>
+  <h4>{{loadedGithub().name}}</h4>
   Date modified: {{loadedGithub().datemodified}}
 </div>
