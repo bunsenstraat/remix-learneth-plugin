@@ -70,13 +70,35 @@ export class ListComponent implements OnInit {
   gettags(workshop:Workshop){
     return (workshop.metadata)?(workshop.metadata.data?workshop.metadata.data.tags:false):false;
   }
+
+  getname(workshop:Workshop){
+    return (workshop.metadata)?(workshop.metadata.data?workshop.metadata.data.name:false):workshop.name;
+  }
+
+  getdescription(workshop:Workshop){
+    return (workshop.metadata)?(workshop.metadata.data?workshop.metadata.data.summary:false):workshop.text;
+  }
  
-  isOpen(id: ID) {
+  isOpen(workshop:Workshop) {
     let isOpen = false;
-    this.query.selectUIisOpenEntity(id).subscribe(val => isOpen = val||false);
+    const description = this.getdescription(workshop);
+     if(description){
+      const len = description.split(/\r\n|\r|\n/).length;
+      if(len<10)return true;
+    }
+    this.query.selectUIisOpenEntity(workshop.id).subscribe(val => isOpen = val||false);
     return isOpen;
   }
 
+  showMore(workshop:Workshop) {
+    let isOpen = false;
+    const description = this.getdescription(workshop);
+     if(description){
+      const len = description.split(/\r\n|\r|\n/).length;
+      return !(len<10);
+    }
+    return false;
+  }
   
   toggleDescriptionUI(workshop:Workshop){
     this.query.setUIDescriptionIsOpen(workshop.id)

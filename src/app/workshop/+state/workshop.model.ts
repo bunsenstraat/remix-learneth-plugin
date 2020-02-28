@@ -9,7 +9,9 @@ export enum LoadingStatus {
 export interface WorkShopMetaData{
   tags?:string[],
   rating?:number,
-  level?:number
+  level?:number,
+  name?:string,
+  summary?:string
 }
 
 export interface Workshop {

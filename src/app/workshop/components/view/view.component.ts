@@ -38,23 +38,19 @@ export class WorkshopViewComponent implements OnInit {
     this.toastr.clear(); // clear all notifications
     console.log("view");
     this.workshop$ = this.query.selectActive();
-    console.log(this.query.getAll());
-    (this.query.selectActive() as Observable<any>).pipe(map(item => console.log(item)));
     this.workshop$.subscribe((workshop) => { 
       this.stepstore.remove(); 
+      if(workshop){
       workshop.steps.map((step,index)=>{
         this.stepstore.upsert(index,step);
       });
+    }
     })
-    //this.currentIndex$ = this.query.selectActiveId().pipe(
-    //  map(id => this.accountQuery.getStepIndex(id) + 1),  // Need +1 to make *ngIf works
-    //);
   }
 
   start() {
     console.log("start");
     const id = this.query.getActiveId();
-  //  this.accountService.startWorkshop(id);
     this.router.navigate(['../steps/0'], { relativeTo: this.routes });
   }
 }

@@ -42,7 +42,7 @@ tags:
 Level: a level of difficulty indicator ( 1 - 5 )
 Tags: an array of tags
 
-### STEPS
+### Steps
 Each workshop contains what we call steps. 
 Each step is a directory containing:
 - a readme describing the step, what to do.
