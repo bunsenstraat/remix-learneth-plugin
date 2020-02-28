@@ -47,7 +47,17 @@
     </div>
   </div>
 </div><hr>
-<div class="container-fluid mb-3 small">
+<div *ngIf="repoLoaded()" class="container-fluid mb-3 small">
   <h4>{{loadedGithub().name}}</h4>
   Date modified: {{loadedGithub().datemodified}}
+</div>
+<div *ngIf="!repoLoaded()" class="container-fluid mb-3">
+
+  <h4>Welcome!</h4>
+  Start by importing one the github repositories either by<br>
+  - using the default<br>
+  - select one from the 'Recently used' list <br>
+  - creating your own:<br>
+  <a href="{{gethelp()}}" target="_blank"> How to setup your repo and more info</a><br>
+
 </div>

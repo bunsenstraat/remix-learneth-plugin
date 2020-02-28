@@ -12,7 +12,7 @@ import { filter } from 'rxjs/operators';
 import { NgbPanelChangeEvent, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { ID } from '@datorama/akita';
 import { environment } from 'src/environments/environment';
-
+import { WorkshopStore, WorkshopQuery } from 'src/app/workshop/+state';
 
 @Component({
   selector: 'app-importer',
@@ -27,7 +27,7 @@ export class ImporterComponent implements OnInit {
   public sortUp = faCaretUp;
   questionIcon = faQuestionCircle
 
-  constructor(private importservice:ImportService, private toastr: ToastrService, private githubstore:GitHubStore, private githubquery:GitHubQuery) { }
+  constructor(private importservice:ImportService, private toastr: ToastrService, private githubstore:GitHubStore, private githubquery:GitHubQuery, private workshopquery:WorkshopQuery) { }
 
   ngOnInit() {
     if(!this.githubstore._value().active)this.githubstore.setActive("1")
@@ -52,6 +52,10 @@ export class ImporterComponent implements OnInit {
     return activeModel;
   }
 
+  repoLoaded(){
+    return this.workshopquery.getCount()>0;
+  }
+
   selectrepo(repo:github){
     console.log("select repo");
     this.importservice.import(repo);
@@ -63,7 +67,7 @@ export class ImporterComponent implements OnInit {
 
   isOpen(acc:NgbAccordion) {
     let isOpen = true;
-    if(typeof this.model!="undefined") this.githubquery.selectUIisOpenEntity(this.model.id).subscribe(val => isOpen = val||false);
+    if(typeof this.model!="undefined") this.githubquery.selectUIisOpenEntity(this.model.id).subscribe(val => isOpen = val||true);
     //if(acc)(isOpen)?acc.expand(`importerpanel`):acc.collapse(`importerpanel`);
     return isOpen;
   }
