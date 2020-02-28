@@ -11,6 +11,7 @@ import { Observable, merge } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { NgbPanelChangeEvent, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { ID } from '@datorama/akita';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -72,6 +73,9 @@ export class ImporterComponent implements OnInit {
     this.githubquery.setUIIsOpen(this.model.id)
   }
 
+  gethelp(){
+    return environment.help;
+  }
 
   onChangeName(newValue:string) {
     console.log(newValue);

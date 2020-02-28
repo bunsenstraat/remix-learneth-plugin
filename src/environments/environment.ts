@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: `http://49.12.14.220:3000/`,
-  github:[{name:`ethereum/remix-workshops`,branch:`master`},{name:`bunsenstraat/remix-workshops`,branch:`master`}]
+  github:[{name:`ethereum/remix-workshops`,branch:`master`},{name:`bunsenstraat/remix-workshops`,branch:`master`}],
+  help: 'https://github.com/bunsenstraat/remix-workshop-plugin/blob/master/README.md'
 };
 
 /*
