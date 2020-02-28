@@ -4,6 +4,7 @@ import {
     ActiveState,
     EntityStore,
     StoreConfig,
+    EntityUIStore,
 } from '@datorama/akita'
 import { github } from './github.model'
 import { environment } from 'src/environments/environment'
@@ -25,11 +26,21 @@ const initialState: Partial<GitHubState> = {
     ids: environment.github.map(function(e,k){return `${k}`})
 }
 
+export interface GithubUI {
+  isOpen: boolean;
+}
+
+export interface GithubUIState extends EntityState<GithubUI> {}
+
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'github' })
 export class GitHubStore extends EntityStore<GitHubState> {
+
+    ui: EntityUIStore<GithubUIState,GithubUI>
     constructor() {
+      
         console.log(initialState)
         super(initialState)
+        this.createUIStore(entity => ({ isOpen: true }));
     }
 }

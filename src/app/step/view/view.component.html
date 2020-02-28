@@ -44,7 +44,8 @@
       <button class="btn" (click)="previous()" [disabled]="(index$ | async) === 0">
         Previous
       </button>
-      <button class="btn btn-success" (click)="next()">Next</button>
+      <button *ngIf="(!isLast(step.id))" class="btn btn-success" (click)="next()">Next</button>
+      <button *ngIf="(isLast(step.id))" class="btn btn-success" (click)="next()">Finish</button>
     </footer>
   </ng-template>
 </ng-container>

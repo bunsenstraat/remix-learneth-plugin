@@ -9,7 +9,8 @@ import { GitHubStore } from '../../+state/github.store';
 import { GitHubQuery } from '../../+state/github.query';
 import { Observable, merge } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPanelChangeEvent, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { ID } from '@datorama/akita';
 
 
 @Component({
@@ -21,7 +22,6 @@ export class ImporterComponent implements OnInit {
   infoIcon = faInfo;
   model:github;
   repos$:Observable<github[]>
-  expanded:boolean = true;
   public sortDown = faCaretDown;
   public sortUp = faCaretUp;
   questionIcon = faQuestionCircle
@@ -30,6 +30,7 @@ export class ImporterComponent implements OnInit {
 
   ngOnInit() {
     if(!this.githubstore._value().active)this.githubstore.setActive("1")
+    
     this.githubquery.selectActive().subscribe( (github) => {
       this.model = {...github}
     })
@@ -41,9 +42,6 @@ export class ImporterComponent implements OnInit {
     this.importservice.import(this.model);
 
   }
-
-
-
 
   loadedGithub(){
     let activeModel:github
@@ -58,9 +56,22 @@ export class ImporterComponent implements OnInit {
     this.importservice.import(repo);
   }
 
-  panelChange($event: NgbPanelChangeEvent, acc) {
-      this.expanded = !acc.isExpanded($event.panelId);
+  panelChange() {
+    this.toggleUI();
   }
+
+  isOpen(acc:NgbAccordion) {
+    let isOpen = true;
+    if(typeof this.model!="undefined") this.githubquery.selectUIisOpenEntity(this.model.id).subscribe(val => isOpen = val||false);
+    //if(acc)(isOpen)?acc.expand(`importerpanel`):acc.collapse(`importerpanel`);
+    return isOpen;
+  }
+
+  
+  toggleUI(){
+    this.githubquery.setUIIsOpen(this.model.id)
+  }
+
 
   onChangeName(newValue:string) {
     console.log(newValue);

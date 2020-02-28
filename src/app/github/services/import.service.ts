@@ -36,7 +36,8 @@ export class ImportService {
     },(error)=>{
       this.spinner.hide();
       this.toastr.remove(tid);
-      this.toastr.error(`loading ${message} : ${error.error}`,`error loading`,{timeOut:0});
+      const err = JSON.stringify(error.message)
+      this.toastr.error(`loading ${message} : ${err}`,`error loading`,{timeOut:0});
     }
   
     

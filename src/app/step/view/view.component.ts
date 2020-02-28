@@ -7,6 +7,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { UnitTestError } from '@remixproject/plugin';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { ID } from '@datorama/akita';
 
 @Component({
   selector: 'step-view',
@@ -60,6 +61,10 @@ export class StepViewComponent implements OnInit {
     } 
   }
 
+  isLast(id:ID){
+    return (this.query.getCount()-1)==id;
+  }
+
   async next() {
      try {
       const current = this.query.getActiveId();
@@ -68,7 +73,7 @@ export class StepViewComponent implements OnInit {
       if (!this.query.getActive().test && !isLast) {
         this.service.next();
       }
-      console.log("go to",path);
+      console.log("go to",path, this.query.getCount(), isLast, current);
       await this.router.navigate(path, { relativeTo: this.route });
     } catch (err) {
       console.log('Cannot go next', err);

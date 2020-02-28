@@ -21,6 +21,7 @@ export class StepGuard implements CanActivate {
     const index = parseInt(stepId, 10);
     const workshop = this.workshopQuery.getActive();
     const currentStep = 0;
+  
     const step = workshop.steps[stepId];
     console.log("set active",index);
    

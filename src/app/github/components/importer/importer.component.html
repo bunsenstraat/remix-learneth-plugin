@@ -1,48 +1,43 @@
-<ngb-accordion style="overflow-y: visible;" #acc="ngbAccordion" class="range-accordion" activeIds="ngb-panel-0"
-  (panelChange)="panelChange($event, acc)">
-  <ngb-panel>
-    <ng-template ngbPanelTitle>
-      <div class="d-flex justify-content-between">
-        <div class="d-flex" style="font-weight: bold;">Import workshops from Github</div>
-        <div class="d-flex pl-2">
-          <fa-icon *ngIf="(expanded)" [icon]="sortUp"></fa-icon>
-          <fa-icon *ngIf="(!expanded)" [icon]="sortDown"></fa-icon>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex" style="font-weight: bold;">Import workshops from Github</div>
+    <div class="d-flex pl-2">
+      <fa-icon *ngIf="(isOpen())" (click)="panelChange()" [icon]="sortUp"></fa-icon>
+      <fa-icon *ngIf="(!isOpen())" (click)="panelChange()" [icon]="sortDown"></fa-icon>
+    </div>
+  </div>
+
+  <div *ngIf="(isOpen())">
+
+    <form (ngSubmit)="sync()" #heroForm="ngForm">
+      <div class="form-group">
+        <label class="mr-2" for="name">name</label>
+        <fa-icon [icon]="questionIcon" ngbTooltip="ie username/repository"></fa-icon>
+        <input type="text" class="form-control" id="name" required (ngModelChange)="onChangeName($event)"
+          [(ngModel)]="model.name" name="name" #name="ngModel">
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Name is required
+        </div>
+
+        <label for="branch">branch</label>
+        <input type="text" class="form-control" id="branch" required [(ngModel)]="model.branch" name="branch"
+          #branch="ngModel">
+        <div [hidden]="branch.valid || branch.pristine" class="alert alert-danger">
+          branch is required
         </div>
       </div>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      <div>
 
-        <form (ngSubmit)="sync()" #heroForm="ngForm">
-          <div class="form-group">
-            <label class="mr-2" for="name">name</label><fa-icon [icon]="questionIcon" ngbTooltip="ie username/repository"></fa-icon>
-            <input type="text" class="form-control" id="name" required (ngModelChange)="onChangeName($event)" [(ngModel)]="model.name" name="name"
-              #name="ngModel">
-            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-              Name is required
-            </div>
+      <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid" role="button">Import workshops from
+        GitHub</button>
+      <a [routerLink]="">
+        <fa-icon [icon]="infoIcon"></fa-icon> how to setup your repo
+      </a>
+    </form>
+  </div>
+</div>
 
-            <label for="branch">branch</label>
-            <input type="text" class="form-control" id="branch" required [(ngModel)]="model.branch" name="branch"
-              #branch="ngModel">
-            <div [hidden]="branch.valid || branch.pristine" class="alert alert-danger">
-              branch is required
-            </div>
-          </div>
-
-          <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid"
-            role="button">Import workshops from GitHub</button>
-          <a [routerLink]="">
-            <fa-icon [icon]="infoIcon"></fa-icon> how to setup your repo
-          </a>
-        </form>
-      </div>
-
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
-<div *ngIf="(expanded)" class="container-fluid">
-<div ngbDropdown class="w-100">
+<div *ngIf="isOpen()" class="container-fluid">
+  <div ngbDropdown class="w-100">
     <button class="btn btn-outline-primary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Recently used</button>
     <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <span *ngFor="let repo of repos$ | async;">
