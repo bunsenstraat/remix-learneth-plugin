@@ -7,9 +7,6 @@ import { Workshop, WorkshopQuery, WorkshopStore, LoadingStatus } from '../../+st
 import { HttpClient } from '@angular/common/http'; 
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ID } from '@datorama/akita';
-
-import { environment } from 'src/environments/environment';
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [

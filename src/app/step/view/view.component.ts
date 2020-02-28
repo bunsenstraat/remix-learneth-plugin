@@ -42,7 +42,7 @@ export class StepViewComponent implements OnInit {
     this.query.selectActive().subscribe((step)=>{console.log("activate step",step)})
     this.step$ = this.query.selectActive().pipe(
       tap(_ => this.store.update({ success: false, error: null })),
-      tap(step => this.service.displaySolidity(step))
+      tap(step => this.service.displayFileInIDE(step))
     );
     this.success$ = this.query.select('success');
     this.errors$ = this.query.selectError<UnitTestError[]>();

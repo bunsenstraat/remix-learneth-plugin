@@ -12,9 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 
 
 /** Create the path for the file manager based on a step */
-function getFilePath(step: Step): string {
-  console.log(" get file ",step);
-  const name =  step.solidity.file.split("/");
+function getFilePath(file: string): string {
+  const name =  file.split("/");
   return (name.length>1)?`${name[name.length-1]}`:"";
   //return type === 'test' ? `browser/${name}_test.sol` : `browser/${name}.sol`;
 }
@@ -37,12 +36,16 @@ export class StepService {
     this.store.setLoading(true);
     this.store.upsert(index, {...step, solidity:step.solidity?step.solidity:{}})
     this.store.upsert(index, {...step, test: step.test?step.test:{}})
+    this.store.upsert(index, {...step, vy: step.vy?step.vy:{}})
+    this.store.upsert(index, {...step, js: step.js?step.js:{}})
     step = this.query.getEntity(index);
     //this.spinner.show();
-    const [markdown, solidity, test] = await Promise.all([
+    const [markdown, solidity, test, js, vy] = await Promise.all([
       this.remix.call('contentImport', 'resolve', step.markdown.file),
       this.remix.call('contentImport', 'resolve', step.solidity.file),
       this.remix.call('contentImport', 'resolve', step.test.file),
+      this.remix.call('contentImport', 'resolve', step.js.file),
+      this.remix.call('contentImport', 'resolve', step.vy.file),
     ]);
     //this.spinner.hide();
     this.store.upsert(index,{...step
@@ -55,24 +58,41 @@ export class StepService {
     ,test:{
       ...step.test, content: test?test.content:null
     }
+    ,vy:{
+      ...step.vy, content: vy?vy.content:null
+    }
+    ,js:{
+      ...step.js, content: js?js.content:null
+    }
     }); 
 
     this.store.setLoading(false);
   }
 
-  async displaySolidity(step: Step) {
+  async displayFileInIDE(step: Step) {
   //  console.clear();
     console.log("display step ",step);
    
     const workshopId = this.workshopQuery.getActiveId();
     const stepIndex = this.store._value().active;
     // Get content from account or step
+    let content:string;
+    let path:string;
     if (step.solidity.file) {
-
-
+      content = step.solidity.content;
+      path = getFilePath(step.solidity.file);
+    }
+    if (step.js.file) {
+      content = step.js.content;
+      path = getFilePath(step.js.file);
+    }
+    if (step.vy.file) {
+      content = step.vy.content;
+      path = getFilePath(step.vy.file);
+    }
       
-      const content = step.solidity.content;
-      const path = getFilePath(step);
+    if(content){  
+      
       const tid = this.toastr.info(`loading ${path} into IDE`,`loading`,{timeOut:0}).toastId;
       this.spinner.show();
       

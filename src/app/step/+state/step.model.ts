@@ -14,11 +14,11 @@ export interface Step {
       content?:string;
     };
     js?:{
-      file:string;
+      file?:string;
       content?:string;
     }
-    vype?:{
-      file:string;
+    vy?:{
+      file?:string;
       content?:string;
     }
   }
