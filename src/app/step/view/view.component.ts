@@ -65,6 +65,10 @@ export class StepViewComponent implements OnInit {
     return (this.query.getCount()-1)==id;
   }
 
+  getname(step:Step){
+    return step.name.replace(/_/g, ' ')
+  }
+
   async next() {
      try {
       const current = this.query.getActiveId();

@@ -10,7 +10,7 @@
     <ng-container *ngFor="let step of workshop.steps; let i = index">
       <a class="list-group-item list-group-item-action"
         [routerLink]="['../steps', i]">
-        {{ i + 1 }} - {{ step.name }}
+        {{ getname(step) }}
       </a>
     </ng-container>
   </article>
@@ -21,7 +21,7 @@
         <a class="list-group-item list-group-item-action"
           [routerLink]="['../steps', i]"
           [ngClass]="{ disabled: i >= currentIndex }">
-          {{ i + 1 }} - {{ step.name }}
+          {{ getname(step) }}
         </a>
       </ng-container>
     </article>

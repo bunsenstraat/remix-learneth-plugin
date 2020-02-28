@@ -4,7 +4,7 @@
       <a class="btn" routerLink="../..">
         <fa-icon [icon]="menuIcon"></fa-icon>
       </a>
-      <span>{{ step.name }}</span>
+      <span>{{ getname(step) }}</span>
     </div>
 <!--     <ng-container *ngIf="errors$ | async as errors">
       <span [ngbPopover]="popContent" class="btn btn-danger">

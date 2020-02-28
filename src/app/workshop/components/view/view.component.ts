@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { trigger, transition, query as queryChild, stagger } from '@angular/animations';
 import { slideInY } from '../../../ui/animations';
 import { ToastrService } from 'ngx-toastr';
-import { StepStore } from 'src/app/step/+state';
+import { StepStore, Step } from 'src/app/step/+state';
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -46,6 +46,10 @@ export class WorkshopViewComponent implements OnInit {
       });
     }
     })
+  }
+
+  getname(step:Step){
+    return step.name.replace(/_/g, ' ')
   }
 
   start() {
