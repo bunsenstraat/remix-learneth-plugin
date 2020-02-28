@@ -65,9 +65,14 @@ export class ImporterComponent implements OnInit {
     this.toggleUI();
   }
 
-  isOpen(acc:NgbAccordion) {
+  isOpen() {
+
+    if(!this.repoLoaded())return true;
+
     let isOpen = true;
-    if(typeof this.model!="undefined") this.githubquery.selectUIisOpenEntity(this.model.id).subscribe(val => isOpen = val||true);
+    
+    if(typeof this.model!="undefined") this.githubquery.selectUIisOpenEntity(this.model.id).subscribe(val => isOpen = val||false);
+    
     //if(acc)(isOpen)?acc.expand(`importerpanel`):acc.collapse(`importerpanel`);
     return isOpen;
   }
