@@ -4,24 +4,53 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. The host will be `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Loading the plugin in remix
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+When testing with localhost you should use the HTTP version of either REMIX or REMIX ALPHA. Click on the plugin manager icon and
+add the plugin 'Connect to a local plugin'. Your plugin when served with NG SERVE will be at http://localhost:4200/.
 
-## Build
+## Setting up the REMIX IDE for working with the plugin
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The plugin only works when a compiler environment is loaded as wel, for example on the home screen of the IDE you select 'Solidity' or 'Vyper'. Without this the plugin
+cannot compile and test files in the workshops.
 
-## Running unit tests
+## Setting up your Github workshops repo
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You can create your own workshops that can be imported in the plugin.
+When importing a github repo the plugin will look for a directory structure describing the workshops.
+For example: https://github.com/ethereum/remix-workshops
 
-## Running end-to-end tests
+### Root directories
+Root directories are individual workshops, the name used will be the name of the workshop.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### README.md
+The readme in each directry contains an explanation of what the workshop is about.
 
-## Further help
+### config.yml
+This config file contains meta data describing some properties of your workshop, for example
+```
+--- 
+level: 4
+tags: 
+  - solidity
+  - beginner
+```
+Level: a level of difficulty indicator ( 1 - 5 )
+Tags: an array of tags
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### STEPS
+Each workshop contains what we call steps. 
+Each step is a directory containing:
+- a readme describing the step, what to do.
+- sol files:
+    - these can be sol files and test sol files. The test files should be name yoursolname_test.sol
+- js files
+- vyper files
+
+
+
+
+
+
