@@ -23,15 +23,17 @@ When importing a github repo the plugin will look for a directory structure desc
 For example: https://github.com/ethereum/remix-workshops
 
 ### Root directories
-Root directories are individual workshops, the name used will be the name of the workshop.
+Root directories are individual workshops, the name used will be the name of the workshop unless you override this with the name property in the config.yml.
 
 ### README.md
-The readme in each directry contains an explanation of what the workshop is about.
+The readme in each directry contains an explanation of what the workshop is about. If an additional summary property is provided in the config.yml that will be used in the overview section of the plugin.
 
 ### config.yml
 This config file contains meta data describing some properties of your workshop, for example
 ```
 --- 
+name: my workshop name
+summary: something about this workshop
 level: 4
 tags: 
   - solidity
