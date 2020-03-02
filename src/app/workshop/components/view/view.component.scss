@@ -7,7 +7,6 @@
 
 header {
   padding: 10px 5px;
-
 }
 
 section {
@@ -35,7 +34,7 @@ section {
   .start {
     padding: 5px 25px;
     animation: jittery 2s 0.5s infinite;
-    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -46,40 +45,38 @@ footer {
   align-items: center;
 }
 
-
-
 @keyframes jittery {
   5%,
   50% {
     transform: scale(1);
-    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
   }
   10% {
     transform: scale(0.9);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
   15% {
     transform: scale(1.15);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
   20% {
     transform: scale(1.15) rotate(-5deg);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
   25% {
     transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
   30% {
     transform: scale(1.15) rotate(-3deg);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
   35% {
     transform: scale(1.15) rotate(2deg);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
   40% {
     transform: scale(1.15) rotate(0);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   }
 }

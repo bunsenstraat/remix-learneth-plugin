@@ -6,16 +6,6 @@
       </a>
       <span>{{ getname(step) }}</span>
     </div>
-<!--     <ng-container *ngIf="errors$ | async as errors">
-      <span [ngbPopover]="popContent" class="btn btn-danger">
-        {{ errors.length }} Errors
-      </span>
-      <ng-template #popContent>
-        <ul class="list-group">
-          <li *ngFor="let error of errors" class="list-group-item">{{ error.message }}</li>
-        </ul>
-      </ng-template>
-    </ng-container> -->
   </header>
 
   <markdown [data]="step.markdown.content"></markdown>
@@ -44,7 +34,8 @@
       <button *ngIf="!((index$ | async) === 0)" class="btn" (click)="previous()" [disabled]="(index$ | async) === 0">
         Previous
       </button>
-      <button [routerLink]="['../../view']" routerLinkActive="router-link-active"  *ngIf="((index$ | async) === 0)" class="btn">Back to workshops</button>
+      <button [routerLink]="['../../view']" routerLinkActive="router-link-active" *ngIf="((index$ | async) === 0)"
+        class="btn">Back to workshops</button>
       <button *ngIf="(!isLast(step.id))" class="btn btn-success" (click)="next()">Next</button>
       <button *ngIf="(isLast(step.id))" class="btn btn-success" (click)="next()">Finish</button>
     </footer>

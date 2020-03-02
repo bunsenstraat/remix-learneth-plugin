@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { WorkshopsComponent } from './workshops.component';
-import { ListComponent } from './components/list/list.component';
-import { WorkshopViewComponent } from './components/view/view.component';
-import { StartedWorkshopGuard, ActiveWorkshopGuard } from './workshop.guard';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { ListComponent } from './components/list/list.component'
+import { WorkshopViewComponent } from './components/view/view.component'
+import { ActiveWorkshopGuard } from './workshop.guard'
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -18,7 +16,8 @@ const routes: Routes = [
       {
         path: 'steps',
         //canActivate: [StartedWorkshopGuard],
-        loadChildren: () => import('../step/step.module').then(m => m.StepModule)
+        loadChildren: () =>
+          import('../step/step.module').then(m => m.StepModule)
       }
     ]
   }
@@ -28,4 +27,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class WorkshopsRoutingModule { }
+export class WorkshopsRoutingModule {}

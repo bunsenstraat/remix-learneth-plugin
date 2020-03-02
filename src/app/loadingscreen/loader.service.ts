@@ -1,8 +1,6 @@
-import { Injectable, Inject } from '@angular/core';
-import { REMIX, RemixClient } from 'src/app/remix-client';
+import { Inject, Injectable } from '@angular/core';
 import { PluginClient } from '@remixproject/plugin';
-
-
+import { REMIX } from 'src/app/remix-client';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +9,7 @@ export class LoaderService {
 
   constructor(@Inject(REMIX) private remix: PluginClient) { }
 
-  async loadClient(){
-    console.log("loading");
+  async loadClient() {
     await this.remix.onload();
-    console.log("loaded");
   }
-
-
 }

@@ -1,28 +1,24 @@
-
-import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
-import { environment } from 'src/environments/environment';
-import { HttpClientModule } from '@angular/common/http'; 
-import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component';
+import { HttpClientModule } from '@angular/common/http'
+import { NgModule } from '@angular/core'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgxSpinnerModule } from 'ngx-spinner'
+import { ToastrModule } from 'ngx-toastr'
+import { environment } from 'src/environments/environment'
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoadingscreenComponent
-  ],
+  declarations: [AppComponent, LoadingscreenComponent],
   imports: [
     AppRoutingModule,
     HttpClientModule,
     NgxSpinnerModule,
     NgbModule,
     ToastrModule.forRoot({
-      progressBar:true,
+      progressBar: true,
       positionClass: 'toast-bottom-right',
       timeOut: 1500
     }),
@@ -32,4 +28,4 @@ import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component'
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

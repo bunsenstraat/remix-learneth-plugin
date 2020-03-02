@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 import {
   NgbButtonsModule,
   NgbAlertModule,
   NgbAccordionModule,
   NgbPopoverModule,
   NgbToastModule
-} from '@ng-bootstrap/ng-bootstrap';
+} from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
   exports: [

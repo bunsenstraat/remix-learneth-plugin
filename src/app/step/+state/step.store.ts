@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
-import { EntityState, EntityStore, StoreConfig, ActiveState } from '@datorama/akita';
-import { Step } from './step.model';
+import { Injectable } from '@angular/core'
+import {
+  EntityState,
+  EntityStore,
+  StoreConfig,
+  ActiveState
+} from '@datorama/akita'
+import { Step } from './step.model'
 
 export interface StepState extends EntityState<Step>, ActiveState<number> {
-  errorCount: number;
-  error: any[];
-  success: boolean;
+  errorCount: number
+  error: any[]
+  success: boolean
 }
 
 const initial: StepState = {
@@ -16,15 +21,12 @@ const initial: StepState = {
   errorCount: 0,
   error: [],
   success: false
-};
+}
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'step' })
 export class StepStore extends EntityStore<StepState> {
-
   constructor() {
-    super(initial);
+    super(initial)
   }
-
 }
-

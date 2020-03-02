@@ -1,5 +1,5 @@
 <div class="container-fluid mt-3">
-  <div (click)="panelChange()"  class="btn btn-info d-flex justify-content-between">
+  <div (click)="panelChange()" class="btn btn-info d-flex justify-content-between">
     <div class="d-flex" style="font-weight: bold;">Import workshops from GitHub</div>
     <div *ngIf="repoLoaded()" class="d-flex pl-2">
       <fa-icon *ngIf="(isOpen())" [icon]="sortUp"></fa-icon>
@@ -46,7 +46,8 @@
 
     </div>
   </div>
-</div><hr>
+</div>
+<hr>
 <div *ngIf="repoLoaded()" class="container-fluid mb-3 small">
   <h4>{{loadedGithub().name}}</h4>
   Date modified: {{loadedGithub().datemodified}}
