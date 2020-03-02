@@ -46,7 +46,8 @@ export class ImporterComponent implements OnInit {
   sync() {
     console.log('submit')
 
-    this.importservice.import(this.model)
+    //this.importservice.import(this.model)
+    this.importservice.loadcontent(this.model)
   }
 
   loadedGithub() {
@@ -63,7 +64,7 @@ export class ImporterComponent implements OnInit {
 
   selectrepo(repo: github) {
     console.log('select repo')
-    this.importservice.import(repo)
+    this.importservice.loadcontent(repo)
   }
 
   panelChange() {

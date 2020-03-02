@@ -49,6 +49,7 @@ export class ListComponent implements OnInit {
 
     this.workshops$ = this.query.selectAll()
     this.subscription = this.workshops$.subscribe(workshops => {
+      
       workshops
         .filter(workshop => workshop.description || false)
         .filter(workshop => workshop.description.file || false)
@@ -59,6 +60,7 @@ export class ListComponent implements OnInit {
         )
         .map((workshop, index) => {
           if (!this.tempStore.some(e => e === workshop.id)) {
+            //console.log(workshop);
             this.tempStore.push(workshop.id)
             this.service.getDescription(workshop)
             this.service.getMetaData(workshop)
