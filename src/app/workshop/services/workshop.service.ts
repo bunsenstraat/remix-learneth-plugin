@@ -75,33 +75,4 @@ export class WorkshopserviceService {
           })
       })
   }
-
-  getMetaData2(workshop: Workshop) {
-    const metadata = [workshop.metadata]
-      .filter(meta => meta)
-      .map(meta => {
-        this.http
-          .post(
-            `${environment.apiUrl}getFile`,
-            { file: meta.file },
-            { responseType: 'text' }
-          )
-          .subscribe(
-            content => {
-              const storedworkshop = this.query.getEntity(workshop.id) // get the entity out of the store because it might have changed
-              const newdata = {
-                ...storedworkshop,
-                metadata: {
-                  ...storedworkshop.metadata,
-                  data: YAML.parse(content)
-                }
-              }
-              this.store.upsert(workshop.id, newdata)
-            },
-            response => {
-              this.toastr.warning(workshop.description.file, 'File not Loaded')
-            }
-          )
-      })
-  }
 }
