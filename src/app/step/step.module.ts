@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { MarkdownModule } from 'ngx-markdown'
-
-import { StepGuard } from './step.guard'
 import { NgxSpinnerModule } from 'ngx-spinner'
-import { StepViewComponent } from './view/view.component'
-import { StepListComponent } from './list/list.component'
 import { BootstrapModule } from '../bootstrap.module'
+import { StepGuard } from './step.guard'
+import { StepViewComponent } from './view/view.component'
+
+
 
 @NgModule({
-  declarations: [StepViewComponent, StepListComponent],
+  declarations: [StepViewComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,7 +22,6 @@ import { BootstrapModule } from '../bootstrap.module'
     MarkdownModule.forRoot(),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: StepListComponent },
       {
         path: ':stepId',
         canActivate: [StepGuard],

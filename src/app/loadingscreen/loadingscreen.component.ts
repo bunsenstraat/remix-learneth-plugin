@@ -11,7 +11,7 @@ import { LoaderService } from './loader.service'
   animations: [fadeOutUpOnLeaveAnimation(), fadeInOnEnterAnimation()]
 })
 export class LoadingscreenComponent implements OnInit {
-  private loaded = false
+  loaded = false
 
   constructor(
     private toastr: ToastrService,
