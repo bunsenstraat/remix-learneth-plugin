@@ -1,17 +1,11 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable, Inject } from '@angular/core'
+import { Inject, Injectable } from '@angular/core'
 import { ID } from '@datorama/akita'
-import { ToastrService } from 'ngx-toastr'
-import { environment } from 'src/environments/environment'
-import YAML from 'yaml'
-import {
-  LoadingStatus,
-  Workshop,
-  WorkshopQuery,
-  WorkshopStore
-} from '../+state'
-import { REMIX } from 'src/app/remix-client'
 import { PluginClient } from '@remixproject/plugin'
+import { ToastrService } from 'ngx-toastr'
+import { REMIX } from 'src/app/remix-client'
+import YAML from 'yaml'
+import { LoadingStatus, Workshop, WorkshopQuery, WorkshopStore } from '../+state'
 
 @Injectable({
   providedIn: 'root'
