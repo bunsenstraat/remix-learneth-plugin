@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import { ID } from '@datorama/akita'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from 'src/environments/environment'
@@ -10,6 +10,8 @@ import {
   WorkshopQuery,
   WorkshopStore
 } from '../+state'
+import { REMIX } from 'src/app/remix-client'
+import { PluginClient } from '@remixproject/plugin'
 
 @Injectable({
   providedIn: 'root'
@@ -20,39 +22,61 @@ export class WorkshopserviceService {
     private toastr: ToastrService,
     private workShopStore: WorkshopStore,
     private query: WorkshopQuery,
-    private store: WorkshopStore
+    private store: WorkshopStore,
+    @Inject(REMIX) private remix: PluginClient
   ) {}
 
   toggleUIDescription(id: ID) {
     this.workShopStore.ui.upsert(id, entity => ({ isOpen: !entity.isOpen }))
   }
 
-  getDescription(workshop: Workshop) {
-    this.http
-      .post(
-        `${environment.apiUrl}getFile`,
-        { file: workshop.description.file },
-        { responseType: 'text' }
+  async getDescription(workshop: Workshop) {
+    await this.remix
+      .call(
+        'contentImport',
+        'resolve',
+        workshop.description.file + `?` + Math.random()
       )
-      .subscribe(
-        content => {
-          const storedworkshop = this.query.getEntity(workshop.id) // get the entity out of the store because it might have changed
-          this.store.upsert(storedworkshop.id, {
-            ...storedworkshop,
-            text: content,
-            description: {
-              ...storedworkshop.description,
-              status: LoadingStatus.finished
-            }
-          })
-        },
-        response => {
-          this.toastr.warning(workshop.description.file, 'File not Loaded')
-        }
-      )
+      .then(content => {
+        const storedworkshop = this.query.getEntity(workshop.id) // get the entity out of the store because it might have changed
+        this.store.upsert(storedworkshop.id, {
+          ...storedworkshop,
+          text: content.content,
+          description: {
+            ...storedworkshop.description,
+            status: LoadingStatus.finished
+          }
+        })
+      })
+      .catch(Error => {
+        this.toastr.warning(workshop.description.file, 'File not Loaded')
+      })
   }
 
   getMetaData(workshop: Workshop) {
+    const metadata = [workshop.metadata]
+      .filter(meta => meta)
+      .map(async meta => {
+        await this.remix
+          .call('contentImport', 'resolve', meta.file + `?` + Math.random())
+          .then(content => {
+            const storedworkshop = this.query.getEntity(workshop.id) // get the entity out of the store because it might have changed
+            const newdata = {
+              ...storedworkshop,
+              metadata: {
+                ...storedworkshop.metadata,
+                data: YAML.parse(content.content)
+              }
+            }
+            this.store.upsert(workshop.id, newdata)
+          })
+          .catch(Error => {
+            this.toastr.warning(workshop.description.file, 'File not Loaded')
+          })
+      })
+  }
+
+  getMetaData2(workshop: Workshop) {
     const metadata = [workshop.metadata]
       .filter(meta => meta)
       .map(meta => {

@@ -94,6 +94,7 @@ export class ListComponent implements OnInit {
   }
 
   getdescription(workshop: Workshop) {
+    //console.log(workshop);
     return workshop.metadata
       ? workshop.metadata.data
         ? workshop.metadata.data.summary

@@ -41,7 +41,6 @@ export class ImportService {
       await this.remix
         .call('contentImport', 'resolve', url)
         .then(content => {
-          console.log(content.content)
           error = content.content
           const initialState: Partial<WorkshopState> = JSON.parse(
             content.content
@@ -52,7 +51,7 @@ export class ImportService {
             datemodified: initialState.datemodified,
             data: initialState
           }
-          console.log(initialState)
+
           this.workshopstore.set(initialState)
           this.toastr.remove(tid)
           this.spinner.hide()
