@@ -97,7 +97,7 @@ export class StepService {
 
       console.log('set file', path, content)
       await this.remix.call('fileManager', 'setFile', path, content)
-      await this.remix.call('fileManager', 'switchFile', path)
+      await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
       this.spinner.hide()
       this.toastr.remove(tid)
     } else {

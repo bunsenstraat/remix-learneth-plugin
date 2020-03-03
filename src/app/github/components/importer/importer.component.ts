@@ -36,7 +36,7 @@ export class ImporterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.githubstore._value().active) this.githubstore.setActive('1')
+    if (!this.githubstore._value().active) this.githubstore.setActive('0')
 
     this.githubquery.selectActive().subscribe(github => {
       this.model = { ...github }
