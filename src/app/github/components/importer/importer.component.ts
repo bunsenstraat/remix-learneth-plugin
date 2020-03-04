@@ -58,10 +58,14 @@ export class ImporterComponent implements OnInit {
   }
 
   selectfirst() {
-    //console.log("select first")
+    console.log("select first")
     this.githubquery
       .selectFirst()
-      .subscribe(gh => this.githubstore.setActive(gh.id))
+      .subscribe(gh => {
+          this.githubstore.setActive(gh.id)
+          this.selectrepo(gh)
+      }
+      ).unsubscribe()
   }
 
   resetall() {

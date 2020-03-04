@@ -36,8 +36,10 @@ export class ImportService {
       timeOut: 0
     }).toastId
 
+    console.log("loading ",url, this.remix);
     let error: string
     try {
+      await this.remix.onload()
       await this.remix
         .call('contentImport', 'resolve', url)
         .then(content => {
