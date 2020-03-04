@@ -1,4 +1,5 @@
 <div class="container-fluid mt-3">
+  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset all settings</div>
   <div (click)="panelChange()" class="btn btn-info d-flex justify-content-between">
     <div class="d-flex" style="font-weight: bold;">Import workshops from GitHub</div>
     <div *ngIf="repoLoaded()" class="d-flex pl-2">

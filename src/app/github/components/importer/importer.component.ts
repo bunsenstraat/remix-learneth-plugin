@@ -13,6 +13,7 @@ import { github } from '../../+state'
 import { GitHubQuery } from '../../+state/github.query'
 import { GitHubStore } from '../../+state/github.store'
 import { ImportService } from '../../services/import.service'
+import { persistState, Store } from '@datorama/akita'
 
 @Component({
   selector: 'app-importer',
@@ -36,7 +37,11 @@ export class ImporterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.githubstore._value().active) this.githubstore.setActive('0')
+    if (!this.githubstore._value().active) this.selectfirst
+
+    this.githubquery
+      .selectFirst()
+      .subscribe(gh => (typeof gh == 'undefined' ? this.resetall() : false))
 
     this.githubquery.selectActive().subscribe(github => {
       this.model = { ...github }
@@ -48,6 +53,20 @@ export class ImporterComponent implements OnInit {
 
     //this.importservice.import(this.model)
     this.importservice.loadcontent(this.model)
+  }
+
+  selectfirst() {
+    this.githubquery
+      .selectFirst()
+      .subscribe(gh => this.githubstore.setActive(gh.id))
+  }
+
+  resetall() {
+    console.log('reset')
+    this.githubquery.reset()
+    const storage = persistState()
+    storage.clearStore()
+    this.selectfirst()
   }
 
   loadedGithub() {

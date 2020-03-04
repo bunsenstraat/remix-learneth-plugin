@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { QueryEntity, EntityUIStore, EntityUIQuery, ID } from '@datorama/akita'
+import { resetStores } from "@datorama/akita";
 import {
   GitHubState,
   GitHubStore,
@@ -18,6 +19,10 @@ export class GitHubQuery extends QueryEntity<GitHubState> {
 
   selectUIisOpenEntity(id: ID): Observable<boolean> {
     return this.ui.selectEntity(id, 'isOpen')
+  }
+
+  reset(){
+    resetStores()
   }
 
   setUIIsOpen(id: ID) {
