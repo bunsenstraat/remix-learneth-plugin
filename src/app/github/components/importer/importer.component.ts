@@ -37,8 +37,10 @@ export class ImporterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.githubstore._value().active) this.selectfirst
+    if (!this.githubstore._value().active || typeof this.githubstore._value().active=="undefined") this.selectfirst()
 
+    //console.log(this.githubstore._value().active)
+    
     this.githubquery
       .selectFirst()
       .subscribe(gh => (typeof gh == 'undefined' ? this.resetall() : false))
@@ -56,13 +58,14 @@ export class ImporterComponent implements OnInit {
   }
 
   selectfirst() {
+    //console.log("select first")
     this.githubquery
       .selectFirst()
       .subscribe(gh => this.githubstore.setActive(gh.id))
   }
 
   resetall() {
-    console.log('reset')
+    //console.log('reset')
     this.githubquery.reset()
     const storage = persistState()
     storage.clearStore()
