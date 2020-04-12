@@ -32,7 +32,7 @@
         Back to workshops
       </button>
 
-      <ng-container *ngIf="!(isLoading$ | async); else loading">
+      <ng-container *ngIf="!(isLoading$ | async)">
         <button class="btn btn-info test" (click)="test(step)">
           Test
         </button>

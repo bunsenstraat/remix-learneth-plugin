@@ -16,7 +16,7 @@
         <div *ngIf="workshop.steps">
           {{workshop.steps.length}} step(s)
         </div>
-        <a [routerLink]="['/workshops', workshop.id]" class="btn btn-success w-100">
+        <a [routerLink]="['/workshops', workshop.id]" class="btn btn-success text-decoration-none w-100">
           Start
         </a>
         <div class="workshop-list_description pb-3 pt-3" [ngClass]="{'description-collapsed':!isOpen(workshop)}">
