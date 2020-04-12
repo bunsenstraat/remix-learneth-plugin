@@ -2,9 +2,16 @@ import {
   query as queryChild,
   stagger,
   transition,
-  trigger
+  trigger,
 } from '@angular/animations'
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { Observable } from 'rxjs'
@@ -13,16 +20,17 @@ import { Workshop, WorkshopQuery } from '../../+state'
 import { slideInY } from '../../../ui/animations'
 
 const slideIn = trigger('slideIn', [
-  transition(':enter', [queryChild('a', [stagger(30, slideInY)])])
+  transition(':enter', [queryChild('a', [stagger(30, slideInY)])]),
 ])
 @Component({
   selector: 'workshop-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideIn]
+  animations: [slideIn],
 })
-export class WorkshopViewComponent implements OnInit {
+export class WorkshopViewComponent implements OnInit, AfterViewInit {
+  @ViewChild('top', { static: false }) topDiv: ElementRef
   workshop$: Observable<Workshop>
   currentIndex$: Observable<number>
 
@@ -34,11 +42,14 @@ export class WorkshopViewComponent implements OnInit {
     private stepstore: StepStore
   ) {}
 
+  ngAfterViewInit() {
+    this.topDiv.nativeElement.scrollIntoView()
+  }
+
   ngOnInit() {
     this.toastr.clear() // clear all notifications
-    console.log('view')
     this.workshop$ = this.query.selectActive()
-    this.workshop$.subscribe(workshop => {
+    this.workshop$.subscribe((workshop) => {
       this.stepstore.remove()
       if (workshop) {
         workshop.steps.map((step, index) => {
@@ -53,7 +64,6 @@ export class WorkshopViewComponent implements OnInit {
   }
 
   start() {
-    console.log('start')
     const id = this.query.getActiveId()
     this.router.navigate(['../steps/0'], { relativeTo: this.routes })
   }

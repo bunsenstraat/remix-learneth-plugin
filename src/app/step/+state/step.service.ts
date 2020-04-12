@@ -95,7 +95,6 @@ export class StepService {
       }).toastId
       this.spinner.show()
 
-      console.log('set file', path, content)
       await this.remix.call('fileManager', 'setFile', path, content)
       await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
       this.spinner.hide()
@@ -108,7 +107,7 @@ export class StepService {
   async testStep(step: Step) {
     try {
       // Update store before running tests
-      this.store.update({ loading: true, success: false })
+      this.store.update({ loading: true, success: false, error:null })
 
       // Run tests
       this.spinner.show()
@@ -129,26 +128,27 @@ export class StepService {
 
         // Update next step of the account if succeed
         if (success) {
-          this.store.update({ success, errorCount: 0, loading: false })
+          this.store.update({ success: true, errorCount: 0, loading: false })
           this.next()
         } else {
+          
           this.addError(result.errors)
         }
       }
       // Update store after tests have run
     } catch (err) {
-      const error = [{ message: err }]
+      const error = [{ message: String(err) }]
       this.addError(error)
     }
   }
 
   /** Update the store and display message to user */
-  addError(error: { message: string }[]) {
-    this.toastr.error(error[error.length - 1].message, `error`, { timeOut: 0 })
+  addError(error: { message: any }[]) {
     this.store.update(s => ({
       errorCount: s.errorCount + 1,
-      error,
-      loading: false
+      error: error,
+      loading: false,
+      success: false
     }))
     this.spinner.hide()
   }

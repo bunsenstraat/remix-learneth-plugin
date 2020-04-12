@@ -9,8 +9,10 @@ akitaConfig({
   resettable: true
 });
 
-const el = document.getElementById("base")
-el.setAttribute(`href`,environment.base)
+//const el = document.getElementById("base")
+//el.setAttribute(`href`,environment.base)
+
+console.clear();
 
 if (environment.production) {
   enableProdMode();
