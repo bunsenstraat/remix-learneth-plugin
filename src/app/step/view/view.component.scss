@@ -14,13 +14,17 @@ header, footer {
 }
 
 .menuspacer{
-  padding-top: 115px;
+  padding-top: 130px;
 
+}
+
+.title{
+  pointer-events: none;
 }
 
 h1 {
   text-align: left;
-  font-size: 1.5rem !important;
+  font-size: 1rem !important;
   word-break: break-word;
 }
 
@@ -31,15 +35,15 @@ markdown {
   padding: 5px;
 
   h1 {
-    font-size: 1.5rem !important;
+    font-size: 1rem !important;
   }
 
   h2 {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   h4 {
@@ -47,7 +51,4 @@ markdown {
   }
 }
 
-footer .test {
-  padding-left: 25px;
-  padding-right: 25px;
-}
+

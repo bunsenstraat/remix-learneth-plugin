@@ -13,6 +13,10 @@ export interface Step {
       file?:string;
       content?:string;
     };
+    answer: {
+      file?:string;
+      content?:string;
+    };
     js?:{
       file?:string;
       content?:string;

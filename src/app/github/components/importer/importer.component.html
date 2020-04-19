@@ -1,6 +1,7 @@
 <div class="container-fluid mt-3">
  
-  <div (click)="panelChange()" class="btn btn-info d-flex justify-content-between">
+  <div (click)="panelChange()" class="btn btn-info d-flex justify-content-between rounded-0">
+    <fa-icon [icon]="importIcon"></fa-icon>
     <div class="d-flex" style="font-weight: bold;">Import tutorials from GitHub</div>
     <div *ngIf="repoLoaded()" class="d-flex pl-2">
       <fa-icon *ngIf="(isOpen())" [icon]="sortUp"></fa-icon>
@@ -47,7 +48,7 @@
 
     </div>
   </div>
-  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset all settings</div>
+  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset list</div>
 </div>
 <hr>
 <div *ngIf="repoLoaded()" class="container-fluid mb-3 small">

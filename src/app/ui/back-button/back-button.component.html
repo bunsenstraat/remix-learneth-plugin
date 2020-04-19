@@ -17,14 +17,18 @@
   </ul>
   <ng-container *ngIf="[showStep] == 'true'">
     <form class="form-inline">
-      <fa-icon class="pr-1" [icon]="leftArrow"></fa-icon>
       <ng-container *ngIf="step$ | async as step">
-        {{ step.id + 1 }} </ng-container
-      >/
-      <ng-container *ngIf="workshop$ | async as workshop">
-        <div class="">{{ workshop.steps.length }}</div>
+        <a style="cursor: pointer;" *ngIf="!isFirst(step.id)" (click)="previous()">
+          <fa-icon class="pr-1" [icon]="leftArrow"></fa-icon>
+        </a>
+        {{ step.id + 1 }}/
+        <ng-container *ngIf="workshop$ | async as workshop">
+          <div class="">{{ workshop.steps.length }}</div>
+        </ng-container>
+        <a style="cursor: pointer;" *ngIf="!isLast(step.id)" (click)="next()">
+          <fa-icon class="pl-1" [icon]="rightArrow"></fa-icon>
+        </a>
       </ng-container>
-      <fa-icon class="pl-1" [icon]="rightArrow"></fa-icon>
     </form>
   </ng-container>
 </nav>

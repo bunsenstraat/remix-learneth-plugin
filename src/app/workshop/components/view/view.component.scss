@@ -10,12 +10,21 @@ header {
 }
 
 .menuspacer{
-  padding-top: 50px;
+  padding-top: 130px;
 
 }
+
+.steplink {
+  text-decoration: none;
+}
+
+.title{
+  pointer-events: none;
+}
+
 h1 {
   text-align: left;
-  font-size: 2rem !important;
+  font-size: 1rem !important;
   word-break: break-word;
 }
 section {

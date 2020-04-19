@@ -43,14 +43,17 @@ export class StepViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.service.loaded = false
     console.log('all ', this.query.getAll())
     this.toastr.clear()
-    this.query.selectActive().subscribe((step) => {
-      console.log('activate step', step)
-    })
     this.step$ = this.query.selectActive().pipe(
       tap((_) => this.store.update({ success: false, error: null })),
-      tap((step) => this.service.displayFileInIDE(step))
+      tap((step) => {
+        if (!this.service.loaded) {
+          this.service.displayFileInIDE(step)
+          this.service.loaded = true
+        }
+      })
     )
     this.success$ = this.query.select('success')
     this.query.select('success').subscribe((r) => console.log('succes?', r))
@@ -60,7 +63,9 @@ export class StepViewComponent implements OnInit {
   }
 
   ngAfterViewChecked() {
+    
     this.errors$.subscribe((errors) => {
+      console.log("view check");
       let divToScrollTo: ElementRef = this.topDiv
       if (errors)
         if (errors.length)
@@ -73,10 +78,15 @@ export class StepViewComponent implements OnInit {
     this.service.testStep(step)
   }
 
+  answer(step: Step) {
+    this.service.showAnswer(step)
+  }
+
   previous() {
     this.store.update({ loading: true, success: false, error: null })
     const current = this.query.getActiveId()
     if (current !== 0) {
+      this.service.loaded = false;
       this.router.navigate(['..', current - 1], { relativeTo: this.route })
     }
   }
@@ -99,6 +109,7 @@ export class StepViewComponent implements OnInit {
         this.service.next()
       }
       console.log('go to', path, this.query.getCount(), isLast, current)
+      this.service.loaded = false;
       await this.router.navigate(path, { relativeTo: this.route })
     } catch (err) {
       console.log('Cannot go next', err)

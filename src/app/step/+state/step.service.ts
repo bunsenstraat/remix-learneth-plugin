@@ -17,6 +17,9 @@ function getFilePath(file: string): string {
 
 @Injectable({ providedIn: 'root' })
 export class StepService {
+
+  public loaded:boolean=false
+
   constructor(
     @Inject(REMIX) private remix: PluginClient,
     private workshopQuery: WorkshopQuery,
@@ -30,43 +33,52 @@ export class StepService {
     this.store.setLoading(true)
     this.store.upsert(index, {
       ...step,
-      solidity: step.solidity ? step.solidity : {}
+      solidity: step.solidity ? step.solidity : {},
     })
     this.store.upsert(index, { ...step, test: step.test ? step.test : {} })
+    this.store.upsert(index, {
+      ...step,
+      answer: step.answer ? step.answer : {},
+    })
     this.store.upsert(index, { ...step, vy: step.vy ? step.vy : {} })
     this.store.upsert(index, { ...step, js: step.js ? step.js : {} })
     step = this.query.getEntity(index)
 
-    const [markdown, solidity, test, js, vy] = await Promise.all([
+    const [markdown, solidity, test, answer, js, vy] = await Promise.all([
       this.remix.call('contentImport', 'resolve', step.markdown.file),
       this.remix.call('contentImport', 'resolve', step.solidity.file),
       this.remix.call('contentImport', 'resolve', step.test.file),
+      this.remix.call('contentImport', 'resolve', step.answer.file),
       this.remix.call('contentImport', 'resolve', step.js.file),
-      this.remix.call('contentImport', 'resolve', step.vy.file)
+      this.remix.call('contentImport', 'resolve', step.vy.file),
     ])
 
     this.store.upsert(index, {
       ...step,
       markdown: {
         ...step.markdown,
-        content: markdown ? markdown.content : null
+        content: markdown ? markdown.content : null,
       },
       solidity: {
         ...step.solidity,
-        content: solidity ? solidity.content : null
+        content: solidity ? solidity.content : null,
       },
       test: {
         ...step.test,
-        content: test ? test.content : null
+        content: test ? test.content : null,
+      },
+      answer: {
+        ...step.answer,
+        content: answer ? answer.content : null,
       },
       vy: {
         ...step.vy,
-        content: vy ? vy.content : null
+        content: vy ? vy.content : null,
       },
       js: {
         ...step.js,
-        content: js ? js.content : null
-      }
+        content: js ? js.content : null,
+      },
     })
 
     this.store.setLoading(false)
@@ -74,7 +86,7 @@ export class StepService {
 
   async displayFileInIDE(step: Step) {
     // Get content from account or step
-    console.log("loading ",step);
+    console.log('loading ', step)
     let content: string
     let path: string
     if (step.solidity.file) {
@@ -92,7 +104,7 @@ export class StepService {
 
     if (content) {
       const tid = this.toastr.info(`loading ${path} into IDE`, `loading`, {
-        timeOut: 0
+        timeOut: 0,
       }).toastId
       this.spinner.show()
 
@@ -108,10 +120,18 @@ export class StepService {
   async testStep(step: Step) {
     try {
       // Update store before running tests
-      this.store.update({ loading: true, success: false, error:null })
+      this.store.update({ loading: true, success: false, error: null })
 
       // Run tests
       this.spinner.show()
+
+      let path: string
+      if (step.solidity.file) {
+        path = getFilePath(step.solidity.file)
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+      }
+
+
       console.log('testing ', step.test.content)
       const result = await this.remix.call(
         'solidityUnitTesting',
@@ -132,7 +152,6 @@ export class StepService {
           this.store.update({ success: true, errorCount: 0, loading: false })
           this.next()
         } else {
-          
           this.addError(result.errors)
         }
       }
@@ -143,13 +162,41 @@ export class StepService {
     }
   }
 
+  async showAnswer(step: Step) {
+    try {
+      console.log('loading ', step)
+      let content: string
+      let path: string
+      if (step.answer.file) {
+        content = step.answer.content
+        path = getFilePath(step.answer.file)
+      }
+      if (content) {
+        const tid = this.toastr.info(`loading answer into IDE`, `loading`, {
+          timeOut: 0,
+        }).toastId
+        this.spinner.show()
+  
+        await this.remix.call('fileManager', 'setFile', path, content)
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+        this.spinner.hide()
+        this.toastr.remove(tid)
+      } else {
+        //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
+      }
+    } catch (err) {
+      const error = [{ message: String(err) }]
+      this.addError(error)
+    }
+  }
+
   /** Update the store and display message to user */
   addError(error: { message: any }[]) {
-    this.store.update(s => ({
+    this.store.update((s) => ({
       errorCount: s.errorCount + 1,
       error: error,
       loading: false,
-      success: false
+      success: false,
     }))
     this.spinner.hide()
   }

@@ -1,32 +1,53 @@
-  <app-importer></app-importer>
-  <div class="container-fluid">
-    <ul @slideIn class="list-group">
-      <li class="list-group-item" *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
-        <h4>{{ getname(workshop) }}</h4>
-
-        <p *ngIf="getlevel(workshop)">level: <ngb-rating [rate]="getlevel(workshop)" [max]="5" [readonly]="true">
+<app-importer></app-importer>
+<div class="">
+  <div @slideIn>
+    <div *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
+      <a class="btn text-decoration-none w-100 btn-success rounded-0" [routerLink]="['/workshops', workshop.id]">
+      {{ getname(workshop) }} »
+      </a>
+      <div class="container-fluid bg-light">
+        <p *ngIf="getlevel(workshop)" class="pt-2">
+          level:
+          <ngb-rating [rate]="getlevel(workshop)" [max]="5" [readonly]="true">
           </ngb-rating>
         </p>
 
         <div *ngIf="gettags(workshop)">
           <p class="tag pr-1" *ngFor="let tag of gettags(workshop)">
-            #{{tag}}
+            #{{ tag }}
           </p>
         </div>
-        <div *ngIf="workshop.steps">
-          {{workshop.steps.length}} step(s)
+        <div class="d-none" *ngIf="workshop.steps">
+          {{ workshop.steps.length }} step(s)
         </div>
-        <a [routerLink]="['/workshops', workshop.id]" class="btn btn-success text-decoration-none w-100">
+        <!-- <a
+          [routerLink]="['/workshops', workshop.id]"
+          class="btn btn-success text-decoration-none w-100"
+        >
           Start
-        </a>
-        <div class="workshop-list_description pb-3 pt-3" [ngClass]="{'description-collapsed':!isOpen(workshop)}">
+        </a> -->
+        <div
+          class="workshop-list_description pb-3 pt-3"
+          [ngClass]="{ 'description-collapsed': !isOpen(workshop) }"
+        >
           <markdown [data]="getdescription(workshop)"></markdown>
         </div>
         <div *ngIf="showMore(workshop)" class="actions">
-          <a *ngIf="!isOpen(workshop)" [routerLink]="" (click)="toggleDescriptionUI(workshop)">read more</a><br>
-          <a *ngIf="isOpen(workshop)" [routerLink]="" (click)="toggleDescriptionUI(workshop)">read less</a><br>
+          <a
+            *ngIf="!isOpen(workshop)"
+            [routerLink]=""
+            (click)="toggleDescriptionUI(workshop)"
+            >read more</a
+          ><br />
+          <a
+            *ngIf="isOpen(workshop)"
+            [routerLink]=""
+            (click)="toggleDescriptionUI(workshop)"
+            >read less</a
+          ><br />
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
-  <ngx-spinner></ngx-spinner>
+</div>
+<ngx-spinner></ngx-spinner>
