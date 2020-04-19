@@ -1,100 +1,116 @@
-<p #top></p>
-<ng-container *ngIf="step$ | async as step">
-  <header class="bg-light">
-    <div>
-      <a class="btn" routerLink="../..">
-        <fa-icon [icon]="menuIcon"></fa-icon>
-      </a>
-      <span>{{ getname(step) }}</span>
-    </div>
-  </header>
-
-  <markdown [data]="step.markdown.content"></markdown>
-
-  <!-- WITH TEST -->
-  <ng-container *ngIf="step.test.file; else noTest">
-    <footer class="bg-light">
-      <button
-        *ngIf="!((index$ | async) === 0)"
-        class="btn"
-        (click)="previous()"
-        [disabled]="(index$ | async) === 0"
-      >
-        Previous
-      </button>
-
-      <button
-        [routerLink]="['../../view']"
-        routerLinkActive="router-link-active"
-        *ngIf="(index$ | async) === 0"
-        class="btn"
-      >
-        Back to workshops
-      </button>
-
-      <ng-container *ngIf="!(isLoading$ | async)">
-        <button class="btn btn-info test" (click)="test(step)">
-          Test
-        </button>
-      </ng-container>
-      <button class="btn btn-success" *ngIf="(success$ | async)" (click)="next()">
-        Next
-      </button>
-    </footer>
-    <div #errors id="errors">
-      <div
-        *ngIf="(success$ | async)"
-        class="alert alert-success mb-0 mt-2"
-        role="alert"
-      >
-        Well done! No errors.
-      </div>
-      <ng-container *ngIf="errors$ | async as errors">
-        <div
-          *ngIf="!(success$ | async)"
-          class="alert alert-danger mb-0 mt-2"
-          role="alert"
-        >
-          Errors
-        </div>
-
-        <ul class="list-group">
-          <li *ngFor="let error of errors" class="list-group-item">
-            {{ error.message }}
-            <hr />
-          </li>
-        </ul>
-      </ng-container>
+<div class="fixed-top">
+  <div #top class="bg-light">
+    <back-button link="/workshops/list" showStep="true"></back-button>
+  </div>
+  <ng-container *ngIf="step$ | async as step">
+    <div class="bg-dark">
+      <h1 class="p-3">{{ getname(step) }}</h1>
     </div>
   </ng-container>
+</div>
 
-  <!-- NO TEST -->
-  <ng-template #noTest>
-    <footer class="bg-light">
-      <button
-        *ngIf="!((index$ | async) === 0)"
-        class="btn"
-        (click)="previous()"
-        [disabled]="(index$ | async) === 0"
-      >
-        Previous
-      </button>
+<ng-container *ngIf="step$ | async as step">
+  <div class="container-fluid menuspacer">
+    <markdown [data]="step.markdown.content"></markdown>
 
-      <button
-        [routerLink]="['../../view']"
-        routerLinkActive="router-link-active"
-        *ngIf="(index$ | async) === 0"
-        class="btn"
-      >
-        Back to workshops
-      </button>
-      <button *ngIf="!isLast(step.id)" class="btn btn-success" (click)="next()">
-        Next
-      </button>
-      <button *ngIf="isLast(step.id)" class="btn btn-success" (click)="next()">
-        Finish
-      </button>
-    </footer>
-  </ng-template>
+    <!-- WITH TEST -->
+
+    <ng-container *ngIf="step.test.file; else noTest">
+      <footer class="bg-light">
+        <button
+          *ngIf="!((index$ | async) === 0)"
+          class="btn"
+          (click)="previous()"
+          [disabled]="(index$ | async) === 0"
+        >
+          Previous
+        </button>
+
+        <button
+          [routerLink]="['../../view']"
+          routerLinkActive="router-link-active"
+          *ngIf="(index$ | async) === 0"
+          class="btn"
+        >
+          Back to workshops
+        </button>
+
+        <ng-container *ngIf="!(isLoading$ | async)">
+          <button class="btn btn-info test" (click)="test(step)">
+            Test
+          </button>
+        </ng-container>
+        <button
+          class="btn btn-success"
+          *ngIf="success$ | async"
+          (click)="next()"
+        >
+          Next
+        </button>
+      </footer>
+      <div #errors id="errors">
+        <div
+          *ngIf="success$ | async"
+          class="alert alert-success mb-0 mt-2"
+          role="alert"
+        >
+          Well done! No errors.
+        </div>
+        <ng-container *ngIf="errors$ | async as errors">
+          <div
+            *ngIf="!(success$ | async)"
+            class="alert alert-danger mb-0 mt-2"
+            role="alert"
+          >
+            Errors
+          </div>
+
+          <ul class="list-group">
+            <li *ngFor="let error of errors" class="list-group-item">
+              {{ error.message }}
+              <hr />
+            </li>
+          </ul>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <!-- NO TEST -->
+    <ng-template #noTest>
+      <footer class="bg-light">
+        <button
+          *ngIf="!((index$ | async) === 0)"
+          class="btn"
+          (click)="previous()"
+          [disabled]="(index$ | async) === 0"
+        >
+          Previous
+        </button>
+
+        <button
+          [routerLink]="['../../view']"
+          routerLinkActive="router-link-active"
+          *ngIf="(index$ | async) === 0"
+          class="btn"
+        >
+          Back to workshops
+        </button>
+        <button
+          *ngIf="!isLast(step.id)"
+          class="btn btn-success"
+          (click)="next()"
+        >
+          Next
+        </button>
+        <button
+          *ngIf="isLast(step.id)"
+          class="btn btn-success"
+          (click)="next()"
+        >
+          Finish
+        </button>
+      </footer>
+    </ng-template>
+  </div>
 </ng-container>
 <ngx-spinner></ngx-spinner>

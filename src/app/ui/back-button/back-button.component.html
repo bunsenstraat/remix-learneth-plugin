@@ -1,4 +1,30 @@
-<a class="btn back" [routerLink]="[link]" role="button">
-  <fa-icon [icon]="arrowIcon"></fa-icon>
-  <span>Back</span>
-</a>
+<nav
+  class="navbar navbar-light bg-light justify-content-between pt-1 pb-1 pl-1"
+>
+  <ul class="nav mr-auto">
+    <li class="nav-item">
+      <a class="btn back" [routerLink]="[link]" role="button">
+        <fa-icon class="pl-1" [icon]="homeIcon"></fa-icon>
+      </a>
+    </li>
+    <ng-container *ngIf="[showStep] == 'true'">
+      <li class="nav-item">
+        <a class="btn" routerLink="../..">
+          <fa-icon [icon]="menuIcon"></fa-icon>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+  <ng-container *ngIf="[showStep] == 'true'">
+    <form class="form-inline">
+      <fa-icon class="pr-1" [icon]="leftArrow"></fa-icon>
+      <ng-container *ngIf="step$ | async as step">
+        {{ step.id + 1 }} </ng-container
+      >/
+      <ng-container *ngIf="workshop$ | async as workshop">
+        <div class="">{{ workshop.steps.length }}</div>
+      </ng-container>
+      <fa-icon class="pl-1" [icon]="rightArrow"></fa-icon>
+    </form>
+  </ng-container>
+</nav>

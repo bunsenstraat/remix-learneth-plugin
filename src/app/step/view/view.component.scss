@@ -13,6 +13,16 @@ header, footer {
   align-items: center;
 }
 
+.menuspacer{
+  padding-top: 115px;
+
+}
+
+h1 {
+  text-align: left;
+  font-size: 1.5rem !important;
+  word-break: break-word;
+}
 
 markdown {
   display: block;
@@ -21,7 +31,7 @@ markdown {
   padding: 5px;
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 
   h2 {

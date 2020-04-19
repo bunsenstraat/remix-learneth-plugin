@@ -8,6 +8,7 @@ import { NgxSpinnerModule } from 'ngx-spinner'
 import { BootstrapModule } from '../bootstrap.module'
 import { StepGuard } from './step.guard'
 import { StepViewComponent } from './view/view.component'
+import { BackButtonModule } from '../ui/back-button/back-button.module'
 
 
 
@@ -16,6 +17,7 @@ import { StepViewComponent } from './view/view.component'
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    BackButtonModule,
     FontAwesomeModule,
     BootstrapModule,
     NgxSpinnerModule,

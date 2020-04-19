@@ -74,6 +74,7 @@ export class StepService {
 
   async displayFileInIDE(step: Step) {
     // Get content from account or step
+    console.log("loading ",step);
     let content: string
     let path: string
     if (step.solidity.file) {

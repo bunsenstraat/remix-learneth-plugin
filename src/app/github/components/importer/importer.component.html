@@ -1,5 +1,5 @@
 <div class="container-fluid mt-3">
-  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset all settings</div>
+ 
   <div (click)="panelChange()" class="btn btn-info d-flex justify-content-between">
     <div class="d-flex" style="font-weight: bold;">Import tutorials from GitHub</div>
     <div *ngIf="repoLoaded()" class="d-flex pl-2">
@@ -12,12 +12,12 @@
 
     <form (ngSubmit)="sync()" #heroForm="ngForm">
       <div class="form-group">
-        <label class="mr-2" for="name">name</label>
+        <label class="mr-2" for="name">repo</label>
         <fa-icon [icon]="questionIcon" ngbTooltip="ie username/repository"></fa-icon>
         <input type="text" class="form-control" id="name" required (ngModelChange)="onChangeName($event)"
           [(ngModel)]="model.name" name="name" #name="ngModel">
         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-          Name is required
+          Repo is required
         </div>
 
         <label for="branch">branch</label>
@@ -30,7 +30,7 @@
 
       <button class="btn btn-success start w-100" [disabled]="!heroForm.form.valid" role="button">Import
         {{model.name}}</button>
-      <a href="{{gethelp()}}" target="_blank">
+      <a href="{{gethelp()}}" class="d-none" target="_blank">
         <fa-icon [icon]="infoIcon"></fa-icon> how to setup your repo
       </a>
     </form>
@@ -39,7 +39,7 @@
 
 <div *ngIf="isOpen()" class="container-fluid">
   <div ngbDropdown class="w-100">
-    <button class="btn btn-secondary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Recently used</button>
+    <button class="btn btn-secondary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Tutorial libraries</button>
     <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <span *ngFor="let repo of repos$ | async;">
         <button class="small" (click)="selectrepo(repo)" ngbDropdownItem>{{repo.name}}-{{repo.branch}}</button>
@@ -47,6 +47,7 @@
 
     </div>
   </div>
+  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset all settings</div>
 </div>
 <hr>
 <div *ngIf="repoLoaded()" class="container-fluid mb-3 small">

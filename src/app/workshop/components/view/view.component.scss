@@ -9,27 +9,26 @@ header {
   padding: 10px 5px;
 }
 
+.menuspacer{
+  padding-top: 50px;
+
+}
+h1 {
+  text-align: left;
+  font-size: 2rem !important;
+  word-break: break-word;
+}
 section {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  h1 {
-    text-align: center;
-    font-size: 2rem !important;
-    word-break: break-word;
-  }
 
-  p {
-    width: 80%;
-    margin: 40px auto;
-  }
 
-  article {
-    width: 80%;
-    margin: 20px auto;
-  }
+
+
+
 
   .start {
     padding: 5px 25px;

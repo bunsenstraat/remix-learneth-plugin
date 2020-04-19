@@ -1,35 +1,39 @@
-<header #top class="bg-light">
-  <back-button link="/workshops/list"></back-button>
-</header>
+<div #top class="bg-light fixed-top">
+  <back-button link="/workshops/list" showStep="false"></back-button>
+</div>
 
-<section *ngIf="workshop$ | async as workshop">
-  <h1 class="mt-2">{{ workshop.name }}</h1>
-  <p>
+<div *ngIf="workshop$ | async as workshop">
+  <div class="container-fluid menuspacer">
+    <h1 class="mt-2">{{ workshop.name }}</h1>
     <markdown [data]="workshop.text"></markdown>
-  </p>
-
+  </div>
   <article @slideIn class="list-group">
     <ng-container *ngFor="let step of workshop.steps; let i = index">
-      <a class="list-group-item list-group-item-action" [routerLink]="['../steps', i]">
+      <a
+        class="rounded-0 btn btn-light border-bottom text-left"
+        [routerLink]="['../steps', i]"
+      >
         {{ getname(step) }}
       </a>
     </ng-container>
   </article>
-
-  <ng-container *ngIf="(currentIndex$ | async) as currentIndex; else startBtn">
+  
+  <!-- <ng-container *ngIf="currentIndex$ | async as currentIndex; else startBtn">
     <article @slideIn class="list-group">
       <ng-container *ngFor="let step of workshop.steps; let i = index">
-        <a class="list-group-item list-group-item-action" [routerLink]="['../steps', i]"
-          [ngClass]="{ disabled: i >= currentIndex }">
+        <a
+          class="list-group-item list-group-item-action"
+          [routerLink]="['../steps', i]"
+          [ngClass]="{ disabled: i >= currentIndex }"
+        >
           {{ getname(step) }}
         </a>
       </ng-container>
     </article>
-  </ng-container>
+  </ng-container> -->
 
-  <ng-template #startBtn>
+  <!-- <ng-template #startBtn>
     <a class="btn btn-success start" (click)="start()" role="button">Start</a>
 
-  </ng-template>
-
-</section>
+  </ng-template> -->
+</div>
