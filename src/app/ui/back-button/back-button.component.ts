@@ -22,7 +22,7 @@ export class BackButtonComponent implements OnInit {
   step$:Observable<Step>
 
   @Input() link: string
-  @Input() showStep:boolean
+  @Input() showStep:string
 
   constructor(
     private stepQuery: StepQuery,

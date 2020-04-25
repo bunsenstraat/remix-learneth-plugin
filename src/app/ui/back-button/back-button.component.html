@@ -7,7 +7,7 @@
         <fa-icon class="pl-1" [icon]="homeIcon"></fa-icon>
       </a>
     </li>
-    <ng-container *ngIf="[showStep] == 'true'">
+    <ng-container *ngIf="showStep == 'true'">
       <li class="nav-item">
         <a class="btn" routerLink="../..">
           <fa-icon [icon]="menuIcon"></fa-icon>
@@ -15,7 +15,7 @@
       </li>
     </ng-container>
   </ul>
-  <ng-container *ngIf="[showStep] == 'true'">
+  <ng-container *ngIf="showStep == 'true'">
     <form class="form-inline">
       <ng-container *ngIf="step$ | async as step">
         <a style="cursor: pointer;" *ngIf="!isFirst(step.id)" (click)="previous()">

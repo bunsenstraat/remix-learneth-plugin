@@ -86,7 +86,8 @@ export class StepService {
 
   async displayFileInIDE(step: Step) {
     // Get content from account or step
-    console.log('loading ', step)
+    const workshop = this.workshopQuery.getActive()
+    console.log('loading ', step, workshop)
     let content: string
     let path: string
     if (step.solidity.file) {
@@ -107,9 +108,9 @@ export class StepService {
         timeOut: 0,
       }).toastId
       this.spinner.show()
-
+      path = `.learneth/${workshop.name}/${step.name}/${path}`
       await this.remix.call('fileManager', 'setFile', path, content)
-      await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+      await this.remix.call('fileManager', 'switchFile', `browser/${path}` )
       this.spinner.hide()
       this.toastr.remove(tid)
     } else {
@@ -124,19 +125,26 @@ export class StepService {
 
       // Run tests
       this.spinner.show()
+      const workshop = this.workshopQuery.getActive()
 
       let path: string
       if (step.solidity.file) {
+        
         path = getFilePath(step.solidity.file)
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+        path = `.learneth/${workshop.name}/${step.name}/${path}`
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}` )
       }
 
 
       console.log('testing ', step.test.content)
+
+      path = getFilePath(step.test.file)
+      path = `.learneth/${workshop.name}/${step.name}/${path}`
+      await this.remix.call('fileManager', 'setFile', path, step.test.content)
       const result = await this.remix.call(
         'solidityUnitTesting',
-        'testFromSource',
-        step.test.content
+        'testFromPath',
+        path
       )
       console.log('result ', result)
       this.spinner.hide()
@@ -176,9 +184,10 @@ export class StepService {
           timeOut: 0,
         }).toastId
         this.spinner.show()
-  
+        const workshop = this.workshopQuery.getActive()
+        path = `.learneth/${workshop.name}/${step.name}/${path}`
         await this.remix.call('fileManager', 'setFile', path, content)
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}` )
         this.spinner.hide()
         this.toastr.remove(tid)
       } else {
