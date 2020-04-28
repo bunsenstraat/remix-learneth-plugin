@@ -9,8 +9,22 @@
   </ng-container>
 </div>
 <div #top></div>
+
 <ng-container *ngIf="step$ | async as step">
-  <div class="container-fluid menuspacer">
+  <ng-container *ngIf="errorLoadingFile">
+    <div class="errorloadingspacer"></div>
+    <button
+      class="w-100nav-item rounded-0 nav-link btn btn-warning test"
+      (click)="loadfile(step)"
+    >
+      Load the file
+    </button>
+    <div class="mb-4"></div>
+  </ng-container>
+  <ng-container *ngIf="!errorLoadingFile">
+    <div class="menuspacer"></div>
+  </ng-container>
+  <div class="container-fluid">
     <markdown [data]="step.markdown.content"></markdown>
   </div>
   <!-- WITH TEST -->
@@ -25,8 +39,15 @@
       >
         Previous
       </button> -->
-
-      <ng-container *ngIf="!(isLoading$ | async)">
+      <ng-container *ngIf="errorLoadingFile">
+        <button
+          class="nav-item rounded-0 nav-link btn btn-warning test"
+          (click)="loadfile(step)"
+        >
+          Load the file
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!(isLoading$ | async) && !errorLoadingFile">
         <button
           class="nav-item rounded-0 nav-link btn btn-info test"
           (click)="test(step)"
@@ -52,6 +73,7 @@
     </button>
 
     <div #errors id="errors">
+
       <div
         *ngIf="success$ | async"
         class="alert rounded-0 alert-success mb-0 mt-0"

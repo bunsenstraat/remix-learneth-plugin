@@ -31,6 +31,7 @@ export class StepViewComponent implements OnInit {
   errors$: Observable<UnitTestError[]>
   isLoading$: Observable<boolean>
   index$: Observable<number>
+  errorLoadingFile:boolean
 
   constructor(
     private service: StepService,
@@ -43,6 +44,7 @@ export class StepViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.errorLoadingFile = false
     this.service.loaded = false
     console.log('all ', this.query.getAll())
     this.toastr.clear()
@@ -50,7 +52,7 @@ export class StepViewComponent implements OnInit {
       tap((_) => this.store.update({ success: false, error: null })),
       tap((step) => {
         if (!this.service.loaded) {
-          this.service.displayFileInIDE(step)
+          this.loadfile(step)
           this.service.loaded = true
         }
       })
@@ -63,14 +65,29 @@ export class StepViewComponent implements OnInit {
   }
 
   ngAfterViewChecked() {
-    
     this.errors$.subscribe((errors) => {
-      console.log("view check");
+      console.log('view check')
       let divToScrollTo: ElementRef = this.topDiv
       if (errors)
         if (errors.length)
           if (typeof this.errorDiv != 'undefined') divToScrollTo = this.errorDiv
       divToScrollTo.nativeElement.scrollIntoView()
+    })
+  }
+
+  loadfile(step: Step) {
+    this.service
+    .displayFileInIDE(step)
+    .then((_) => {
+      this.toastr.clear()
+      this.errorLoadingFile = false})
+    .catch((_) => {
+      this.errorLoadingFile = true
+      this.spinner.hide()
+      this.toastr.clear()
+      this.toastr.error("File could not be loaded. Please try again.", `loading`, {
+        timeOut: 0,
+      })
     })
   }
 
@@ -86,7 +103,7 @@ export class StepViewComponent implements OnInit {
     this.store.update({ loading: true, success: false, error: null })
     const current = this.query.getActiveId()
     if (current !== 0) {
-      this.service.loaded = false;
+      this.service.loaded = false
       this.router.navigate(['..', current - 1], { relativeTo: this.route })
     }
   }
@@ -109,7 +126,7 @@ export class StepViewComponent implements OnInit {
         this.service.next()
       }
       console.log('go to', path, this.query.getCount(), isLast, current)
-      this.service.loaded = false;
+      this.service.loaded = false
       await this.router.navigate(path, { relativeTo: this.route })
     } catch (err) {
       console.log('Cannot go next', err)

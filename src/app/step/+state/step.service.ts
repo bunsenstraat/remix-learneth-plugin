@@ -17,8 +17,7 @@ function getFilePath(file: string): string {
 
 @Injectable({ providedIn: 'root' })
 export class StepService {
-
-  public loaded:boolean=false
+  public loaded: boolean = false
 
   constructor(
     @Inject(REMIX) private remix: PluginClient,
@@ -85,37 +84,40 @@ export class StepService {
   }
 
   async displayFileInIDE(step: Step) {
-    // Get content from account or step
-    const workshop = this.workshopQuery.getActive()
-    console.log('loading ', step, workshop)
-    let content: string
-    let path: string
-    if (step.solidity.file) {
-      content = step.solidity.content
-      path = getFilePath(step.solidity.file)
-    }
-    if (step.js.file) {
-      content = step.js.content
-      path = getFilePath(step.js.file)
-    }
-    if (step.vy.file) {
-      content = step.vy.content
-      path = getFilePath(step.vy.file)
-    }
+    let tid
 
-    if (content) {
-      const tid = this.toastr.info(`loading ${path} into IDE`, `loading`, {
-        timeOut: 0,
-      }).toastId
-      this.spinner.show()
-      path = `.learneth/${workshop.name}/${step.name}/${path}`
-      await this.remix.call('fileManager', 'setFile', path, content)
-      await this.remix.call('fileManager', 'switchFile', `browser/${path}` )
-      this.spinner.hide()
-      this.toastr.remove(tid)
-    } else {
-      //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
-    }
+      // Get content from account or step
+      const workshop = this.workshopQuery.getActive()
+      console.log('loading ', step, workshop)
+      let content: string
+      let path: string
+      if (step.solidity.file) {
+        content = step.solidity.content
+        path = getFilePath(step.solidity.file)
+      }
+      if (step.js.file) {
+        content = step.js.content
+        path = getFilePath(step.js.file)
+      }
+      if (step.vy.file) {
+        content = step.vy.content
+        path = getFilePath(step.vy.file)
+      }
+
+      if (content) {
+        tid = this.toastr.info(`loading ${path} into IDE`, `loading`, {
+          timeOut: 0,
+        }).toastId
+        this.spinner.show()
+        path = `.learneth/${workshop.name}/${step.name}/${path}`
+        await this.remix.call('fileManager', 'setFile', path, content)
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+        this.spinner.hide()
+        this.toastr.remove(tid)
+      } else {
+        //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
+      }
+
   }
 
   async testStep(step: Step) {
@@ -129,12 +131,10 @@ export class StepService {
 
       let path: string
       if (step.solidity.file) {
-        
         path = getFilePath(step.solidity.file)
         path = `.learneth/${workshop.name}/${step.name}/${path}`
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}` )
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
       }
-
 
       console.log('testing ', step.test.content)
 
@@ -187,7 +187,7 @@ export class StepService {
         const workshop = this.workshopQuery.getActive()
         path = `.learneth/${workshop.name}/${step.name}/${path}`
         await this.remix.call('fileManager', 'setFile', path, content)
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}` )
+        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
         this.spinner.hide()
         this.toastr.remove(tid)
       } else {
