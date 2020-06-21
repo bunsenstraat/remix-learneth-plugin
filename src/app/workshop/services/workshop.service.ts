@@ -6,11 +6,14 @@ import { ToastrService } from 'ngx-toastr'
 import { REMIX } from 'src/app/remix-client'
 import YAML from 'yaml'
 import { LoadingStatus, Workshop, WorkshopQuery, WorkshopStore } from '../+state'
+import { Observable, of, BehaviorSubject } from 'rxjs'
+import { unwatchFile } from 'fs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkshopserviceService {
+  private workshopsloaded = []
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -51,15 +54,32 @@ export class WorkshopserviceService {
     }
   }
 
+  private _allitemsloaded = new BehaviorSubject<boolean>(false);
+  allitemsloaded$ = this._allitemsloaded.asObservable();
+  resetWorksShopsLoaded(){
+    this.workshopsloaded = []
+  }
+
+  addworkShopToLoaded(workshop: Workshop){
+    this.workshopsloaded.push(workshop)
+    this._allitemsloaded.next(this.workshopsloaded.length == this.query.getCount())
+    console.log(this.workshopsloaded.length)
+  }
+
   getMetaData(workshop: Workshop) {
     console.log("get meta data",workshop);
+    
+    if(!workshop.metadata){
+      console.log("no files to load");
+      this.addworkShopToLoaded(workshop)
+    }
     const metadata = [workshop.metadata]
       .filter(meta => meta)
       .map(async meta => {
         await this.remix
           .call('contentImport', 'resolve', meta.file + `?` + Math.random())
           .then(content => {
-            console.log(meta.file, content);
+            //console.log(meta.file, content);
             const storedworkshop = this.query.getEntity(workshop.id) // get the entity out of the store because it might have changed
             let incomingdata = YAML.parse(content.content)
             let newname = workshop.name
@@ -77,8 +97,9 @@ export class WorkshopserviceService {
               }
             }
             if(!newdata.metadata.data){newdata.metadata.data = {name:newdata.name}}
-            console.log("incoming metadata", newdata);
+           // console.log("incoming metadata", newdata, workshop);
             this.store.upsert(workshop.id, newdata)
+            this.addworkShopToLoaded(workshop)
           })
           .catch(Error => {
             const storedworkshop = this.query.getEntity(workshop.id) 
@@ -91,6 +112,7 @@ export class WorkshopserviceService {
             if(!newdata.metadata.data){newdata.metadata.data = {name:newdata.name}}
             this.store.upsert(workshop.id, newdata)
             this.toastr.warning(workshop.description.file, 'File not Loaded')
+            this.addworkShopToLoaded(workshop)
           })
       })
   }

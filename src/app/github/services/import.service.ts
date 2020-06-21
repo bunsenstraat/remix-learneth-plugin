@@ -10,6 +10,7 @@ import { GitHubStore } from '../+state/github.store'
 import { WorkshopState, WorkshopStore } from '../../workshop/+state'
 import { PluginClient } from '@remixproject/plugin'
 import { REMIX } from 'src/app/remix-client'
+import { WorkshopserviceService } from 'src/app/workshop/services/workshop.service'
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,12 @@ export class ImportService {
     private workshopstore: WorkshopStore,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
+    private workshopService: WorkshopserviceService,
     @Inject(REMIX) private remix: PluginClient
   ) {}
 
   async loadcontent(github: github) {
+    this.workshopService.resetWorksShopsLoaded()
     const message = `${github.name}/${github.branch}`
     const githubname = encodeURIComponent(github.name)
     const url =
@@ -89,5 +92,6 @@ export class ImportService {
     }
     this.githubstore.upsert(github.id, { ...github })
     this.githubstore.setActive(github.id)
+    this.githubquery.setUIisClosed(github.id)
   }
 }

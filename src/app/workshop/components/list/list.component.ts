@@ -34,6 +34,7 @@ const slideIn = trigger('slideIn', [
 })
 export class ListComponent implements OnInit {
   workshops$: Observable<Workshop[]>
+  isVisible$:Observable<boolean>
   tempStore: string[] = []
   subscription: Subscription
   public sortDown = faAngleRight
@@ -51,8 +52,16 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.toastr.clear() // clear all notifications
-
+    this.service.resetWorksShopsLoaded()
     this.workshops$ = this.query.selectAll()
+
+    this.isVisible$ = this.service.allitemsloaded$
+    
+    this.service.allitemsloaded$.subscribe(result => {
+      console.log(" all items loaded ", result);
+      (!result)?this.spinner.show():this.spinner.hide()
+    })
+
     this.subscription = this.workshops$.subscribe(workshops => {
       
       workshops
@@ -73,6 +82,8 @@ export class ListComponent implements OnInit {
         })
     })
   }
+
+
 
   getlevel(workshop: Workshop) {
 
