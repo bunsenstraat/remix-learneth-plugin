@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { QueryEntity, EntityUIQuery, ID } from '@datorama/akita'
+import { QueryEntity, EntityUIQuery, ID, QueryConfig, Order } from '@datorama/akita'
 import {
   WorkshopStore,
   WorkshopState,
@@ -8,6 +8,11 @@ import {
 } from './workshop.store'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
+
+@QueryConfig({
+  sortBy: 'name',
+  sortByOrder: Order.ASC // Order.DESC
+})
 
 @Injectable({ providedIn: 'root' })
 export class WorkshopQuery extends QueryEntity<WorkshopState> {

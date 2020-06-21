@@ -1,13 +1,34 @@
-<div class="container-fluid mt-3">
- 
-  <div (click)="panelChange()" class="btn btn-info d-flex justify-content-between rounded-0">
-    <fa-icon [icon]="importIcon"></fa-icon>
-    <div class="d-flex" style="font-weight: bold;">Import tutorials from GitHub</div>
-    <div *ngIf="repoLoaded()" class="d-flex pl-2">
-      <fa-icon *ngIf="(isOpen())" [icon]="sortUp"></fa-icon>
-      <fa-icon *ngIf="(!isOpen())" [icon]="sortDown"></fa-icon>
+
+<div *ngIf="repoLoaded()" class="container-fluid mb-3 small">
+  Tutorials are loaded from:
+  <h4>{{loadedGithub().name}}</h4>
+  Date modified: {{loadedGithub().datemodified}}
+</div>
+
+<div (click)="panelChange()" style="cursor: pointer;" class="container-fluid d-flex mb-3 small">
+  <div *ngIf="repoLoaded()" class="d-flex pr-2 pl-2">
+    <fa-icon *ngIf="(isOpen())" class="arrow-icon" [icon]="sortUp"></fa-icon>
+    <fa-icon *ngIf="(!isOpen())" class="arrow-icon" [icon]="sortDown"></fa-icon>
+  </div>
+  <div class="d-flex" style="">Import another tutorial repo</div>
+
+</div>
+
+<div *ngIf="isOpen()" class="container-fluid">
+  <div ngbDropdown class="w-100">
+    <button class="btn btn-secondary w-100" id="dropdownBasic1" ngbDropdownToggle>Select a repo</button>
+    <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <span *ngFor="let repo of repos$ | async;">
+        <button class="small" (click)="selectrepo(repo)" ngbDropdownItem>{{repo.name}}-{{repo.branch}}</button>
+      </span>
+
     </div>
   </div>
+  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset list</div>
+</div>
+<div class="container-fluid mt-3">
+ 
+
 
   <div *ngIf="(isOpen())">
 
@@ -36,26 +57,11 @@
       </a>
     </form>
   </div>
+  <hr>
 </div>
 
-<div *ngIf="isOpen()" class="container-fluid">
-  <div ngbDropdown class="w-100">
-    <button class="btn btn-secondary w-100 mt-3" id="dropdownBasic1" ngbDropdownToggle>Tutorial libraries</button>
-    <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <span *ngFor="let repo of repos$ | async;">
-        <button class="small" (click)="selectrepo(repo)" ngbDropdownItem>{{repo.name}}-{{repo.branch}}</button>
-      </span>
 
-    </div>
-  </div>
-  <div (click)="resetall()" class="small mb-3" style="cursor: pointer;" >reset list</div>
-</div>
-<hr>
-<div *ngIf="repoLoaded()" class="container-fluid mb-3 small">
-  Tutorials are loaded from:
-  <h4>{{loadedGithub().name}}</h4>
-  Date modified: {{loadedGithub().datemodified}}
-</div>
+
 <div *ngIf="!repoLoaded()" class="container-fluid mb-3">
 
   <h4>Welcome!</h4>

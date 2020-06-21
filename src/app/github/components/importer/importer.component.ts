@@ -4,7 +4,9 @@ import {
   faCaretUp,
   faInfo,
   faQuestionCircle,
-  faCloudDownloadAlt
+  faCloudDownloadAlt,
+  faAngleRight,
+  faAngleDown
 } from '@fortawesome/free-solid-svg-icons'
 import { ToastrService } from 'ngx-toastr'
 import { Observable } from 'rxjs'
@@ -25,8 +27,8 @@ export class ImporterComponent implements OnInit {
   infoIcon = faInfo
   model: github
   repos$: Observable<github[]>
-  public sortDown = faCaretDown
-  public sortUp = faCaretUp
+  public sortDown = faAngleRight
+  public sortUp = faAngleDown
   public importIcon = faCloudDownloadAlt
   questionIcon = faQuestionCircle
 

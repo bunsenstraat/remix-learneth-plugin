@@ -1,7 +1,7 @@
 
 
 .description-collapsed{
-    max-height: 120px;
+    max-height: 0px;
     overflow: hidden;
     word-wrap: break-word;
 }
@@ -12,4 +12,16 @@
 
 h4{
     font-size: 1rem;
+}
+
+.arrow-icon{
+    width: 12px;
+    display: inline-block;
+}
+
+.workshop-link {
+    text-decoration: none;
+}
+.workshop-link:hover {
+    text-decoration: underline;
 }

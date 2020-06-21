@@ -25,6 +25,7 @@ export class WorkshopserviceService {
   }
 
   async getDescription(workshop: Workshop) {
+    try{
     await this.remix
       .call(
         'contentImport',
@@ -45,26 +46,50 @@ export class WorkshopserviceService {
       .catch(Error => {
         this.toastr.warning(workshop.description.file, 'File not Loaded')
       })
+    }catch(err){
+      //console.log(err)
+    }
   }
 
   getMetaData(workshop: Workshop) {
+    console.log("get meta data",workshop);
     const metadata = [workshop.metadata]
       .filter(meta => meta)
       .map(async meta => {
         await this.remix
           .call('contentImport', 'resolve', meta.file + `?` + Math.random())
           .then(content => {
+            console.log(meta.file, content);
             const storedworkshop = this.query.getEntity(workshop.id) // get the entity out of the store because it might have changed
+            let incomingdata = YAML.parse(content.content)
+            let newname = workshop.name
+            if(incomingdata.name && incomingdata.name!=""){
+              newname=incomingdata.name
+            }else{
+              incomingdata.name = newname
+            }
             const newdata = {
               ...storedworkshop,
+              name: newname,
               metadata: {
                 ...storedworkshop.metadata,
-                data: YAML.parse(content.content)
+                data: incomingdata
               }
             }
+            if(!newdata.metadata.data){newdata.metadata.data = {name:newdata.name}}
+            console.log("incoming metadata", newdata);
             this.store.upsert(workshop.id, newdata)
           })
           .catch(Error => {
+            const storedworkshop = this.query.getEntity(workshop.id) 
+            const newdata = {
+              ...storedworkshop,
+              metadata: {
+                ...storedworkshop.metadata
+              }
+            }
+            if(!newdata.metadata.data){newdata.metadata.data = {name:newdata.name}}
+            this.store.upsert(workshop.id, newdata)
             this.toastr.warning(workshop.description.file, 'File not Loaded')
           })
       })

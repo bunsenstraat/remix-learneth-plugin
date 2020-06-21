@@ -17,6 +17,8 @@ import {
 } from '../../+state'
 import { slideInY } from '../../../ui/animations'
 import { WorkshopserviceService } from '../../services/workshop.service'
+import { faAngleRight, faAngleDown, faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+import { runInThisContext } from 'vm'
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -34,7 +36,10 @@ export class ListComponent implements OnInit {
   workshops$: Observable<Workshop[]>
   tempStore: string[] = []
   subscription: Subscription
-
+  public sortDown = faAngleRight
+  public sortUp = faAngleDown
+  public playIcon = faPlayCircle
+  
   constructor(
     private service: WorkshopserviceService,
     private query: WorkshopQuery,
@@ -51,13 +56,13 @@ export class ListComponent implements OnInit {
     this.subscription = this.workshops$.subscribe(workshops => {
       
       workshops
-        .filter(workshop => workshop.description || false)
+/*         .filter(workshop => workshop.description || false)
         .filter(workshop => workshop.description.file || false)
         .filter(
           workshop =>
             workshop.description.status == LoadingStatus.notloaded ||
             !workshop.description.status
-        )
+        ) */
         .map((workshop, index) => {
           if (!this.tempStore.some(e => e === workshop.id)) {
             //console.log(workshop);
@@ -89,7 +94,7 @@ export class ListComponent implements OnInit {
     return workshop.metadata
       ? workshop.metadata.data
         ? workshop.metadata.data.name
-        : false
+        : "loading..."
       : workshop.name
   }
 
@@ -104,26 +109,10 @@ export class ListComponent implements OnInit {
 
   isOpen(workshop: Workshop) {
     let isOpen = false
-    const description = this.getdescription(workshop)
-    if (description) {
-      const len = description.split(/\r\n|\r|\n/).length
-      if (len < 10) {
-        return true
-      }
-    }
     this.query
       .selectUIisOpenEntity(workshop.id)
       .subscribe(val => (isOpen = val || false))
     return isOpen
-  }
-
-  showMore(workshop: Workshop) {
-    const description = this.getdescription(workshop)
-    if (description) {
-      const len = description.split(/\r\n|\r|\n/).length
-      return !(len < 10)
-    }
-    return false
   }
 
   toggleDescriptionUI(workshop: Workshop) {
