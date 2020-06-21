@@ -1,9 +1,11 @@
 
 
 .description-collapsed{
-    max-height: 0px;
+    height: 0px;
     overflow: hidden;
     word-wrap: break-word;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 .tag{

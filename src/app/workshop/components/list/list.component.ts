@@ -75,10 +75,16 @@ export class ListComponent implements OnInit {
   }
 
   getlevel(workshop: Workshop) {
+
+    const workshoplevels = new Map<string, string>();
+
+    workshoplevels.set("1", "beginner"); 
+    workshoplevels.set("2", "intermediate");
+    workshoplevels.set("3", "advanced");
     //    console.log("get level",workshop);
     return workshop.metadata
       ? workshop.metadata.data
-        ? workshop.metadata.data.level
+        ? workshoplevels.get(workshop.metadata.data.level.toString())
         : false
       : false
   }

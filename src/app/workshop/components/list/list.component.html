@@ -29,18 +29,20 @@
         <fa-icon [icon]="playIcon"></fa-icon>
       </a>
       <div
-        class="container-fluid bg-light"
+        class="container-fluid bg-light pt-3 mt-2"
         [ngClass]="{ 'description-collapsed': !isOpen(workshop) }"
       >
-        <p *ngIf="getlevel(workshop)" class="pt-2">
+
+      
+        <p *ngIf="getlevel(workshop)" class="tag pt-2 pr-1 font-weight-bold small">
           {{ getlevel(workshop) }}
         </p>
 
-        <div *ngIf="gettags(workshop)">
-          <p class="tag pr-1" *ngFor="let tag of gettags(workshop)">
+        <span *ngIf="gettags(workshop)">
+          <p class="tag pr-1 font-weight-bold small"  *ngFor="let tag of gettags(workshop)">
             {{ tag }}
           </p>
-        </div>
+        </span>
         <div class="d-none" *ngIf="workshop.steps">
           {{ workshop.steps.length }} step(s)
         </div>
@@ -55,6 +57,7 @@
         </div>
         <div class="actions"></div>
       </div>
+      <hr>
     </div>
   </div>
 </div>
