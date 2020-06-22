@@ -14,6 +14,7 @@ import { unwatchFile } from 'fs'
 })
 export class WorkshopserviceService {
   private workshopsloaded = []
+  private workshopsloading = []
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
@@ -54,21 +55,32 @@ export class WorkshopserviceService {
     }
   }
 
+  setworkshoploading(workshop:Workshop){
+    this.workshopsloading.push(workshop.id)
+  }
+
+  getworkshopisloading(workshop:Workshop){
+    return this.workshopsloading.indexOf(workshop.id)>-1
+  }
+
   private _allitemsloaded = new BehaviorSubject<boolean>(false);
   allitemsloaded$ = this._allitemsloaded.asObservable();
   resetWorksShopsLoaded(){
+    //console.log("reset workshop list");
     this.workshopsloaded = []
+    this.workshopsloading = []
+    this._allitemsloaded.next(this.workshopsloaded.length >= this.query.getCount())
   }
 
   addworkShopToLoaded(workshop: Workshop){
-    this.workshopsloaded.push(workshop)
-    this._allitemsloaded.next(this.workshopsloaded.length == this.query.getCount())
-    console.log(this.workshopsloaded.length)
+    this.workshopsloaded.push(workshop.id)
+    this._allitemsloaded.next(this.workshopsloaded.length >= this.query.getCount())
+    //console.log(this.workshopsloaded.length, this.query.getCount())
   }
 
   getMetaData(workshop: Workshop) {
-    console.log("get meta data",workshop);
-    
+    //console.log("get meta data",workshop);
+    if (this.workshopsloaded.some(e => e === workshop.id)) return true;
     if(!workshop.metadata){
       console.log("no files to load");
       this.addworkShopToLoaded(workshop)

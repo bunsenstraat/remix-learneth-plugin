@@ -52,13 +52,13 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.toastr.clear() // clear all notifications
-    this.service.resetWorksShopsLoaded()
+
     this.workshops$ = this.query.selectAll()
 
     this.isVisible$ = this.service.allitemsloaded$
     
     this.service.allitemsloaded$.subscribe(result => {
-      console.log(" all items loaded ", result);
+      //console.log(" all items loaded ", result);
       (!result)?this.spinner.show():this.spinner.hide()
     })
 
@@ -73,9 +73,8 @@ export class ListComponent implements OnInit {
             !workshop.description.status
         ) */
         .map((workshop, index) => {
-          if (!this.tempStore.some(e => e === workshop.id)) {
-            //console.log(workshop);
-            this.tempStore.push(workshop.id)
+          if (!this.service.getworkshopisloading(workshop)) {
+            this.service.setworkshoploading(workshop)
             this.service.getDescription(workshop)
             this.service.getMetaData(workshop)
           }

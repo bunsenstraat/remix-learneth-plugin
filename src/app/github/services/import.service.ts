@@ -28,7 +28,7 @@ export class ImportService {
   ) {}
 
   async loadcontent(github: github) {
-    this.workshopService.resetWorksShopsLoaded()
+   
     const message = `${github.name}/${github.branch}`
     const githubname = encodeURIComponent(github.name)
     const url =
@@ -56,7 +56,8 @@ export class ImportService {
             datemodified: initialState.datemodified,
             data: initialState
           }
-
+          console.log("loaded ",url)
+          this.workshopService.resetWorksShopsLoaded()
           this.workshopstore.set(initialState)
           this.toastr.remove(tid)
           this.spinner.hide()
@@ -80,7 +81,7 @@ export class ImportService {
 
   addGitHubToStore(github: github) {
     let searchitem: Array<github>
-
+    
     this.githubquery.selectAll().subscribe(githubs => {
       searchitem = githubs.filter(
         item => item.name == github.name && item.branch == github.branch
