@@ -6,7 +6,7 @@
 </div>
 <div #top></div>
 <div *ngIf="workshop$ | async as workshop">
-  <h1 class="p-3 menuspacer">{{ workshop.name }}</h1>
+  <h1 class="pl-3 pr-3 pt-2 pb-1 menuspacer">{{ workshop.name }}</h1>
   <div class="container-fluid">
     
     <markdown [data]="workshop.text"></markdown>

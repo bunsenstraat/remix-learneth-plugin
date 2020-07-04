@@ -10,9 +10,9 @@
   <ng-container *ngIf="errorLoadingFile">
     
     <div class="errorloadingspacer"></div>
-    <h1 class="pl-3 pr-3 pt-3">{{ getname(step) }}</h1>
+    <h1 class="pl-3 pr-3 pt-3 pb-1">{{ getname(step) }}</h1>
     <button
-      class="w-100nav-item rounded-0 nav-link btn btn-warning test"
+      class="w-100nav-item rounded-0 nav-link btn btn-success test"
       (click)="loadfile(step)"
     >
       Load the file
@@ -21,7 +21,7 @@
   </ng-container>
   <ng-container *ngIf="!errorLoadingFile">
     <div class="menuspacer"></div>
-    <h1 class="pr-3 pl-3 pt-3">{{ getname(step) }}</h1>
+    <h1 class="pr-3 pl-3 pt-3 pb-1">{{ getname(step) }}</h1>
   </ng-container>
   <div class="container-fluid">
     <markdown [data]="step.markdown.content"></markdown>
