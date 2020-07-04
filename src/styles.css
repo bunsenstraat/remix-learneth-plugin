@@ -2,14 +2,18 @@
 
 
 h1{
-    font-size: 1.2em !important;
-    font-weight: bold;
+    font-size: 1.2rem !important;
+    font-weight: 700;
 }
 h2{
-    font-size: 1em !important;
-    font-weight: bold;
+    font-size: 1rem !important;
+    font-weight: 700;
 }
 h3{
-    font-size: 1em !important;
+    font-size: 1rem !important;
+}
+
+p {
+    font-size: 0.9rem;
 }
 

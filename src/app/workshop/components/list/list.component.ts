@@ -88,9 +88,9 @@ export class ListComponent implements OnInit {
 
     const workshoplevels = new Map<string, string>();
 
-    workshoplevels.set("1", "beginner"); 
-    workshoplevels.set("2", "intermediate");
-    workshoplevels.set("3", "advanced");
+    workshoplevels.set("1", "Beginner"); 
+    workshoplevels.set("2", "Intermediate");
+    workshoplevels.set("3", "Advanced");
     //    console.log("get level",workshop);
     return workshop.metadata
       ? workshop.metadata.data

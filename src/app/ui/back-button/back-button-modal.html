@@ -1,0 +1,14 @@
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Leave tutorial</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Are you sure you want to leave the tutorial?</strong></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">No</button>
+    <button type="button" ngbAutofocus class="btn btn-success" (click)="modal.close('ok')">Yes</button>
+  </div>
+  

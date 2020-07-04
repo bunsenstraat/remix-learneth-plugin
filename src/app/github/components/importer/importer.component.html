@@ -1,8 +1,8 @@
 
-<div *ngIf="repoLoaded()" class="container-fluid mb-3 small">
-  Tutorials are loaded from:
-  <h4>{{loadedGithub().name}}</h4>
-  Date modified: {{loadedGithub().datemodified}}
+<div *ngIf="repoLoaded()" class="container-fluid mb-3 small mt-3">
+  Tutorials from:
+  <h4 class="mb-1">{{loadedGithub().name}}</h4>
+  <span class="">Date modified: {{loadedGithub().datemodified | date:'MMMM d, y, HH:mm' }}</span>
 </div>
 
 <div (click)="panelChange()" style="cursor: pointer;" class="container-fluid d-flex mb-3 small">

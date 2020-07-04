@@ -6,7 +6,15 @@ import { StepQuery, Step, StepStore, StepService } from 'src/app/step/+state';
 import { WorkshopQuery, Workshop } from 'src/app/workshop/+state';
 import { Observable } from 'rxjs';
 import { ID } from '@datorama/akita';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+@Component({
+  selector: 'ngbd-modal-confirm',
+  templateUrl: './back-button-modal.html',
+})
+export class NgbdModalConfirm {
+  constructor(public modal: NgbActiveModal) {}
+}
 @Component({
   selector: 'back-button',
   templateUrl: './back-button.component.html',
@@ -31,6 +39,7 @@ export class BackButtonComponent implements OnInit {
     private store:StepStore,
     private router: Router,
     private route: ActivatedRoute,
+    private _modalService: NgbModal
   ) {}
   ngOnInit(): void {
     this.step$ = this.stepQuery.selectActive()
@@ -44,6 +53,20 @@ export class BackButtonComponent implements OnInit {
       this.stepService.loaded = false;
       this.router.navigate(['..', current - 1], { relativeTo: this.route })
     }
+  }
+
+  gohome(){
+    const ref:NgbModalRef = this._modalService.open(NgbdModalConfirm)
+    ref.result.then((data) => {
+      // on close
+      console.log("close",data, this.link)
+      if(data == "ok"){
+        this.router.navigate([this.link])
+      }
+    }, (reason) => {
+      // on dismiss
+      console.log("dismiss",reason)
+    });
   }
 
   isLast(id: ID) {

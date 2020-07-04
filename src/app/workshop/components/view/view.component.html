@@ -2,18 +2,16 @@
   <div class="bg-light">
     <back-button link="/workshops/list" showStep="false"></back-button>
   </div>
-  <div *ngIf="workshop$ | async as workshop">
-    <div class="btn-info rounded-0 title">
-      <h1 class="p-3">{{ workshop.name }}</h1>
-    </div>
-  </div>
+
 </div>
 <div #top></div>
 <div *ngIf="workshop$ | async as workshop">
-  <div class="container-fluid menuspacer">
+  <h1 class="p-3 menuspacer">{{ workshop.name }}</h1>
+  <div class="container-fluid">
+    
     <markdown [data]="workshop.text"></markdown>
   </div>
-  <article @slideIn class="list-group">
+  <article @slideIn class="list-group m-3">
     <ng-container *ngFor="let step of workshop.steps; let i = index">
       <a
         class="rounded-0 btn btn-light border-bottom text-left steplink"

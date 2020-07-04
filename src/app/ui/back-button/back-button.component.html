@@ -3,13 +3,13 @@
 >
   <ul class="nav mr-auto">
     <li class="nav-item">
-      <a class="btn back" [routerLink]="[link]" role="button">
+      <div class="btn back" (click)="gohome()" role="button" ngbTooltip="Leave tutorial">
         <fa-icon class="pl-1" [icon]="homeIcon"></fa-icon>
-      </a>
+      </div>
     </li>
     <ng-container *ngIf="showStep == 'true'">
       <li class="nav-item">
-        <a class="btn" routerLink="../..">
+        <a class="btn" routerLink="../.." ngbTooltip="Tutorial menu">
           <fa-icon [icon]="menuIcon"></fa-icon>
         </a>
       </li>
