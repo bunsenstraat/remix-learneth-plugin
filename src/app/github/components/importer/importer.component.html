@@ -34,7 +34,7 @@
 
     <form (ngSubmit)="sync()" #heroForm="ngForm">
       <div class="form-group">
-        <label class="mr-2" for="name">repo</label>
+        <label class="mr-2" for="name">REPO</label>
         <fa-icon [icon]="questionIcon" ngbTooltip="ie username/repository"></fa-icon>
         <input type="text" class="form-control" id="name" required (ngModelChange)="onChangeName($event)"
           [(ngModel)]="model.name" name="name" #name="ngModel">
@@ -42,7 +42,7 @@
           Repo is required
         </div>
 
-        <label for="branch">branch</label>
+        <label for="branch">BRANCH</label>
         <input type="text" class="form-control" id="branch" required [(ngModel)]="model.branch" name="branch"
           #branch="ngModel">
         <div [hidden]="branch.valid || branch.pristine" class="alert alert-danger">

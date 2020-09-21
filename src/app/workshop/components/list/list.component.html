@@ -34,13 +34,13 @@
       >
 
       
-        <p *ngIf="getlevel(workshop)" class="tag pt-2 pr-1 font-weight-bold small">
-          {{ getlevel(workshop) | uppercase }}
+        <p *ngIf="getlevel(workshop)" class="tag pt-2 pr-1 font-weight-bold small text-uppercase">
+          {{ getlevel(workshop) }}
         </p>
 
         <span *ngIf="gettags(workshop)">
-          <p class="tag pr-1 font-weight-bold small"  *ngFor="let tag of gettags(workshop)">
-            {{ tag | uppercase }}
+          <p class="tag pr-1 font-weight-bold small text-uppercase"  *ngFor="let tag of gettags(workshop)">
+            {{ tag }}
           </p>
         </span>
         <div class="d-none" *ngIf="workshop.steps">

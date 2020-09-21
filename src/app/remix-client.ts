@@ -3,7 +3,8 @@ import {
   createIframeClient,
   IRemixApi,
   PluginApi,
-  PluginClient
+  PluginClient,
+  connectIframe
 } from '@remixproject/plugin'
 
 interface IRemixIDE extends IRemixApi {}

@@ -29,6 +29,7 @@ export class StepService {
   ) {}
 
   async get(index: number, step: Step) {
+    
     this.store.setLoading(true)
     this.store.upsert(index, {
       ...step,
@@ -44,12 +45,24 @@ export class StepService {
     step = this.query.getEntity(index)
 
     const [markdown, solidity, test, answer, js, vy] = await Promise.all([
-      this.remix.call('contentImport', 'resolve', step.markdown.file),
-      this.remix.call('contentImport', 'resolve', step.solidity.file),
-      this.remix.call('contentImport', 'resolve', step.test.file),
-      this.remix.call('contentImport', 'resolve', step.answer.file),
-      this.remix.call('contentImport', 'resolve', step.js.file),
-      this.remix.call('contentImport', 'resolve', step.vy.file),
+      this.remix.call('contentImport', 'resolve', step.markdown.file).catch(error => { 
+        console.error(error.message)
+      }),
+      this.remix.call('contentImport', 'resolve', step.solidity.file).catch(error => { 
+        console.error(error.message)
+      }),
+      this.remix.call('contentImport', 'resolve', step.test.file).catch(error => { 
+        console.error(error.message)
+      }),
+      this.remix.call('contentImport', 'resolve', step.answer.file).catch(error => { 
+        console.error(error.message)
+      }),
+      this.remix.call('contentImport', 'resolve', step.js.file).catch(error => { 
+        console.error(error.message)
+      }),
+      this.remix.call('contentImport', 'resolve', step.vy.file).catch(error => { 
+        console.error(error.message)
+      }),
     ])
 
     this.store.upsert(index, {
