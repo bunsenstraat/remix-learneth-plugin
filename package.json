@@ -24,7 +24,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@mojs/core": "^0.288.2",
-    "@ng-bootstrap/ng-bootstrap": "latest",
+    "@ng-bootstrap/ng-bootstrap": "~7.0.0",
     "@remixproject/plugin-iframe": "^0.3.0-beta.3",
     "angular-animations": "0.0.10",
     "fs": "0.0.1-security",
