@@ -4,10 +4,10 @@ import { ID } from '@datorama/akita'
 import { PluginClient } from '@remixproject/plugin'
 import { ToastrService } from 'ngx-toastr'
 import { REMIX } from 'src/app/remix-client'
-import YAML from 'yaml'
+import * as YAML from 'yaml'
 import { LoadingStatus, Workshop, WorkshopQuery, WorkshopStore } from '../+state'
 import { Observable, of, BehaviorSubject } from 'rxjs'
-import { unwatchFile } from 'fs'
+
 
 @Injectable({
   providedIn: 'root'

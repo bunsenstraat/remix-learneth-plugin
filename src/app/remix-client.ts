@@ -1,21 +1,14 @@
 import { InjectionToken } from '@angular/core'
-import {
-  createIframeClient,
-  IRemixApi,
-  PluginApi,
-  PluginClient,
-  connectIframe
-} from '@remixproject/plugin'
+import { PluginClient } from '@remixproject/plugin';
+import { createClient } from '@remixproject/plugin-iframe';
+import { EventManager } from '@angular/platform-browser';
+export class RemixClient  {
 
-interface IRemixIDE extends IRemixApi {}
-
-export type RemixIDE = Readonly<IRemixIDE>
-
-export type RemixClient = PluginClient<any, RemixIDE> & PluginApi<RemixIDE>
+}
 
 export const REMIX = new InjectionToken<RemixClient>('Remix client', {
   providedIn: 'root',
   factory: () => {
-    return createIframeClient()
+    return new RemixClient()
   }
 })

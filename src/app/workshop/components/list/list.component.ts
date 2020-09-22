@@ -18,7 +18,6 @@ import {
 import { slideInY } from '../../../ui/animations'
 import { WorkshopserviceService } from '../../services/workshop.service'
 import { faAngleRight, faAngleDown, faPlayCircle } from '@fortawesome/free-solid-svg-icons'
-import { runInThisContext } from 'vm'
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
