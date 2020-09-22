@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router'
 import { ID } from '@datorama/akita'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { UnitTestError } from '@remixproject/plugin'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { ToastrService } from 'ngx-toastr'
 import { Observable } from 'rxjs'
@@ -22,8 +21,8 @@ import { Step, StepQuery, StepService, StepStore } from '../+state'
   encapsulation: ViewEncapsulation.None,
 })
 export class StepViewComponent implements OnInit {
-  @ViewChild('errors', { static: false }) errorDiv: ElementRef
-  @ViewChild('top', { static: false }) topDiv: ElementRef
+  @ViewChild('errors') errorDiv: ElementRef
+  @ViewChild('top') topDiv: ElementRef
 
   menuIcon = faBars
   step$: Observable<Step>

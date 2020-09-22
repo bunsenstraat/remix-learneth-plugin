@@ -30,7 +30,7 @@ const slideIn = trigger('slideIn', [
   animations: [slideIn],
 })
 export class WorkshopViewComponent implements OnInit, AfterViewInit {
-  @ViewChild('top', { static: false }) topDiv: ElementRef
+  @ViewChild('top') topDiv: ElementRef
   workshop$: Observable<Workshop>
   currentIndex$: Observable<number>
 
