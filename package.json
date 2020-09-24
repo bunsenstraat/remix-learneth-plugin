@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "~10.1.2",
     "@angular/animations": "~10.1.2",
     "@angular/common": "~10.1.2",
     "@angular/compiler": "~10.1.2",
@@ -25,7 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@mojs/core": "^0.288.2",
     "@ng-bootstrap/ng-bootstrap": "~7.0.0",
-    "@remixproject/plugin-iframe": "^0.3.0-beta.10",
+    "@remixproject/plugin": "^0.1.9",
     "angular-animations": "0.0.10",
     "fs": "0.0.1-security",
     "memo-decorator": "^1.0.2",

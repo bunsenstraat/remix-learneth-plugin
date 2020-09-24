@@ -14,6 +14,7 @@ export interface WorkShopMetaData {
   level?: number
   name?: string
   summary?: string
+  id?: string
 }
 
 export interface Workshop {

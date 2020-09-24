@@ -8,8 +8,7 @@ import { github } from '../+state'
 import { GitHubQuery } from '../+state/github.query'
 import { GitHubStore } from '../+state/github.store'
 import { WorkshopState, WorkshopStore } from '../../workshop/+state'
-import { PluginClient } from '@remixproject/plugin'
-import { REMIX } from 'src/app/remix-client'
+import { REMIX, RemixClient } from 'src/app/remix-client'
 import { WorkshopserviceService } from 'src/app/workshop/services/workshop.service'
 
 @Injectable({
@@ -24,8 +23,14 @@ export class ImportService {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private workshopService: WorkshopserviceService,
-    @Inject(REMIX) private remix: PluginClient
-  ) {}
+    @Inject(REMIX) private remix: RemixClient
+  ) {
+    this.remix.loadRepoObservable.subscribe( data =>{
+      console.log("loading repo in service",data.name);
+      if(data.name != "")
+      this.loadcontent(data).then(()=>console.log("repo loaded"));
+    });
+  }
 
   async loadcontent(github: github) {
    

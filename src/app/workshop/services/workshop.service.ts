@@ -109,7 +109,7 @@ export class WorkshopserviceService {
               }
             }
             if(!newdata.metadata.data){newdata.metadata.data = {name:newdata.name}}
-           // console.log("incoming metadata", newdata, workshop);
+            console.log("incoming metadata", newdata, workshop);
             this.store.upsert(workshop.id, newdata)
             this.addworkShopToLoaded(workshop)
           })
