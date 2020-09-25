@@ -41,8 +41,9 @@ export class ImporterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (!this.githubstore._value().active || typeof this.githubstore._value().active=="undefined") this.selectfirst()
+    //if (!this.githubstore._value().active || typeof this.githubstore._value().active=="undefined") this.selectfirst()
 
+    
     //console.log(this.githubstore._value().active)
     
     this.githubquery

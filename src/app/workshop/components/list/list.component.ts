@@ -54,31 +54,11 @@ export class ListComponent implements OnInit {
 
     this.workshops$ = this.query.selectAll()
 
-    this.isVisible$ = this.service.allitemsloaded$
-    
-    this.service.allitemsloaded$.subscribe(result => {
-      //console.log(" all items loaded ", result);
-      (!result)?this.spinner.show():this.spinner.hide()
+    this.subscription = this.workshops$.subscribe(workshops => {
+      console.log(workshops)
     })
 
-    this.subscription = this.workshops$.subscribe(workshops => {
-      
-      workshops
-/*         .filter(workshop => workshop.description || false)
-        .filter(workshop => workshop.description.file || false)
-        .filter(
-          workshop =>
-            workshop.description.status == LoadingStatus.notloaded ||
-            !workshop.description.status
-        ) */
-        .map((workshop, index) => {
-          if (!this.service.getworkshopisloading(workshop)) {
-            this.service.setworkshoploading(workshop)
-            this.service.getDescription(workshop)
-            this.service.getMetaData(workshop)
-          }
-        })
-    })
+
   }
 
 
@@ -90,7 +70,7 @@ export class ListComponent implements OnInit {
     workshoplevels.set("1", "Beginner"); 
     workshoplevels.set("2", "Intermediate");
     workshoplevels.set("3", "Advanced");
-    //    console.log("get level",workshop);
+   // console.log("get level",workshop);
     return workshop.metadata
       ? workshop.metadata.data
         ? workshoplevels.get(workshop.metadata.data.level.toString())
@@ -106,20 +86,13 @@ export class ListComponent implements OnInit {
   }
 
   getname(workshop: Workshop) {
-    return workshop.metadata
-      ? workshop.metadata.data
-        ? workshop.metadata.data.name
-        : "loading..."
-      : workshop.name
+    return workshop.name
   }
 
   getdescription(workshop: Workshop) {
-    //console.log(workshop);
-    return workshop.metadata
-      ? workshop.metadata.data
-        ? workshop.metadata.data.summary
-        : false
-      : workshop.text
+    return workshop.description
+      ? workshop.description.content
+      : false
   }
 
   isOpen(workshop: Workshop) {

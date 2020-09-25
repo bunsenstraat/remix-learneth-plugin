@@ -4,17 +4,21 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from 'src/environments/environment'
 import { v4 as uuid } from 'uuid'
-import { github } from '../+state'
+import { github, scriptrunnerCommand } from '../+state'
 import { GitHubQuery } from '../+state/github.query'
 import { GitHubStore } from '../+state/github.store'
-import { WorkshopState, WorkshopStore } from '../../workshop/+state'
+import { Workshop, WorkshopQuery, WorkshopState, WorkshopStore } from '../../workshop/+state'
 import { REMIX, RemixClient } from 'src/app/remix-client'
 import { WorkshopserviceService } from 'src/app/workshop/services/workshop.service'
+import { Route } from '@angular/compiler/src/core'
+import { Router } from '@angular/router'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImportService {
+  
   constructor(
     private githubquery: GitHubQuery,
     private githubstore: GitHubStore,
@@ -23,12 +27,24 @@ export class ImportService {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private workshopService: WorkshopserviceService,
+    private workshopQuery:WorkshopQuery,
+    private router:Router,
     @Inject(REMIX) private remix: RemixClient
   ) {
     this.remix.loadRepoObservable.subscribe( data =>{
       console.log("loading repo in service",data.name);
       if(data.name != "")
       this.loadcontent(data).then(()=>console.log("repo loaded"));
+      this.router.navigate(['/workshops'])
+    });
+    this.remix.startTutorialObservable.subscribe( data =>{
+      console.log("loading repo in service",data.name);
+      if(data.name != "")
+      this.loadcontent(data).then(()=>
+        {
+          console.log("repo loaded, get tutorial", data.id)
+          this.startTutorial(data);
+        });
     });
   }
 
@@ -61,8 +77,8 @@ export class ImportService {
             datemodified: initialState.datemodified,
             data: initialState
           }
-          console.log("loaded ",url)
-          this.workshopService.resetWorksShopsLoaded()
+          console.log("loaded ",url, initialState)
+          //this.workshopService.resetWorksShopsLoaded()
           this.workshopstore.set(initialState)
           this.toastr.remove(tid)
           this.spinner.hide()
@@ -99,5 +115,27 @@ export class ImportService {
     this.githubstore.upsert(github.id, { ...github })
     this.githubstore.setActive(github.id)
     this.githubquery.setUIisClosed(github.id)
+  }
+
+  startTutorial(command:scriptrunnerCommand){
+    console.log("startTutorial", command);
+    this.workshopQuery.selectAll().subscribe((workshops)=>{
+        workshops.map((workshop,index)=>{
+          if(typeof command.id == "number"){
+            if(index+1 == command.id){
+              console.log("start it",workshop)
+              this.router.navigate(['/workshops', workshop.id])
+            }
+          }else{
+          if(workshop.metadata){
+            if(workshop.metadata.data.id == command.id){
+              console.log("start it",workshop.metadata.data.id)
+              this.router.navigate(['/workshops', workshop.id])
+            }
+          }
+        }
+        })
+      
+    }).unsubscribe()
   }
 }

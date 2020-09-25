@@ -2,18 +2,18 @@ import { InjectionToken, Injectable } from '@angular/core'
 import { connectIframe, PluginClient, listenOnThemeChanged } from '@remixproject/plugin'
 import { EventManager } from '@angular/platform-browser';
 import { ImportService } from './github/services/import.service'
-import { github } from './github/+state';
+import { github, scriptrunnerCommand } from './github/+state';
 import { GithubModule } from './github/github.module';
 import { inject } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RemixClient extends PluginClient {
-  private _loadRepoAction = new BehaviorSubject<github>({name:"", branch:"",id:""});
-  private __startTutorialAction = new BehaviorSubject<github>({name:"", branch:"",id:""});
+  private _loadRepoAction = new BehaviorSubject<scriptrunnerCommand>({name:"", branch:"",id:""});
+  private _startTutorialAction = new BehaviorSubject<scriptrunnerCommand>({name:"", branch:"",id:""});
 
   loadRepoObservable = this._loadRepoAction.asObservable();
-  startTutorialObservable = this._loadRepoAction.asObservable();
+  startTutorialObservable = this._startTutorialAction.asObservable();
 
   constructor() {
    
@@ -24,9 +24,9 @@ export class RemixClient extends PluginClient {
     listenOnThemeChanged(this);
     this.onload().then(()=>{console.log("client loaded")})  
     }
-  startTutorial(repoName:String, branch:String, id:String):void{
-       console.log("load repo", repoName, branch, id);
-       
+    startTutorial(repoName,branch,id):void{
+       console.log("start tutorial", repoName, branch, id)
+       this._startTutorialAction.next({name:repoName,branch:branch,id:id})    
    } 
    addRepository(repoName, branch){
     console.log("add repo", repoName, branch);

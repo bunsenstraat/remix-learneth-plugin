@@ -1,5 +1,5 @@
 <app-importer></app-importer>
-<div *ngIf="isVisible$ | async" class="container-fluid">
+<div class="container-fluid">
   <div @slideIn>
     <div *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
       <a
