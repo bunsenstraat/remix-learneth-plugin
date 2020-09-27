@@ -40,8 +40,11 @@ tags:
   - solidity
   - beginner
 ```
+
 Level: a level of difficulty indicator ( 1 - 5 )
+
 Tags: an array of tags
+
 id: this is used by the system to let REMIX call startTutorial(repo,branch,id). See below for more instructions.
 
 ### Steps
