@@ -120,6 +120,18 @@
         Back to workshops
       </button>
     </footer>  -->
+    <nav class="nav nav-pills nav-fill">
+      <ng-container *ngIf="!(isLoading$ | async) && !errorLoadingFile">
+        <ng-container *ngIf="step.answer.file">
+          <button
+            class="nav-item rounded-0 nav-link btn btn-warning test"
+            (click)="answer(step)"
+          >
+            Show answer
+          </button>
+        </ng-container>
+      </ng-container>
+    </nav>
     <button
       *ngIf="!isLast(step.id)"
       class="w-100 btn btn-success"
