@@ -50,6 +50,11 @@ export class ImporterComponent implements OnInit {
       .selectFirst()
       .subscribe(gh => (typeof gh == 'undefined' ? this.resetall() : false))
 
+    if(this.workshopquery.getCount() == 0){
+      console.log("nothing is loaded. Getting first repo");
+      this.resetall();
+    }
+
     this.githubquery.selectActive().subscribe(github => {
       this.model = { ...github }
     })
