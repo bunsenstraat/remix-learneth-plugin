@@ -32,6 +32,7 @@ The readme in each directry contains an explanation of what the workshop is abou
 This config file contains meta data describing some properties of your workshop, for example
 ```
 --- 
+id: someid
 name: my workshop name
 summary: something about this workshop
 level: 4
@@ -41,6 +42,7 @@ tags:
 ```
 Level: a level of difficulty indicator ( 1 - 5 )
 Tags: an array of tags
+id: this is used by the system to let REMIX call startTutorial(repo,branch,id). See below for more instructions.
 
 ### Steps
 Each workshop contains what we call steps. 
