@@ -52,6 +52,12 @@
     }
     })()
     ```
+    
+    Then call this in the REMIX console
+    
+    ```
+    remix.exeCurrent()
+    ```
 
 ### Changed
 - The answer file will always be shown, even if there is no test file.
