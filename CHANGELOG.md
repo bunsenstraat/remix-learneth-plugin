@@ -17,6 +17,7 @@
     You don't need to add a seperate addRepository before calling startTutorial, this call will also add the repo.
 
     *Parameters*
+    
     id: this can be two things:
     - type of number, it specifies the n-th tutorial in the list
     - type of string, this refers to the ID parameter in the config.yml file in the tutorial
@@ -44,7 +45,7 @@
         // You don't need to add a seperate addRepository before calling startTutorial, this is just an example
         remix.call('LearnEth', 'addRepository', "ethereum/remix-workshops", "master")
         remix.call('LearnEth', 'startTutorial', "ethereum/remix-workshops", "master", "basics")
-        
+        remix.call('LearnEth', 'startTutorial', "ethereum/remix-workshops", "master", 2)
     } catch (e) {
        console.log(e.message)
     }
