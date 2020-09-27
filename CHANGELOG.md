@@ -13,6 +13,10 @@
     ```
 
     ### Start a tutorial
+    
+    ```
+    startTutorial(repoName,branch,id)
+    ```
 
     You don't need to add a seperate addRepository before calling startTutorial, this call will also add the repo.
 
@@ -33,9 +37,6 @@
         - solidity
     ```
 
-    ```
-    startTutorial(repoName,branch,id)
-    ```
 
     ### How to call these functions in the REMIX IDE
 
