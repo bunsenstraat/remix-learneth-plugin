@@ -81,8 +81,12 @@ export class ImporterComponent implements OnInit {
   resetall() {
     //console.log('reset')
     this.githubquery.reset()
-    const storage = persistState()
-    storage.clearStore()
+    try{
+      const storage = persistState()
+      storage.clearStore()
+    }catch(e){
+
+    }
     this.selectfirst()
   }
 

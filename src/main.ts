@@ -17,7 +17,12 @@ console.clear();
 if (environment.production) {
   enableProdMode();
 }
-persistState();
+try{
+  persistState();
+}catch(e){
+
+}
+
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
