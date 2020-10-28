@@ -11,7 +11,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cli": "~10.1.2",
     "@angular/animations": "~10.1.2",
     "@angular/common": "~10.1.2",
     "@angular/compiler": "~10.1.2",
@@ -26,7 +25,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@mojs/core": "^0.288.2",
     "@ng-bootstrap/ng-bootstrap": "~7.0.0",
-    "@remixproject/plugin": "^0.1.9",
+    "@remixproject/plugin-webview": "^0.3.0",
     "angular-animations": "0.0.10",
     "fs": "0.0.1-security",
     "memo-decorator": "^1.0.2",
@@ -43,7 +42,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.2",
-    "@angular/cli": "^10.1.2",
+    "@angular/cli": "^10.1.7",
     "@angular/compiler-cli": "~10.1.2",
     "@angular/language-service": "~10.1.2",
     "@datorama/akita-ngdevtools": "^3.0.2",

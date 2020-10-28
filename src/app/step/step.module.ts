@@ -27,7 +27,7 @@ import { BackButtonModule } from '../ui/back-button/back-button.module'
       {
         path: ':stepId',
         canActivate: [StepGuard],
-        component: StepViewComponent
+        component: StepViewComponent,
       }
     ])
   ]

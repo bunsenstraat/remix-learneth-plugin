@@ -1,5 +1,6 @@
 import { InjectionToken, Injectable } from '@angular/core'
-import { connectIframe, PluginClient, listenOnThemeChanged } from '@remixproject/plugin'
+import { PluginClient } from '@remixproject/plugin'
+import { createClient } from '@remixproject/plugin-webview'
 import { EventManager } from '@angular/platform-browser';
 import { ImportService } from './github/services/import.service'
 import { github, scriptrunnerCommand } from './github/+state';
@@ -20,9 +21,13 @@ export class RemixClient extends PluginClient {
     super();
     console.log("remix client created");
     this.methods = ["startTutorial","addRepository"];
-    connectIframe(this);
-    listenOnThemeChanged(this);
-    this.onload().then(()=>{console.log("client loaded")})  
+    //this.options.allowOrigins = null;
+    this.options.devMode = null
+    const client = createClient(this);
+    
+    console.log(this.options);
+    //listenOnThemeChanged(this);
+    client.onload().then(()=>{console.log("client loaded")})  
     }
     startTutorial(repoName,branch,id):void{
        console.log("start tutorial", repoName, branch, id)

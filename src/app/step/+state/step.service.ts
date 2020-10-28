@@ -3,6 +3,7 @@ import { ID } from '@datorama/akita'
 import { PluginClient } from '@remixproject/plugin'
 import { NgxSpinnerService } from 'ngx-spinner'
 import { ToastrService } from 'ngx-toastr'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { REMIX } from 'src/app/remix-client'
 import { WorkshopQuery } from 'src/app/workshop/+state'
 import { Step } from './step.model'
@@ -18,6 +19,7 @@ function getFilePath(file: string): string {
 @Injectable({ providedIn: 'root' })
 export class StepService {
   public loaded: boolean = false
+  public status: BehaviorSubject<string> = new BehaviorSubject('loading');
 
   constructor(
     @Inject(REMIX) private remix: PluginClient,
@@ -64,6 +66,8 @@ export class StepService {
         console.error(error.message)
       }),
     ])
+
+    
 
     this.store.upsert(index, {
       ...step,
@@ -238,5 +242,13 @@ export class StepService {
 
   remove(id: ID) {
     this.store.remove(id)
+  }
+
+  public getStatus(): Observable<string> {
+    return this.status.asObservable();
+  }
+
+  public setStatus(n:string){
+    this.status.next(n)
   }
 }

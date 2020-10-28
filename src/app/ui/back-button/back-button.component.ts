@@ -51,6 +51,7 @@ export class BackButtonComponent implements OnInit {
     const current = this.stepQuery.getActiveId()
     if (current !== 0) {
       this.stepService.loaded = false;
+      this.stepService.setStatus("refresh")
       this.router.navigate(['..', current - 1], { relativeTo: this.route })
     }
   }
@@ -85,12 +86,14 @@ export class BackButtonComponent implements OnInit {
       this.store.update({ loading: true, success: false, error: null })
       const current = this.stepQuery.getActiveId()
       const isLast = this.stepQuery.getCount() === current + 1
-      const path = isLast ? ['../../view'] : ['..', current + 1]
+      const path = isLast ? ['../../view'] : ['..', current + 1 ]
       if (!this.stepQuery.getActive().test && !isLast) {
         this.stepService.next()
       }
       console.log('go to', path, this.stepQuery.getCount(), isLast, current)
       this.stepService.loaded = false;
+      console.log(this.router.url)
+      this.stepService.setStatus("refresh")
       await this.router.navigate(path, { relativeTo: this.route })
     } catch (err) {
       console.log('Cannot go next', err)
