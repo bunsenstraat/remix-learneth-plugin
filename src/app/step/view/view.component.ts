@@ -106,7 +106,7 @@ export class StepViewComponent implements OnInit {
             if (typeof this.errorDiv != 'undefined') {
               divToScrollTo = this.errorDiv
               
-              document.getElementById("errors").scrollIntoView();
+              setTimeout(()=>{document.getElementById("errors").scrollIntoView();},500);
             }
         try {
           console.log(divToScrollTo.nativeElement)
@@ -122,7 +122,11 @@ export class StepViewComponent implements OnInit {
   checkScroll() {
 
     let divToScrollTo: ElementRef = this.topDiv
-    divToScrollTo.nativeElement.scrollIntoView()
+    try {
+      divToScrollTo.nativeElement.scrollIntoView()
+    }catch(e){
+
+    }
   }
 
   ngAfterViewInit() {
