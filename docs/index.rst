@@ -32,6 +32,12 @@ For tutorial creators
 To create a new set of tutorials you will need to set up a new repository on github. You and your audience will then be able to import those tutorials
 into the plugin. Follow these instructions to structure your repository correctly.
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Creating tutorials:
+
+   setting_up_your_repository
+
 
 For Remix users
 ~~~~~~~~~~~~~~~
