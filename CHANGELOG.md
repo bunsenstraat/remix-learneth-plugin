@@ -1,5 +1,19 @@
 # Changelog
 
+## 2020-11-02
+
+### Added
+
+- When the plugin starts it will send a call to the Remix compiler with command 'getCompilationResult'
+If the command fails the compiler is not active and the user is prompted to activate it. They can check again
+after changing the settings.
+
+### changes
+
+- Date structure of the date modified
+- Sorting the workshops is not done by the Git API on name and or ID
+- scrolling issues
+
 ## 2020-09-27
 
 ### Added
