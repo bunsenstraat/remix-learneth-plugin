@@ -18,6 +18,7 @@ import {
 import { slideInY } from '../../../ui/animations'
 import { WorkshopserviceService } from '../../services/workshop.service'
 import { faAngleRight, faAngleDown, faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+import { PlugintesterserviceService } from 'src/app/remixide/plugintesterservice.service'
 
 const slideIn = trigger('slideIn', [
   transition(':enter', [
@@ -36,9 +37,12 @@ export class ListComponent implements OnInit {
   isVisible$:Observable<boolean>
   tempStore: string[] = []
   subscription: Subscription
+  
+
   public sortDown = faAngleRight
   public sortUp = faAngleDown
   public playIcon = faPlayCircle
+  public show:boolean = true
   
   constructor(
     private service: WorkshopserviceService,
@@ -46,7 +50,8 @@ export class ListComponent implements OnInit {
     private store: WorkshopStore,
     private http: HttpClient,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private plugintesterservice:PlugintesterserviceService
   ) {}
 
   ngOnInit() {
@@ -56,6 +61,10 @@ export class ListComponent implements OnInit {
 
     this.subscription = this.workshops$.subscribe(workshops => {
       console.log(workshops)
+    })
+
+    this.plugintesterservice.errors.subscribe((e)=>{
+      this.show = ( e.length == 0 )
     })
 
 

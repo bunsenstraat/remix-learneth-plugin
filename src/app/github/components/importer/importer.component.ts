@@ -17,6 +17,7 @@ import { GitHubQuery } from '../../+state/github.query'
 import { GitHubStore } from '../../+state/github.store'
 import { ImportService } from '../../services/import.service'
 import { persistState, Store } from '@datorama/akita'
+import { PlugintesterserviceService } from 'src/app/remixide/plugintesterservice.service'
 
 @Component({
   selector: 'app-importer',
@@ -31,13 +32,15 @@ export class ImporterComponent implements OnInit {
   public sortUp = faAngleDown
   public importIcon = faCloudDownloadAlt
   questionIcon = faQuestionCircle
+  public show:boolean = false
 
   constructor(
     private importservice: ImportService,
     private toastr: ToastrService,
     private githubstore: GitHubStore,
     private githubquery: GitHubQuery,
-    private workshopquery: WorkshopQuery
+    private workshopquery: WorkshopQuery,
+    private plugintesterservice:PlugintesterserviceService
   ) {}
 
   ngOnInit() {
@@ -59,6 +62,11 @@ export class ImporterComponent implements OnInit {
       this.model = { ...github }
     })
     this.repos$ = this.githubquery.selectAll()
+
+    this.plugintesterservice.errors.subscribe((e)=>{
+      this.show = ( e.length == 0 )
+    })
+
   }
   sync() {
     console.log('submit')

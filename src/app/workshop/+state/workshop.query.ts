@@ -10,8 +10,8 @@ import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
 @QueryConfig({
-  sortBy: 'name',
-  sortByOrder: Order.ASC // Order.DESC
+//  sortBy: 'name',
+//  sortByOrder: Order.ASC // Order.DESC
 })
 
 @Injectable({ providedIn: 'root' })

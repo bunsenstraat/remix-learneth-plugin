@@ -13,12 +13,15 @@ import { ListComponent } from './components/list/list.component'
 import { WorkshopViewComponent } from './components/view/view.component'
 import { WorkshopsRoutingModule } from './workshops-routing.module'
 import { WorkshopsComponent } from './workshops.component'
+import { RemixideModule } from '../remixide/remixide.module'
+import { PluginTesterComponent } from '../remixide/plugin-tester/plugin-tester.component'
 @NgModule({
   declarations: [
     WorkshopsComponent,
     ListComponent,
     WorkshopViewComponent,
-    ImporterComponent
+    ImporterComponent,
+    PluginTesterComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +34,8 @@ import { WorkshopsComponent } from './workshops.component'
     HttpClientModule,
     FontAwesomeModule,
     MarkdownModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    RemixideModule
   ]
 })
 export class WorkshopsModule {}

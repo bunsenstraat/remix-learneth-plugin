@@ -1,4 +1,6 @@
 <app-importer></app-importer>
+<app-plugin-tester></app-plugin-tester>
+<ng-container *ngIf="show">
 <div class="container-fluid">
   <div @slideIn>
     <div *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
@@ -61,4 +63,5 @@
     </div>
   </div>
 </div>
+</ng-container>
 <ngx-spinner></ngx-spinner>

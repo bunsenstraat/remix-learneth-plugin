@@ -27,16 +27,24 @@ export class RemixClient extends PluginClient {
     
     console.log(this.options);
     //listenOnThemeChanged(this);
-    client.onload().then(()=>{console.log("client loaded")})  
-    }
+    client.onload().then(()=>{
+      console.log("client loaded",this)
+
+      const testFile = `
+      
+      `;
+
+
+      
+    })}
     startTutorial(repoName,branch,id):void{
        console.log("start tutorial", repoName, branch, id)
        this._startTutorialAction.next({name:repoName,branch:branch,id:id})    
-   } 
-   addRepository(repoName, branch){
-    console.log("add repo", repoName, branch);
-    this._loadRepoAction.next({name:repoName,branch:branch,id:""})
-   }
+    } 
+    addRepository(repoName, branch){
+      console.log("add repo", repoName, branch);
+      this._loadRepoAction.next({name:repoName,branch:branch,id:""})
+    }
 
 
 

@@ -1,0 +1,15 @@
+<ng-container *ngIf="hasError">
+  <ng-container *ngIf="errors$ | async as errors">
+
+    <h4 class="container">
+      Please change your REMIX settings
+    </h4>
+
+    <div class="container" *ngFor="let error of errors">
+      <div [innerHTML]="error"></div>
+    </div>
+    <div class="container mt-3">
+      <div class="btn btn-primary" (click)="test()">Check settings</div>
+    </div>
+  </ng-container>
+</ng-container>
