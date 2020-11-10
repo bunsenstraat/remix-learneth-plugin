@@ -32,6 +32,7 @@ export interface Workshop {
     file?: string
     data?: WorkShopMetaData
   }
+  level?:number
 }
 
 export interface WorkshopLoader {

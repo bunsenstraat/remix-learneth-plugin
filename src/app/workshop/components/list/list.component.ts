@@ -37,7 +37,7 @@ export class ListComponent implements OnInit {
   isVisible$:Observable<boolean>
   tempStore: string[] = []
   subscription: Subscription
-  
+  workshoplevels = new Map<number, string>();
 
   public sortDown = faAngleRight
   public sortUp = faAngleDown
@@ -55,6 +55,11 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+    this.workshoplevels.set(1, "Beginner"); 
+    this.workshoplevels.set(2, "Intermediate");
+    this.workshoplevels.set(3, "Advanced");
+
     this.toastr.clear() // clear all notifications
 
     this.workshops$ = this.query.selectAll()
@@ -70,19 +75,32 @@ export class ListComponent implements OnInit {
 
   }
 
-
+  isNewLevelSection(i: number){
+    let condition = false
+    
+    
+    this.workshops$.subscribe(workshops => {
+      if(i == 0 && typeof this.workshoplevels.get(workshops[i].level)!="undefined" ){
+        condition = true
+      }
+      if(i > 0 && workshops[i-1].level != workshops[i].level && typeof this.workshoplevels.get(workshops[i].level)!="undefined" ){
+        
+        condition = true
+      }
+    })
+    return condition
+  }
 
   getlevel(workshop: Workshop) {
 
-    const workshoplevels = new Map<string, string>();
+     
 
-    workshoplevels.set("1", "Beginner"); 
-    workshoplevels.set("2", "Intermediate");
-    workshoplevels.set("3", "Advanced");
+
+    //workshoplevels.set("4", "Pro");
    // console.log("get level",workshop);
     return workshop.metadata
       ? workshop.metadata.data
-        ? workshoplevels.get(workshop.metadata.data.level.toString())
+        ? this.workshoplevels.get(workshop.level)
         : false
       : false
   }

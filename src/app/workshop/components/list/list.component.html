@@ -3,7 +3,12 @@
 <ng-container *ngIf="show">
 <div class="container-fluid">
   <div @slideIn>
-    <div *ngFor="let workshop of workshops$ | async; trackBy: trackByFn">
+    <div *ngFor="let workshop of workshops$ | async as workshops; trackBy: trackByFn; let i = index;">
+      
+      <div *ngIf="isNewLevelSection(i)" class="mb-2 border-bottom font-weight-bold small text-uppercase">
+        {{ getlevel(workshop) }}
+      </div>
+
       <a
         *ngIf="!isOpen(workshop)"
         [routerLink]=""
@@ -24,6 +29,7 @@
         (click)="toggleDescriptionUI(workshop)"
         >{{ getname(workshop) }}
       </a>
+
       <a
         class="text-decoration-none float-right"
         [routerLink]="['/workshops', workshop.id]"
@@ -59,7 +65,7 @@
         </div>
         <div class="actions"></div>
       </div>
-      <hr>
+      <div class="mb-3"></div>
     </div>
   </div>
 </div>

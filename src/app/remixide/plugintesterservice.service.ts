@@ -21,7 +21,7 @@ export class PlugintesterserviceService {
     this.errors.next([])
     this.remix.call('solidity', 'getCompilationResult').then((r)=>console.log(r)).catch((e)=>{
       //solidity compiler test failed
-      var m = "The `Solidity Compiler` is not yet activated.<br>Please activate it using the `SOLDITY` button in the `Featured Plugins` section of the homepage."
+      var m = "The `Solidity Compiler` is not yet activated.<br>Please activate it using the `SOLIDITY` button in the `Featured Plugins` section of the homepage."
       m += "<img class='img-thumbnail mt-3' src='assets/activatesolidity.png'>"
       this.errors.next([...this.errors.getValue(),m])
     }) 
