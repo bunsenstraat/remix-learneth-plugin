@@ -5,8 +5,8 @@
   <div @slideIn>
     <div *ngFor="let workshop of workshops$ | async as workshops; trackBy: trackByFn; let i = index;">
       
-      <div *ngIf="isNewLevelSection(i)" class="mb-2 border-bottom font-weight-bold small text-uppercase">
-        {{ getlevel(workshop) }}
+      <div *ngIf="isNewLevelSection(i)" class="mb-2 border-bottom small">
+        {{ getlevel(workshop) }}:
       </div>
 
       <a
