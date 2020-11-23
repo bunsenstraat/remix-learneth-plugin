@@ -87,7 +87,24 @@ export class StepViewComponent implements OnInit {
     this.success$ = this.query.select('success')
     this.query.select('success').subscribe((r) => {
       console.log('succes?', r)
-      this.checkScroll()
+      if (typeof this.topDiv != 'undefined') {
+        let divToScrollTo: ElementRef = this.topDiv
+
+
+        if (typeof this.errorDiv != 'undefined') {
+          divToScrollTo = this.errorDiv
+
+          setTimeout(() => {
+            document.getElementById("errors").scrollIntoView();
+          }, 500);
+        }
+        try {
+          console.log(divToScrollTo.nativeElement)
+          divToScrollTo.nativeElement.scrollIntoView()
+        } catch (e) {
+          console.log(e)
+        }
+      }
     })
     this.errors$ = this.query.selectError < UnitTestError[] > ()
     this.isLoading$ = this.query.selectLoading()
@@ -105,8 +122,10 @@ export class StepViewComponent implements OnInit {
           if (errors.length)
             if (typeof this.errorDiv != 'undefined') {
               divToScrollTo = this.errorDiv
-              
-              setTimeout(()=>{document.getElementById("errors").scrollIntoView();},500);
+
+              setTimeout(() => {
+                document.getElementById("errors").scrollIntoView();
+              }, 500);
             }
         try {
           console.log(divToScrollTo.nativeElement)
@@ -124,7 +143,7 @@ export class StepViewComponent implements OnInit {
     let divToScrollTo: ElementRef = this.topDiv
     try {
       divToScrollTo.nativeElement.scrollIntoView()
-    }catch(e){
+    } catch (e) {
 
     }
   }
