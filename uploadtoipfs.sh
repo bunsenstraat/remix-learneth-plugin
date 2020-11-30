@@ -1,0 +1,1 @@
+node tools/ipfs-upload/bin/upload-remix-plugin /Users/filipmertens/code/test/workshops-plugin/remix-workshops-plugin/dist/remix-workshops-plugin --profile-path /Users/filipmertens/code/test/workshops-plugin/remix-workshops-plugin

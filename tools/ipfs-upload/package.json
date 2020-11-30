@@ -1,0 +1,22 @@
+{
+  "name": "upload-remix-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Remix team",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^5.1.0",
+    "fs": "0.0.1-security",
+    "inquirer": "^7.1.0",
+    "ipfs-http-client": "^44.0.1",
+    "is-base64": "^1.1.0",
+    "is-url": "^1.2.4",
+    "semver": "^7.3.2",
+    "signale": "^1.4.0",
+    "yesno": "^0.3.1"
+  }
+}
