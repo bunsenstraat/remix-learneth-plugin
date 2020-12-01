@@ -1,7 +1,7 @@
 # Setting up your repository
 
 You can create your own workshops that can be imported in the plugin.
-When importing a github repo the plugin will look for a directory structure describing the workshops.
+When importing a github repo the plugin will look for a directory structure describing the tutorials.
 
 Take a look at this example: 
 <a href="https://github.com/ethereum/remix-workshops" target="_blank">Remix workshops repository</a>
@@ -10,14 +10,14 @@ Take a look at this example:
 
 **Each tutorial is a group of 'steps'.**
 
-For example the tutorial called "Remix Basics" contains steps to teach you
+For example the tutorial called "Remix Basics" contains steps to teach you:
 * The UI
 * How to compile files
 * How to deploy
+* ...
 
-And so on.
-
-**What is a step?**
+A step is one task the user needs to do, or one thing they need to learn. For example how to deploy contracts.
+But it can be anything you like.
 
 A step contains a file describing what the student needs to do or learn. 
 
@@ -30,9 +30,9 @@ It can also contain several **code files**:
 More on [File types](#file-types)
 
 
-**Your repo hosts several tutorials.**
+**A list of tutorials.**
 
-You can have more than one tutorial in your repo, it's like a set of tutorials. And each tutorial has its own directory and its own configuration.
+You can have more than one tutorial in your repo, it's like a list of tutorials. And each tutorial has its own directory and its own configuration.
 
 **Levels**
 
@@ -59,7 +59,7 @@ For example *Basics* is a tutorial that contains steps teaching the basics of th
 ## Naming your tutorials
 
 The name of the tutorial that is displayed in the LearnEth plugin will be either the 
-* name of this directory, for example Basics
+* name of this directory, for example 'Basics'
 OR
 * a name provided in a yml file.
 

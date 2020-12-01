@@ -36,6 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Importing files" href="importing_files.html" />
     <link rel="prev" title="LearnEth plugin for Remix" href="index.html" /> 
 </head>
 
@@ -81,8 +82,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Creating tutorials:</span></p>
-<ul class="current">
+              <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up your repository</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-concepts">Basic concepts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#root-file-stucture">Root file stucture</a></li>
@@ -98,6 +98,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#test-files">Test files</a></li>
 </ul>
 </li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="importing_files.html">Importing files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">Using tutorials</a></li>
 </ul>
 
             
@@ -166,20 +170,21 @@
   <div class="section" id="setting-up-your-repository">
 <h1>Setting up your repository<a class="headerlink" href="#setting-up-your-repository" title="Permalink to this headline">¶</a></h1>
 <p>You can create your own workshops that can be imported in the plugin.
-When importing a github repo the plugin will look for a directory structure describing the workshops.</p>
+When importing a github repo the plugin will look for a directory structure describing the tutorials.</p>
 <p>Take a look at this example:
 <a href="https://github.com/ethereum/remix-workshops" target="_blank">Remix workshops repository</a></p>
 <div class="section" id="basic-concepts">
 <h2>Basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
 <p><strong>Each tutorial is a group of ‘steps’.</strong></p>
-<p>For example the tutorial called “Remix Basics” contains steps to teach you</p>
+<p>For example the tutorial called “Remix Basics” contains steps to teach you:</p>
 <ul class="simple">
 <li>The UI</li>
 <li>How to compile files</li>
 <li>How to deploy</li>
+<li>…</li>
 </ul>
-<p>And so on.</p>
-<p><strong>What is a step?</strong></p>
+<p>A step is one task the user needs to do, or one thing they need to learn. For example how to deploy contracts.
+But it can be anything you like.</p>
 <p>A step contains a file describing what the student needs to do or learn.</p>
 <p>It can also contain several <strong>code files</strong>:</p>
 <ul class="simple">
@@ -188,8 +193,8 @@ When importing a github repo the plugin will look for a directory structure desc
 <li><strong>test files</strong>. Solidity Unit Testing files.</li>
 </ul>
 <p>More on <a class="reference external" href="#file-types">File types</a></p>
-<p><strong>Your repo hosts several tutorials.</strong></p>
-<p>You can have more than one tutorial in your repo, it’s like a set of tutorials. And each tutorial has its own directory and its own configuration.</p>
+<p><strong>A list of tutorials.</strong></p>
+<p>You can have more than one tutorial in your repo, it’s like a list of tutorials. And each tutorial has its own directory and its own configuration.</p>
 <p><strong>Levels</strong></p>
 <p>To make it easy to categorize your tutorials we have 3 levels, beginner, intermediate and advanced. You can set this in the config of your tutorial.</p>
 <p><img alt="Image of tutorial list" src="_images/levels.png" /></p>
@@ -207,7 +212,7 @@ When importing a github repo the plugin will look for a directory structure desc
 <h2>Naming your tutorials<a class="headerlink" href="#naming-your-tutorials" title="Permalink to this headline">¶</a></h2>
 <p>The name of the tutorial that is displayed in the LearnEth plugin will be either the</p>
 <ul class="simple">
-<li>name of this directory, for example Basics
+<li>name of this directory, for example ‘Basics’
 OR</li>
 <li>a name provided in a yml file.</li>
 </ul>
@@ -306,6 +311,8 @@ The test file is only used by the Unit Testing system and not loaded in the IDE.
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="importing_files.html" class="btn btn-neutral float-right" title="Importing files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="LearnEth plugin for Remix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
