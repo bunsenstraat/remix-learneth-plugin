@@ -37,6 +37,7 @@ into the plugin. Follow these instructions to structure your repository correctl
    :caption: Creating tutorials:
 
    setting_up_your_repository
+   
 
 
 For Remix users

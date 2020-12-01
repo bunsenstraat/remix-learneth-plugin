@@ -83,7 +83,13 @@
             
               <p class="caption"><span class="caption-text">Creating tutorials:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up your repository</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up your repository</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-concepts">Basic concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#root-file-stucture">Root file stucture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#naming-your-group-of-tutorials">Naming your group of tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-types">File types</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -136,7 +142,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/setting_up_your_repository.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/setting_up_your_repository.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -151,6 +157,55 @@
             
   <div class="section" id="setting-up-your-repository">
 <h1>Setting up your repository<a class="headerlink" href="#setting-up-your-repository" title="Permalink to this headline">¶</a></h1>
+<p>You can create your own workshops that can be imported in the plugin.
+When importing a github repo the plugin will look for a directory structure describing the workshops.
+For example: https://github.com/ethereum/remix-workshops</p>
+<div class="section" id="basic-concepts">
+<h2>Basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
+<p><strong>Each tutorial is a group of ‘steps’.</strong></p>
+<p>For example the tutorial called “Remix Basics” contains steps to teach you</p>
+<ul class="simple">
+<li>The UI</li>
+<li>How to compile files</li>
+<li>How to deploy</li>
+</ul>
+<p>And so on.</p>
+<p><strong>What is a step?</strong></p>
+<p>A step contains a file describing what the student needs to do or learn.</p>
+<p>It can also contain several <strong>code files</strong>:</p>
+<ul class="simple">
+<li><strong>solidity, js or vyper files</strong>. These will be loaded automatically when the step opens. Your step will describe the file or tell users what to do with it, for example, add something and compile.</li>
+<li><strong>answer files</strong>. These are files containing the correct answer of the step.</li>
+</ul>
+<p>More on these files:<a class="reference external" href="#file-types">File types</a></p>
+<p><strong>Your repo hosts several tutorials.</strong></p>
+</div>
+<div class="section" id="root-file-stucture">
+<h2>Root file stucture<a class="headerlink" href="#root-file-stucture" title="Permalink to this headline">¶</a></h2>
+<p>It is important you adhere to the directory structure for the system to work, loading any repo with sol files won’t work.</p>
+<p>So for example</p>
+<p><img alt="Image of directories" src="_images/directories.png" /></p>
+<p>Each directory in the root is a <strong>group of tutorials/workshops</strong>.</p>
+<p>For example <em>Basics</em> contains tutorials teaching the basics of the Remix IDE.</p>
+</div>
+<div class="section" id="naming-your-group-of-tutorials">
+<h2>Naming your group of tutorials<a class="headerlink" href="#naming-your-group-of-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>The name of the group that is displayed in the LearnEth plugin will be the name of this director,
+for example Basics OR a name provided in a yml file.</p>
+<p>This config.yml file lives in each directory and is <em>required</em> by the system.</p>
+<p><img alt="Image of tutorial list" src="_images/singledirectory.png" /></p>
+<p>config.yml:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">Remix</span> <span class="n">Basics</span>
+</pre></div>
+</div>
+<p>This name will appear everywhere in the UI.</p>
+<p>So for example in the main list of tutorials:</p>
+<p><img alt="Image of tutorial list" src="_images/uilistcollapsed.png" /></p>
+</div>
+<div class="section" id="file-types">
+<h2>File types<a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
 

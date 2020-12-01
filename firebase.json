@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/remix-workshops-plugin",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
