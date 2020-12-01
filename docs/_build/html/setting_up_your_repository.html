@@ -86,8 +86,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up your repository</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-concepts">Basic concepts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#root-file-stucture">Root file stucture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#naming-your-group-of-tutorials">Naming your group of tutorials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#file-types">File types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#naming-your-tutorials">Naming your tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sorting-tutorials">Sorting tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description-of-your-tutorial">Description of your tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tags-levels">Tags &amp; levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#name-of-a-step">Name of a step</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sorting-steps">Sorting steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-description">Step description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-types-loading-files">File Types &amp; loading files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#answer-files">Answer files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-files">Test files</a></li>
 </ul>
 </li>
 </ul>
@@ -158,8 +166,9 @@
   <div class="section" id="setting-up-your-repository">
 <h1>Setting up your repository<a class="headerlink" href="#setting-up-your-repository" title="Permalink to this headline">¶</a></h1>
 <p>You can create your own workshops that can be imported in the plugin.
-When importing a github repo the plugin will look for a directory structure describing the workshops.
-For example: https://github.com/ethereum/remix-workshops</p>
+When importing a github repo the plugin will look for a directory structure describing the workshops.</p>
+<p>Take a look at this example:
+<a href="https://github.com/ethereum/remix-workshops" target="_blank">Remix workshops repository</a></p>
 <div class="section" id="basic-concepts">
 <h2>Basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
 <p><strong>Each tutorial is a group of ‘steps’.</strong></p>
@@ -176,22 +185,32 @@ For example: https://github.com/ethereum/remix-workshops</p>
 <ul class="simple">
 <li><strong>solidity, js or vyper files</strong>. These will be loaded automatically when the step opens. Your step will describe the file or tell users what to do with it, for example, add something and compile.</li>
 <li><strong>answer files</strong>. These are files containing the correct answer of the step.</li>
+<li><strong>test files</strong>. Solidity Unit Testing files.</li>
 </ul>
-<p>More on these files:<a class="reference external" href="#file-types">File types</a></p>
+<p>More on <a class="reference external" href="#file-types">File types</a></p>
 <p><strong>Your repo hosts several tutorials.</strong></p>
+<p>You can have more than one tutorial in your repo, it’s like a set of tutorials. And each tutorial has its own directory and its own configuration.</p>
+<p><strong>Levels</strong></p>
+<p>To make it easy to categorize your tutorials we have 3 levels, beginner, intermediate and advanced. You can set this in the config of your tutorial.</p>
+<p><img alt="Image of tutorial list" src="_images/levels.png" /></p>
 </div>
 <div class="section" id="root-file-stucture">
 <h2>Root file stucture<a class="headerlink" href="#root-file-stucture" title="Permalink to this headline">¶</a></h2>
 <p>It is important you adhere to the directory structure for the system to work, loading any repo with sol files won’t work.</p>
 <p>So for example</p>
 <p><img alt="Image of directories" src="_images/directories.png" /></p>
-<p>Each directory in the root is a <strong>group of tutorials/workshops</strong>.</p>
-<p>For example <em>Basics</em> contains tutorials teaching the basics of the Remix IDE.</p>
+<p>The readme.md in the root directory is not used by the plugin.</p>
+<p>Each directory in the root is a <strong>tutorial or workshop</strong>.</p>
+<p>For example <em>Basics</em> is a tutorial that contains steps teaching the basics of the Remix IDE.</p>
 </div>
-<div class="section" id="naming-your-group-of-tutorials">
-<h2>Naming your group of tutorials<a class="headerlink" href="#naming-your-group-of-tutorials" title="Permalink to this headline">¶</a></h2>
-<p>The name of the group that is displayed in the LearnEth plugin will be the name of this director,
-for example Basics OR a name provided in a yml file.</p>
+<div class="section" id="naming-your-tutorials">
+<h2>Naming your tutorials<a class="headerlink" href="#naming-your-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>The name of the tutorial that is displayed in the LearnEth plugin will be either the</p>
+<ul class="simple">
+<li>name of this directory, for example Basics
+OR</li>
+<li>a name provided in a yml file.</li>
+</ul>
 <p>This config.yml file lives in each directory and is <em>required</em> by the system.</p>
 <p><img alt="Image of tutorial list" src="_images/singledirectory.png" /></p>
 <p>config.yml:</p>
@@ -203,8 +222,80 @@ for example Basics OR a name provided in a yml file.</p>
 <p>So for example in the main list of tutorials:</p>
 <p><img alt="Image of tutorial list" src="_images/uilistcollapsed.png" /></p>
 </div>
-<div class="section" id="file-types">
-<h2>File types<a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sorting-tutorials">
+<h2>Sorting tutorials<a class="headerlink" href="#sorting-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>The tutorials are grouped by level, ie Beginner, and then sorted alphabetically by name.</p>
+</div>
+<div class="section" id="description-of-your-tutorial">
+<h2>Description of your tutorial<a class="headerlink" href="#description-of-your-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>The description is shown in the overview in the list of tutorials:</p>
+<p><img alt="Image of tutorial list" src="_images/description.png" /></p>
+<p>This is the content of the readme.md in the tutorial directory. It’s in markdown.</p>
+</div>
+<div class="section" id="tags-levels">
+<h2>Tags &amp; levels<a class="headerlink" href="#tags-levels" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned before a tutorial can have a level, but it doesn’t have to have one.
+It can also have tags. In this example the tag is REMIX, the level is BEGINNER.</p>
+<p><img alt="Image of tutorial list" src="_images/tags.png" /></p>
+<p>You can set the level and tags in the config.yml file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">level</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">tags</span><span class="p">:</span> 
+  <span class="o">-</span> <span class="n">Remix</span>
+  <span class="o">-</span> <span class="n">tag2</span>
+  <span class="o">-</span> <span class="n">tag3</span>
+</pre></div>
+</div>
+<p>Level 1 is beginner. Level 2 is intermediate. Level 3 is Advanced.</p>
+</div>
+<div class="section" id="name-of-a-step">
+<h2>Name of a step<a class="headerlink" href="#name-of-a-step" title="Permalink to this headline">¶</a></h2>
+<p>The name of a step is just the name of directory it resides in, but without any _.</p>
+<p><img alt="Step" src="_images/stepnames.png" /></p>
+<p><img alt="Step" src="_images/steps.png" /></p>
+</div>
+<div class="section" id="sorting-steps">
+<h2>Sorting steps<a class="headerlink" href="#sorting-steps" title="Permalink to this headline">¶</a></h2>
+<p>Steps are sorted alphabetically according to the name of the directory. So it’s best to precede each step name by a number.</p>
+</div>
+<div class="section" id="step-description">
+<h2>Step description<a class="headerlink" href="#step-description" title="Permalink to this headline">¶</a></h2>
+<p>When you open a step, you see a text describing what to do or learn.
+This text is provided by the markdown file in the directory of each step.</p>
+<p>In this example the file would be here: Solidity-intro/1_Pragma/pragma.md</p>
+<p><img alt="Step" src="_images/stepdescription.png" /></p>
+</div>
+<div class="section" id="file-types-loading-files">
+<h2>File Types &amp; loading files<a class="headerlink" href="#file-types-loading-files" title="Permalink to this headline">¶</a></h2>
+<p>Each step can contain one file of each type.
+So this means:</p>
+<ul class="simple">
+<li>a markdown file describing the step</li>
+<li>a solidity file (.sol)</li>
+<li>a js file (.js)</li>
+<li>a vyper file (.vy)</li>
+<li>a test file The naming convention for these is name_test.sol</li>
+<li>an answer file. The naming convention for these is name_answer.sol</li>
+</ul>
+<p>When a step loads the code files are loaded automatically into the Remix IDE. But not the answer file.
+The test file is only used by the Unit Testing system and not loaded in the IDE.</p>
+<p><img alt="Step" src="_images/stepfiles.png" /></p>
+</div>
+<div class="section" id="answer-files">
+<h2>Answer files<a class="headerlink" href="#answer-files" title="Permalink to this headline">¶</a></h2>
+<p>Answer files are just files that display an answer. This can be anything.</p>
+<p>If the filename contains _answer it will be shown in the interface and users can click on ‘SHOW ANSWER’.</p>
+<p><img alt="Step" src="_images/showanswer.png" /></p>
+</div>
+<div class="section" id="test-files">
+<h2>Test files<a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h2>
+<p>These are Solidity Unit Testing files.</p>
+<p>They are run through the Unit testing system when a user clicks on: ‘CHECK ANSWER’.</p>
+<p><img alt="Step" src="_images/checkanswer.png" /></p>
+<p>If the test fails the UI displays an error.</p>
+<p><img alt="Step" src="_images/errors.png" /></p>
+<p>If the test succeeds the user can proceed to the next step:</p>
+<p><img alt="Step" src="_images/correct.png" /></p>
+<p><strong>The user can always skip a step by picking a step in the steps overview or using the navigation.</strong></p>
 </div>
 </div>
 
