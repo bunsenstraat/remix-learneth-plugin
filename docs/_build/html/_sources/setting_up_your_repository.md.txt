@@ -27,7 +27,7 @@ It can also contain several **code files**:
 * **answer files**. These are files containing the correct answer of the step.
 * **test files**. Solidity Unit Testing files.
 
-More on [File types](#file-types)
+More on [](#file-types)
 
 
 **A list of tutorials.**
@@ -38,7 +38,7 @@ You can have more than one tutorial in your repo, it's like a list of tutorials.
 
 To make it easy to categorize your tutorials we have 3 levels, beginner, intermediate and advanced. You can set this in the config of your tutorial.
 
-![Image of tutorial list](assets/levels.png)
+![](assets/levels.png)
 
 ## Root file stucture
 
@@ -46,7 +46,7 @@ It is important you adhere to the directory structure for the system to work, lo
 
 So for example
 
-![Image of directories](assets/directories.png)
+![](assets/directories.png)
 
 The readme.md in the root directory is not used by the plugin.
 
@@ -65,7 +65,7 @@ OR
 
 This config.yml file lives in each directory and is *required* by the system.
 
-![Image of tutorial list](assets/singledirectory.png)
+![](assets/singledirectory.png)
 
 config.yml:
 ``` 
@@ -77,7 +77,7 @@ This name will appear everywhere in the UI.
 
 So for example in the main list of tutorials:
 
-![Image of tutorial list](assets/uilistcollapsed.png)
+![](assets/uilistcollapsed.png)
 
 ## Sorting tutorials
 
@@ -87,7 +87,7 @@ The tutorials are grouped by level, ie Beginner, and then sorted alphabetically 
 
 The description is shown in the overview in the list of tutorials:
 
-![Image of tutorial list](assets/description.png)
+![](assets/description.png)
 
 This is the content of the readme.md in the tutorial directory. It's in markdown.
 
@@ -96,7 +96,7 @@ This is the content of the readme.md in the tutorial directory. It's in markdown
 As mentioned before a tutorial can have a level, but it doesn't have to have one.
 It can also have tags. In this example the tag is REMIX, the level is BEGINNER.
 
-![Image of tutorial list](assets/tags.png)
+![](assets/tags.png)
 
 You can set the level and tags in the config.yml file
 
@@ -114,9 +114,9 @@ Level 1 is beginner. Level 2 is intermediate. Level 3 is Advanced.
 
 The name of a step is just the name of directory it resides in, but without any _.
 
-![Step](assets/stepnames.png)
+![](assets/stepnames.png)
 
-![Step](assets/steps.png)
+![](assets/steps.png)
 
 ## Sorting steps
 
@@ -128,7 +128,7 @@ This text is provided by the markdown file in the directory of each step.
 
 In this example the file would be here: Solidity-intro/1_Pragma/pragma.md
 
-![Step](assets/stepdescription.png)
+![](assets/stepdescription.png)
 ## File Types & loading files
 
 Each step can contain one file of each type.
@@ -143,7 +143,7 @@ So this means:
 When a step loads the code files are loaded automatically into the Remix IDE. But not the answer file.
 The test file is only used by the Unit Testing system and not loaded in the IDE.
 
-![Step](assets/stepfiles.png)
+![](assets/stepfiles.png)
 
 ## Answer files
 
@@ -151,7 +151,7 @@ Answer files are just files that display an answer. This can be anything.
 
 If the filename contains _answer it will be shown in the interface and users can click on 'SHOW ANSWER'.
 
-![Step](assets/showanswer.png)
+![](assets/showanswer.png)
 
 ## Test files
 
@@ -159,15 +159,15 @@ These are Solidity Unit Testing files.
 
 They are run through the Unit testing system when a user clicks on: 'CHECK ANSWER'.
 
-![Step](assets/checkanswer.png)
+![](assets/checkanswer.png)
 
 If the test fails the UI displays an error.
 
-![Step](assets/errors.png)
+![](assets/errors.png)
 
 If the test succeeds the user can proceed to the next step:
 
-![Step](assets/correct.png)
+![](assets/correct.png)
 
 **The user can always skip a step by picking a step in the steps overview or using the navigation.**
 

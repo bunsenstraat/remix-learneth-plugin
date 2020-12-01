@@ -192,18 +192,18 @@ But it can be anything you like.</p>
 <li><strong>answer files</strong>. These are files containing the correct answer of the step.</li>
 <li><strong>test files</strong>. Solidity Unit Testing files.</li>
 </ul>
-<p>More on <a class="reference external" href="#file-types">File types</a></p>
+<p>More on <a class="reference external" href="#file-types"></a></p>
 <p><strong>A list of tutorials.</strong></p>
 <p>You can have more than one tutorial in your repo, it’s like a list of tutorials. And each tutorial has its own directory and its own configuration.</p>
 <p><strong>Levels</strong></p>
 <p>To make it easy to categorize your tutorials we have 3 levels, beginner, intermediate and advanced. You can set this in the config of your tutorial.</p>
-<p><img alt="Image of tutorial list" src="_images/levels.png" /></p>
+<p><img alt="_images/levels.png" src="_images/levels.png" /></p>
 </div>
 <div class="section" id="root-file-stucture">
 <h2>Root file stucture<a class="headerlink" href="#root-file-stucture" title="Permalink to this headline">¶</a></h2>
 <p>It is important you adhere to the directory structure for the system to work, loading any repo with sol files won’t work.</p>
 <p>So for example</p>
-<p><img alt="Image of directories" src="_images/directories.png" /></p>
+<p><img alt="_images/directories.png" src="_images/directories.png" /></p>
 <p>The readme.md in the root directory is not used by the plugin.</p>
 <p>Each directory in the root is a <strong>tutorial or workshop</strong>.</p>
 <p>For example <em>Basics</em> is a tutorial that contains steps teaching the basics of the Remix IDE.</p>
@@ -217,7 +217,7 @@ OR</li>
 <li>a name provided in a yml file.</li>
 </ul>
 <p>This config.yml file lives in each directory and is <em>required</em> by the system.</p>
-<p><img alt="Image of tutorial list" src="_images/singledirectory.png" /></p>
+<p><img alt="_images/singledirectory.png" src="_images/singledirectory.png" /></p>
 <p>config.yml:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
 <span class="n">name</span><span class="p">:</span> <span class="n">Remix</span> <span class="n">Basics</span>
@@ -225,7 +225,7 @@ OR</li>
 </div>
 <p>This name will appear everywhere in the UI.</p>
 <p>So for example in the main list of tutorials:</p>
-<p><img alt="Image of tutorial list" src="_images/uilistcollapsed.png" /></p>
+<p><img alt="_images/uilistcollapsed.png" src="_images/uilistcollapsed.png" /></p>
 </div>
 <div class="section" id="sorting-tutorials">
 <h2>Sorting tutorials<a class="headerlink" href="#sorting-tutorials" title="Permalink to this headline">¶</a></h2>
@@ -234,14 +234,14 @@ OR</li>
 <div class="section" id="description-of-your-tutorial">
 <h2>Description of your tutorial<a class="headerlink" href="#description-of-your-tutorial" title="Permalink to this headline">¶</a></h2>
 <p>The description is shown in the overview in the list of tutorials:</p>
-<p><img alt="Image of tutorial list" src="_images/description.png" /></p>
+<p><img alt="_images/description.png" src="_images/description.png" /></p>
 <p>This is the content of the readme.md in the tutorial directory. It’s in markdown.</p>
 </div>
 <div class="section" id="tags-levels">
 <h2>Tags &amp; levels<a class="headerlink" href="#tags-levels" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned before a tutorial can have a level, but it doesn’t have to have one.
 It can also have tags. In this example the tag is REMIX, the level is BEGINNER.</p>
-<p><img alt="Image of tutorial list" src="_images/tags.png" /></p>
+<p><img alt="_images/tags.png" src="_images/tags.png" /></p>
 <p>You can set the level and tags in the config.yml file</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">level</span><span class="p">:</span> <span class="mi">1</span>
 <span class="n">tags</span><span class="p">:</span> 
@@ -255,8 +255,8 @@ It can also have tags. In this example the tag is REMIX, the level is BEGINNER.<
 <div class="section" id="name-of-a-step">
 <h2>Name of a step<a class="headerlink" href="#name-of-a-step" title="Permalink to this headline">¶</a></h2>
 <p>The name of a step is just the name of directory it resides in, but without any _.</p>
-<p><img alt="Step" src="_images/stepnames.png" /></p>
-<p><img alt="Step" src="_images/steps.png" /></p>
+<p><img alt="_images/stepnames.png" src="_images/stepnames.png" /></p>
+<p><img alt="_images/steps.png" src="_images/steps.png" /></p>
 </div>
 <div class="section" id="sorting-steps">
 <h2>Sorting steps<a class="headerlink" href="#sorting-steps" title="Permalink to this headline">¶</a></h2>
@@ -267,7 +267,7 @@ It can also have tags. In this example the tag is REMIX, the level is BEGINNER.<
 <p>When you open a step, you see a text describing what to do or learn.
 This text is provided by the markdown file in the directory of each step.</p>
 <p>In this example the file would be here: Solidity-intro/1_Pragma/pragma.md</p>
-<p><img alt="Step" src="_images/stepdescription.png" /></p>
+<p><img alt="_images/stepdescription.png" src="_images/stepdescription.png" /></p>
 </div>
 <div class="section" id="file-types-loading-files">
 <h2>File Types &amp; loading files<a class="headerlink" href="#file-types-loading-files" title="Permalink to this headline">¶</a></h2>
@@ -283,23 +283,23 @@ So this means:</p>
 </ul>
 <p>When a step loads the code files are loaded automatically into the Remix IDE. But not the answer file.
 The test file is only used by the Unit Testing system and not loaded in the IDE.</p>
-<p><img alt="Step" src="_images/stepfiles.png" /></p>
+<p><img alt="_images/stepfiles.png" src="_images/stepfiles.png" /></p>
 </div>
 <div class="section" id="answer-files">
 <h2>Answer files<a class="headerlink" href="#answer-files" title="Permalink to this headline">¶</a></h2>
 <p>Answer files are just files that display an answer. This can be anything.</p>
 <p>If the filename contains _answer it will be shown in the interface and users can click on ‘SHOW ANSWER’.</p>
-<p><img alt="Step" src="_images/showanswer.png" /></p>
+<p><img alt="_images/showanswer.png" src="_images/showanswer.png" /></p>
 </div>
 <div class="section" id="test-files">
 <h2>Test files<a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h2>
 <p>These are Solidity Unit Testing files.</p>
 <p>They are run through the Unit testing system when a user clicks on: ‘CHECK ANSWER’.</p>
-<p><img alt="Step" src="_images/checkanswer.png" /></p>
+<p><img alt="_images/checkanswer.png" src="_images/checkanswer.png" /></p>
 <p>If the test fails the UI displays an error.</p>
-<p><img alt="Step" src="_images/errors.png" /></p>
+<p><img alt="_images/errors.png" src="_images/errors.png" /></p>
 <p>If the test succeeds the user can proceed to the next step:</p>
-<p><img alt="Step" src="_images/correct.png" /></p>
+<p><img alt="_images/correct.png" src="_images/correct.png" /></p>
 <p><strong>The user can always skip a step by picking a step in the steps overview or using the navigation.</strong></p>
 </div>
 </div>
