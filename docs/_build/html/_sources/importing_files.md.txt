@@ -8,17 +8,17 @@ Once you loaded another repository that will be loaded on startup instead of the
 
 You can get back the default tutorials by using the import section.
 
-![Step](assets/importbutton.png)
+![](assets/importbutton.png)
 
 There will be a dropdown. Select "ethereum/remix-workshops-master".
 
-![Step](assets/importdefault.png)
+![](assets/importdefault.png)
 
 ### Importing another repository
 
 Open the import section.
 
-![Step](assets/importbutton.png)
+![](assets/importbutton.png)
 
 Fill in the details of your github repo and click import.
 
@@ -27,10 +27,10 @@ but without github.com.
 
 So this:
 
-![Step](assets/githubrepo.png)
+![](assets/githubrepo.png)
 
 Becomes:
 
-![Step](assets/importrepo.png)
+![](assets/importrepo.png)
 
 If you set up the repo correctly according to the steps outlined in <a href="setting_up_your_repository.html">Setting up your repository</a> you should be fine.
