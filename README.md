@@ -13,7 +13,7 @@ add the plugin 'Connect to a local plugin'. Your plugin when served with NG SERV
 
 ## Setting up the REMIX IDE for working with the plugin
 
-The plugin only works when a compiler environment is loaded as wel, for example on the home screen of the IDE you select 'Solidity' or 'Vyper'. Without this the plugin
+The plugin only works when a compiler environment is loaded as well, for example on the home screen of the IDE you select 'Solidity' or 'Vyper'. Without this the plugin
 cannot compile and test files in the workshops.
 
 ## Setting up your Github workshops repo
