@@ -13,6 +13,7 @@ import { WorkshopserviceService } from 'src/app/workshop/services/workshop.servi
 import { Route } from '@angular/compiler/src/core'
 import { Router } from '@angular/router'
 import { BehaviorSubject } from 'rxjs'
+import axios from 'axios'
 
 @Injectable({
   providedIn: 'root'
@@ -64,14 +65,10 @@ export class ImportService {
     let error: string
     try {
       await this.remix.onload()
-      await this.remix
-        .call('contentImport', 'resolve', url)
+      await axios.get(url)
         .then(content => {
-          error = content.content
-          const initialState: Partial<WorkshopState> = JSON.parse(
-            content.content
-          )
-
+          error = content.data
+          const initialState: Partial<WorkshopState> = content.data
           github = {
             ...github,
             datemodified: initialState.datemodified,
