@@ -16,12 +16,14 @@ console.clear();
 
 if (environment.production) {
   enableProdMode();
+  window.console.log = () => { }
 }
 try{
   persistState();
 }catch(e){
 
 }
+
 
 
 platformBrowserDynamic().bootstrapModule(AppModule)
