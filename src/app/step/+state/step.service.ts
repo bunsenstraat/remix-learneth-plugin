@@ -1,14 +1,38 @@
-import { Inject, Injectable } from '@angular/core'
-import { ID } from '@datorama/akita'
-import { PluginClient } from '@remixproject/plugin'
-import { NgxSpinnerService } from 'ngx-spinner'
-import { ToastrService } from 'ngx-toastr'
-import { BehaviorSubject, Observable } from 'rxjs'
-import { REMIX } from 'src/app/remix-client'
-import { WorkshopQuery } from 'src/app/workshop/+state'
-import { Step } from './step.model'
-import { StepQuery } from './step.query'
-import { StepStore } from './step.store'
+import {
+  Inject,
+  Injectable
+} from '@angular/core'
+import {
+  ID
+} from '@datorama/akita'
+import {
+  PluginClient
+} from '@remixproject/plugin'
+import {
+  NgxSpinnerService
+} from 'ngx-spinner'
+import {
+  ToastrService
+} from 'ngx-toastr'
+import {
+  BehaviorSubject,
+  Observable
+} from 'rxjs'
+import {
+  REMIX
+} from 'src/app/remix-client'
+import {
+  WorkshopQuery
+} from 'src/app/workshop/+state'
+import {
+  Step
+} from './step.model'
+import {
+  StepQuery
+} from './step.query'
+import {
+  StepStore
+} from './step.store'
 
 /** Create the path for the file manager based on a step */
 function getFilePath(file: string): string {
@@ -16,10 +40,12 @@ function getFilePath(file: string): string {
   return name.length > 1 ? `${name[name.length - 1]}` : ''
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class StepService {
   public loaded: boolean = false
-  public status: BehaviorSubject<string> = new BehaviorSubject('loading');
+  public status: BehaviorSubject < string > = new BehaviorSubject('loading');
 
   constructor(
     @Inject(REMIX) private remix: PluginClient,
@@ -31,43 +57,57 @@ export class StepService {
   ) {}
 
   async get(index: number, step: Step) {
-    
+
     this.store.setLoading(true)
     this.store.upsert(index, {
       ...step,
       solidity: step.solidity ? step.solidity : {},
     })
-    this.store.upsert(index, { ...step, test: step.test ? step.test : {} })
+    this.store.upsert(index, {
+      ...step,
+      test: step.test ? step.test : {}
+    })
     this.store.upsert(index, {
       ...step,
       answer: step.answer ? step.answer : {},
     })
-    this.store.upsert(index, { ...step, vy: step.vy ? step.vy : {} })
-    this.store.upsert(index, { ...step, js: step.js ? step.js : {} })
+    this.store.upsert(index, {
+      ...step,
+      vy: step.vy ? step.vy : {}
+    })
+    this.store.upsert(index, {
+      ...step,
+      js: step.js ? step.js : {}
+    })
     step = this.query.getEntity(index)
 
-    const [markdown, solidity, test, answer, js, vy] = await Promise.all([
-      this.remix.call('contentImport', 'resolve', step.markdown.file).catch(error => { 
-        console.error(error.message)
-      }),
-      this.remix.call('contentImport', 'resolve', step.solidity.file).catch(error => { 
-        console.error(error.message)
-      }),
-      this.remix.call('contentImport', 'resolve', step.test.file).catch(error => { 
-        console.error(error.message)
-      }),
-      this.remix.call('contentImport', 'resolve', step.answer.file).catch(error => { 
-        console.error(error.message)
-      }),
-      this.remix.call('contentImport', 'resolve', step.js.file).catch(error => { 
-        console.error(error.message)
-      }),
-      this.remix.call('contentImport', 'resolve', step.vy.file).catch(error => { 
-        console.error(error.message)
-      }),
-    ])
+    let markdown, solidity, test, answer, js, vy
 
-    
+    if (step.markdown.file)
+      markdown = await this.remix.call('contentImport', 'resolve', step.markdown.file).catch(error => {
+        console.error(error.message)
+      })
+    if (step.solidity.file)
+      solidity = await this.remix.call('contentImport', 'resolve', step.solidity.file).catch(error => {
+        console.error(error.message)
+      })
+    if (step.test.file)
+      test = await this.remix.call('contentImport', 'resolve', step.test.file).catch(error => {
+        console.error(error.message)
+      })
+    if (step.answer.file)
+      answer = await this.remix.call('contentImport', 'resolve', step.answer.file).catch(error => {
+        console.error(error.message)
+      })
+    if (step.js.file)
+      js = await this.remix.call('contentImport', 'resolve', step.js.file).catch(error => {
+        console.error(error.message)
+      })
+    if (step.vy.file)
+      vy = await this.remix.call('contentImport', 'resolve', step.vy.file).catch(error => {
+        console.error(error.message)
+      })
+
 
     this.store.upsert(index, {
       ...step,
@@ -103,44 +143,48 @@ export class StepService {
   async displayFileInIDE(step: Step) {
     let tid
 
-      // Get content from account or step
-      const workshop = this.workshopQuery.getActive()
-      console.log('loading ', step, workshop)
-      let content: string
-      let path: string
-      if (step.solidity.file) {
-        content = step.solidity.content
-        path = getFilePath(step.solidity.file)
-      }
-      if (step.js.file) {
-        content = step.js.content
-        path = getFilePath(step.js.file)
-      }
-      if (step.vy.file) {
-        content = step.vy.content
-        path = getFilePath(step.vy.file)
-      }
+    // Get content from account or step
+    const workshop = this.workshopQuery.getActive()
+    console.log('loading ', step, workshop)
+    let content: string
+    let path: string
+    if (step.solidity.file) {
+      content = step.solidity.content
+      path = getFilePath(step.solidity.file)
+    }
+    if (step.js.file) {
+      content = step.js.content
+      path = getFilePath(step.js.file)
+    }
+    if (step.vy.file) {
+      content = step.vy.content
+      path = getFilePath(step.vy.file)
+    }
 
-      if (content) {
-        tid = this.toastr.info(`loading ${path} into IDE`, `loading`, {
-          timeOut: 0,
-        }).toastId
-        this.spinner.show()
-        path = `.learneth/${workshop.name}/${step.name}/${path}`
-        await this.remix.call('fileManager', 'setFile', path, content)
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
-        this.spinner.hide()
-        this.toastr.remove(tid)
-      } else {
-        //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
-      }
+    if (content) {
+      tid = this.toastr.info(`loading ${path} into IDE`, `loading`, {
+        timeOut: 0,
+      }).toastId
+      this.spinner.show()
+      path = `.learneth/${workshop.name}/${step.name}/${path}`
+      await this.remix.call('fileManager', 'setFile', path, content)
+      await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+      this.spinner.hide()
+      this.toastr.remove(tid)
+    } else {
+      //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
+    }
 
   }
 
   async testStep(step: Step) {
     try {
       // Update store before running tests
-      this.store.update({ loading: true, success: false, error: null })
+      this.store.update({
+        loading: true,
+        success: false,
+        error: null
+      })
 
       // Run tests
       this.spinner.show()
@@ -158,7 +202,10 @@ export class StepService {
       path = getFilePath(step.test.file)
       path = `.learneth/${workshop.name}/${step.name}/${path}`
       await this.remix.call('fileManager', 'setFile', path, step.test.content)
-      const result = await this.remix.call(
+      let result: any
+
+
+      result = await this.remix.call(
         'solidityUnitTesting',
         'testFromPath',
         path
@@ -166,15 +213,24 @@ export class StepService {
       console.log('result ', result)
       this.spinner.hide()
 
+
+
+
       // compiler returns null?
       if (!result) {
-        this.addError([{ message: 'Compiler failed to test this file' }])
+        this.addError([{
+          message: 'Compiler failed to test this file'
+        }])
       } else {
         const success = result.totalFailing === 0
 
         // Update next step of the account if succeed
         if (success) {
-          this.store.update({ success: true, errorCount: 0, loading: false })
+          this.store.update({
+            success: true,
+            errorCount: 0,
+            loading: false
+          })
           this.next()
         } else {
           this.addError(result.errors)
@@ -182,7 +238,10 @@ export class StepService {
       }
       // Update store after tests have run
     } catch (err) {
-      const error = [{ message: String(err) }]
+      console.log("TESTING ERROR", err)
+      const error = [{
+        message: String(err)
+      }]
       this.addError(error)
     }
   }
@@ -211,13 +270,17 @@ export class StepService {
         //this.accountService.updateWorkshop(workshopId, stepIndex + 1, '');
       }
     } catch (err) {
-      const error = [{ message: String(err) }]
+      const error = [{
+        message: String(err)
+      }]
       this.addError(error)
     }
   }
 
   /** Update the store and display message to user */
-  addError(error: { message: any }[]) {
+  addError(error: {
+    message: any
+  } []) {
     this.store.update((s) => ({
       errorCount: s.errorCount + 1,
       error: error,
@@ -236,7 +299,7 @@ export class StepService {
     this.store.add(step)
   }
 
-  update(id: number, step: Partial<Step>) {
+  update(id: number, step: Partial < Step > ) {
     this.store.update(id, step)
   }
 
@@ -244,11 +307,11 @@ export class StepService {
     this.store.remove(id)
   }
 
-  public getStatus(): Observable<string> {
+  public getStatus(): Observable < string > {
     return this.status.asObservable();
   }
 
-  public setStatus(n:string){
+  public setStatus(n: string) {
     this.status.next(n)
   }
 }
