@@ -110,9 +110,39 @@ tags:
 
 Level 1 is beginner. Level 2 is intermediate. Level 3 is Advanced.
 
+
+## Step configuration
+
+You have the option of defining which steps you have in your tutorial. By default the directories
+are used to define the steps. But you can override this by adding the steps object to the config.yml file:
+
+```
+level: 1
+tags: 
+  - Remix
+  - tag2
+  - tag3
+steps:
+  - name: 1 intro ui
+    path: 1._Interface_introduction
+  - name: 2 Load and compile
+    path: 2_Load_and_compile // this directory does not exist
+  - name: 3 Deploy
+    path: 3._Deploy_to_the_JavascriptVM
+  - name: 4 something
+    path: 4._does_not_exist // this directory does not exist
+```
+
+When loading the repo these steps will be mapped to their corresponding directories. If you have an error there,
+for example when a directory does not exist the app will display a warning like this:
+
+![](assets/stepconfigerror.png)
+
 ## Name of a step
 
-The name of a step is just the name of directory it resides in, but without any _.
+There are two ways of doing this.
+Default behavior: The name of a step is just the name of directory it resides in, but without any _.
+If you have steps defined in your config.yml those will be used and directories will be ignored.
 
 ![](assets/stepnames.png)
 
@@ -120,7 +150,9 @@ The name of a step is just the name of directory it resides in, but without any 
 
 ## Sorting steps
 
-Steps are sorted alphabetically according to the name of the directory. So it's best to precede each step name by a number.
+There are two ways of doing this.
+Default behavior: Steps are sorted alphabetically according to the name of the directory. So it's best to precede each step name by a number.
+If you have steps defined in your config.yml those will be used and directories will be ignored.
 ## Step description
 
 When you open a step, you see a text describing what to do or learn.

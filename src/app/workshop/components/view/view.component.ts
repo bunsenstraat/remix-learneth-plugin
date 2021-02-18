@@ -16,7 +16,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { Observable } from 'rxjs'
 import { Step, StepStore } from 'src/app/step/+state'
-import { Workshop, WorkshopQuery } from '../../+state'
+import {
+  Workshop,
+  WorkshopQuery,
+  WorkShopStepMetaData,
+  WorkshopStore,
+} from '../../+state'
 import { slideInY } from '../../../ui/animations'
 
 const slideIn = trigger('slideIn', [
@@ -39,7 +44,8 @@ export class WorkshopViewComponent implements OnInit, AfterViewInit {
     private router: Router,
     private routes: ActivatedRoute,
     private toastr: ToastrService,
-    private stepstore: StepStore
+    public stepstore: StepStore,
+    private workshopstore:WorkshopStore
   ) {}
 
   ngAfterViewInit() {
@@ -52,9 +58,13 @@ export class WorkshopViewComponent implements OnInit, AfterViewInit {
     this.workshop$.subscribe((workshop) => {
       this.stepstore.remove()
       if (workshop) {
-        workshop.steps.map((step, index) => {
-          this.stepstore.upsert(index, step)
-        })
+        
+          //workshop.steps = newsteps;
+        //} else {
+          workshop.steps.map((step, index) => {
+            this.stepstore.upsert(index, step)
+          })
+       // }
       }
     })
   }

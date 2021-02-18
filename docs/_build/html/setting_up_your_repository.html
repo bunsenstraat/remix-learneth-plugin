@@ -90,6 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#sorting-tutorials">Sorting tutorials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#description-of-your-tutorial">Description of your tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tags-levels">Tags &amp; levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-configuration">Step configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#name-of-a-step">Name of a step</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sorting-steps">Sorting steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-description">Step description</a></li>
@@ -252,15 +253,43 @@ It can also have tags. In this example the tag is REMIX, the level is BEGINNER.<
 </div>
 <p>Level 1 is beginner. Level 2 is intermediate. Level 3 is Advanced.</p>
 </div>
+<div class="section" id="step-configuration">
+<h2>Step configuration<a class="headerlink" href="#step-configuration" title="Permalink to this headline">¶</a></h2>
+<p>You have the option of defining which steps you have in your tutorial. By default the directories
+are used to define the steps. But you can override this by adding the steps object to the config.yml file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">level</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">tags</span><span class="p">:</span> 
+  <span class="o">-</span> <span class="n">Remix</span>
+  <span class="o">-</span> <span class="n">tag2</span>
+  <span class="o">-</span> <span class="n">tag3</span>
+<span class="n">steps</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="mi">1</span> <span class="n">intro</span> <span class="n">ui</span>
+    <span class="n">path</span><span class="p">:</span> <span class="mf">1.</span><span class="n">_Interface_introduction</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="mi">2</span> <span class="n">Load</span> <span class="ow">and</span> <span class="nb">compile</span>
+    <span class="n">path</span><span class="p">:</span> <span class="mi">2</span><span class="n">_Load_and_compile</span> <span class="o">//</span> <span class="n">this</span> <span class="n">directory</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="mi">3</span> <span class="n">Deploy</span>
+    <span class="n">path</span><span class="p">:</span> <span class="mf">3.</span><span class="n">_Deploy_to_the_JavascriptVM</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="mi">4</span> <span class="n">something</span>
+    <span class="n">path</span><span class="p">:</span> <span class="mf">4.</span><span class="n">_does_not_exist</span> <span class="o">//</span> <span class="n">this</span> <span class="n">directory</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span>
+</pre></div>
+</div>
+<p>When loading the repo these steps will be mapped to their corresponding directories. If you have an error there,
+for example when a directory does not exist the app will display a warning like this:</p>
+<p><img alt="_images/stepconfigerror.png" src="_images/stepconfigerror.png" /></p>
+</div>
 <div class="section" id="name-of-a-step">
 <h2>Name of a step<a class="headerlink" href="#name-of-a-step" title="Permalink to this headline">¶</a></h2>
-<p>The name of a step is just the name of directory it resides in, but without any _.</p>
+<p>There are two ways of doing this.
+Default behavior: The name of a step is just the name of directory it resides in, but without any _.
+If you have steps defined in your config.yml those will be used and directories will be ignored.</p>
 <p><img alt="_images/stepnames.png" src="_images/stepnames.png" /></p>
 <p><img alt="_images/steps.png" src="_images/steps.png" /></p>
 </div>
 <div class="section" id="sorting-steps">
 <h2>Sorting steps<a class="headerlink" href="#sorting-steps" title="Permalink to this headline">¶</a></h2>
-<p>Steps are sorted alphabetically according to the name of the directory. So it’s best to precede each step name by a number.</p>
+<p>There are two ways of doing this.
+Default behavior: Steps are sorted alphabetically according to the name of the directory. So it’s best to precede each step name by a number.
+If you have steps defined in your config.yml those will be used and directories will be ignored.</p>
 </div>
 <div class="section" id="step-description">
 <h2>Step description<a class="headerlink" href="#step-description" title="Permalink to this headline">¶</a></h2>

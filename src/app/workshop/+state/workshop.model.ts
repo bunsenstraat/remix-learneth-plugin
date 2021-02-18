@@ -15,6 +15,12 @@ export interface WorkShopMetaData {
   name?: string
   summary?: string
   id?: string
+  steps?: WorkShopStepMetaData[] 
+}
+
+export interface WorkShopStepMetaData {
+  name?: string
+  path?: string
 }
 
 export interface Workshop {
