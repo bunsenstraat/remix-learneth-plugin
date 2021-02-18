@@ -152,7 +152,8 @@ If you have steps defined in your config.yml those will be used and directories 
 
 There are two ways of doing this.
 Default behavior: Steps are sorted alphabetically according to the name of the directory. So it's best to precede each step name by a number.
-If you have steps defined in your config.yml those will be used and directories will be ignored.
+If you have steps defined in your config.yml those will be used and directories will be ignored. The sorting is the order in which the steps are set in the config.yml, not alphabetically.
+ 
 ## Step description
 
 When you open a step, you see a text describing what to do or learn.
