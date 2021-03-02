@@ -46,12 +46,28 @@
           Load the file
         </button>
       </ng-container>
-      <ng-container *ngIf="!(isLoading$ | async) && !errorLoadingFile">
+      <ng-container *ngIf="!(isLoading$ | async) && !errorLoadingFile && canRunTest">
         <button
           class="nav-item rounded-0 nav-link btn btn-info test"
           (click)="test(step)"
         >
           Check Answer
+        </button>
+        <ng-container *ngIf="step.answer.file">
+          <button
+            class="nav-item rounded-0 nav-link btn btn-warning test"
+            (click)="answer(step)"
+          >
+            Show answer
+          </button>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="!(isLoading$ | async) && !errorLoadingFile && !canRunTest">
+        <button
+          class="nav-item rounded-0 nav-link btn btn-success test"
+          (click)="next()"
+        >
+         Next
         </button>
         <ng-container *ngIf="step.answer.file">
           <button

@@ -177,6 +177,16 @@ export class StepService {
 
   }
 
+  async canTest(){
+    try{
+      await this.remix.call("solidityUnitTesting","testFromSource","")
+      return true
+    }catch(e){
+      return false
+    }
+
+  }
+
   async testStep(step: Step) {
     try {
       // Update store before running tests

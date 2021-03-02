@@ -54,7 +54,7 @@ export class StepViewComponent implements OnInit {
     isLoading$: Observable < boolean >
     index$: Observable < number >
     errorLoadingFile: boolean
-
+    canRunTest:boolean
 
   constructor(
     private service: StepService,
@@ -72,6 +72,9 @@ export class StepViewComponent implements OnInit {
     this.service.loaded = false
     console.log('all ', this.query.getAll())
     this.toastr.clear()
+    this.canTest().then((x)=>{
+      this.canRunTest = x
+    })
     this.step$ = this.query.selectActive().pipe(
       tap((_) => this.store.update({
         success: false,
@@ -179,6 +182,10 @@ export class StepViewComponent implements OnInit {
 
   test(step: Step) {
     this.service.testStep(step)
+  }
+
+  async canTest(){
+    return await this.service.canTest()
   }
 
   answer(step: Step) {
