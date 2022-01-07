@@ -179,7 +179,7 @@ export class StepService {
 
   async canTest(){
     try{
-      await this.remix.call("solidityUnitTesting","testFromSource","")
+      // await this.remix.call("solidityUnitTesting","testFromSource","")
       return true
     }catch(e){
       return false
