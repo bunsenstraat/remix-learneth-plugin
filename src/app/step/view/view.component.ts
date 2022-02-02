@@ -170,7 +170,8 @@ export class StepViewComponent implements OnInit {
         this.toastr.clear()
         this.errorLoadingFile = false
       })
-      .catch((_) => {
+      .catch((e) => {
+        console.log(e)
         this.errorLoadingFile = true
         this.spinner.hide()
         this.toastr.clear()

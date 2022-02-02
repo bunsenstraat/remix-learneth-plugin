@@ -1,6 +1,8 @@
 import {
+  Component,
   Inject,
-  Injectable
+  Injectable,
+  Input
 } from '@angular/core'
 import {
   ID
@@ -34,6 +36,17 @@ import {
   StepStore
 } from './step.store'
 
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'ngbd-modal-confirm',
+  templateUrl: '../modal/confirm-write-modal.html',
+})
+export class NgbdModalConfirm {
+  @Input() fileName;
+  constructor(public modal: NgbActiveModal) {}
+}
+
 /** Create the path for the file manager based on a step */
 function getFilePath(file: string): string {
   const name = file.split('/')
@@ -53,7 +66,8 @@ export class StepService {
     private store: StepStore,
     private query: StepQuery,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService //  private toaster: NotificationStore
+    private toastr: ToastrService, //  private toaster: NotificationStore
+    private _modalService: NgbModal
   ) {}
 
   async get(index: number, step: Step) {
@@ -140,7 +154,23 @@ export class StepService {
     this.store.setLoading(false)
   }
 
+  async askPermissions(path: string) {
+    let result = 'ok'
+    if(await this.remix.call('fileManager', 'exists' as any, path)){
+      console.log('exist')
+      const ref:NgbModalRef = this._modalService.open(NgbdModalConfirm)
+      ref.componentInstance.fileName = path
+      try {
+        result = await ref.result
+      } catch(e) {
+        result = 'no'
+      }
+    }
+    return result
+  }
+
   async displayFileInIDE(step: Step) {
+
     let tid
 
     // Get content from account or step
@@ -165,10 +195,12 @@ export class StepService {
       tid = this.toastr.info(`loading ${path} into IDE`, `loading`, {
         timeOut: 0,
       }).toastId
-      this.spinner.show()
+     
       path = `.learneth/${workshop.name}/${step.name}/${path}`
-      await this.remix.call('fileManager', 'setFile', path, content)
-      await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+      const permission = await this.askPermissions(path)
+      this.spinner.show()
+      if(permission == 'ok') await this.remix.call('fileManager', 'setFile', path, content)
+      await this.remix.call('fileManager', 'switchFile', `${path}`)
       this.spinner.hide()
       this.toastr.remove(tid)
     } else {
@@ -197,21 +229,23 @@ export class StepService {
       })
 
       // Run tests
-      this.spinner.show()
+
       const workshop = this.workshopQuery.getActive()
 
       let path: string
       if (step.solidity.file) {
         path = getFilePath(step.solidity.file)
         path = `.learneth/${workshop.name}/${step.name}/${path}`
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+        await this.remix.call('fileManager', 'switchFile', `${path}`)
       }
 
       console.log('testing ', step.test.content)
 
       path = getFilePath(step.test.file)
       path = `.learneth/${workshop.name}/${step.name}/${path}`
-      await this.remix.call('fileManager', 'setFile', path, step.test.content)
+      const permission = await this.askPermissions(path)
+      this.spinner.show()
+      if( permission == 'ok') await this.remix.call('fileManager', 'setFile', path, step.test.content)
       let result: any
 
 
@@ -269,11 +303,13 @@ export class StepService {
         const tid = this.toastr.info(`loading answer into IDE`, `loading`, {
           timeOut: 0,
         }).toastId
-        this.spinner.show()
+        
         const workshop = this.workshopQuery.getActive()
         path = `.learneth/${workshop.name}/${step.name}/${path}`
-        await this.remix.call('fileManager', 'setFile', path, content)
-        await this.remix.call('fileManager', 'switchFile', `browser/${path}`)
+        const permission = await this.askPermissions(path)
+        this.spinner.show()
+        if( permission == 'ok') await this.remix.call('fileManager', 'setFile', path, content)
+        await this.remix.call('fileManager', 'switchFile', `${path}`)
         this.spinner.hide()
         this.toastr.remove(tid)
       } else {
