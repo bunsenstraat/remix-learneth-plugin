@@ -46,7 +46,7 @@ export class ImportService {
       console.log('loading repo in service', data.name)
       if (data.name != '')
         this.loadcontent(data).then(() => {
-          console.log('repo loaded, get tutorial', data.id)
+          console.log('repo loaded, get tutorial', data.id, data.section)
           this.startTutorial(data)
         })
     })
@@ -154,7 +154,7 @@ export class ImportService {
     })
 
     if (searchitem.length == 0) {
-      github = { ...github, id: uuid() }
+      github = { ...github, id: `${github.name}-${github.branch}` }
     }
     this.githubstore.upsert(github.id, { ...github })
     this.githubstore.setActive(github.id)
@@ -174,7 +174,7 @@ export class ImportService {
             }
           } else {
             if (workshop.metadata) {
-              if (workshop.metadata.data.id == command.id) {
+              if (workshop.metadata.data.id == command.section) {
                 console.log('start it', workshop.metadata.data.id)
                 this.router.navigate(['/workshops', workshop.id])
               }

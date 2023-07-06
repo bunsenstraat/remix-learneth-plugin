@@ -14,18 +14,8 @@ export interface GitHubState
     ActiveState<string> {}
 
 const initialState: Partial<GitHubState> = {
-  entities: environment.github
-    .map(function(e, k) {
-      return { id: k, name: e.name, branch: e.branch }
-    })
-    .reduce(function(map, obj) {
-      map[obj.id] = obj
-      return map
-    }, {}),
-
-  ids: environment.github.map(function(e, k) {
-    return `${k}`
-  })
+  entities: {},
+  ids: []
 }
 
 export interface GithubUI {
@@ -42,5 +32,6 @@ export class GitHubStore extends EntityStore<GitHubState> {
     console.log(initialState)
     super(initialState)
     this.createUIStore(entity => ({ isOpen: true }))
+    this.upsert(environment.github[0].id, { ...environment.github[0] })
   }
 }

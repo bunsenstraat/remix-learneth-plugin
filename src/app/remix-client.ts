@@ -10,8 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RemixClient extends PluginClient {
-  private _loadRepoAction = new BehaviorSubject<scriptrunnerCommand>({name:"", branch:"",id:""});
-  private _startTutorialAction = new BehaviorSubject<scriptrunnerCommand>({name:"", branch:"",id:""});
+  private _loadRepoAction = new BehaviorSubject<scriptrunnerCommand>({name:"", branch:"",id:"",section: ""});
+  private _startTutorialAction = new BehaviorSubject<scriptrunnerCommand>({name:"", branch:"",id:"",section: ""});
 
   loadRepoObservable = this._loadRepoAction.asObservable();
   startTutorialObservable = this._startTutorialAction.asObservable();
@@ -37,13 +37,13 @@ export class RemixClient extends PluginClient {
 
       
     })}
-    startTutorial(repoName,branch,id):void{
-       console.log("start tutorial", repoName, branch, id)
-       this._startTutorialAction.next({name:repoName,branch:branch,id:id})    
-    } 
+    startTutorial(repoName,branch,section):void{
+      console.log("start tutorial", repoName, branch, `${repoName}-${branch}`, section)
+      this._startTutorialAction.next({name:repoName,branch:branch,id:`${repoName}-${branch}`, section})    
+    }
     addRepository(repoName, branch){
       console.log("add repo", repoName, branch);
-      this._loadRepoAction.next({name:repoName,branch:branch,id:""})
+      this._loadRepoAction.next({name:repoName,branch:branch,id:`${repoName}-${branch}`, section: ''})
     }
 
 
